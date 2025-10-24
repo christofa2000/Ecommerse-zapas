@@ -18,13 +18,13 @@ export default function HomePage() {
       </div>
 
       {/* Features Section */}
-      <section className="bg-[var(--brand-50)] py-16">
+      <section className="bg-(--brand-50) py-16">
         <div className="container-soft">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[var(--fg)] mb-4">
+            <h2 className="text-3xl font-bold text-(--fg) mb-4">
               ¿Por qué elegir nuestras zapatillas?
             </h2>
-            <p className="text-lg text-[var(--muted)] max-w-2xl mx-auto">
+            <p className="text-lg text-(--muted) max-w-2xl mx-auto">
               Cada par está diseñado pensando en la comodidad, durabilidad y
               respeto por el medio ambiente.
             </p>
@@ -32,9 +32,9 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div className="text-center">
-              <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-[var(--brand-200)] flex items-center justify-center">
+              <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-(--brand-200) flex items-center justify-center">
                 <svg
-                  className="h-8 w-8 text-[var(--brand-600)]"
+                  className="h-8 w-8 text-(--brand-600)"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -47,19 +47,19 @@ export default function HomePage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-[var(--fg)] mb-2">
+              <h3 className="text-xl font-semibold text-(--fg) mb-2">
                 Sostenibles
               </h3>
-              <p className="text-[var(--muted)]">
+              <p className="text-(--muted)">
                 Hechas con materiales naturales y procesos que respetan el medio
                 ambiente.
               </p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-[var(--brand-200)] flex items-center justify-center">
+              <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-(--brand-200) flex items-center justify-center">
                 <svg
-                  className="h-8 w-8 text-[var(--brand-600)]"
+                  className="h-8 w-8 text-(--brand-600)"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -72,18 +72,18 @@ export default function HomePage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-[var(--fg)] mb-2">
+              <h3 className="text-xl font-semibold text-(--fg) mb-2">
                 Cómodas
               </h3>
-              <p className="text-[var(--muted)]">
+              <p className="text-(--muted)">
                 Diseñadas para brindar máxima comodidad durante todo el día.
               </p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-[var(--brand-200)] flex items-center justify-center">
+              <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-(--brand-200) flex items-center justify-center">
                 <svg
-                  className="h-8 w-8 text-[var(--brand-600)]"
+                  className="h-8 w-8 text-(--brand-600)"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -96,10 +96,10 @@ export default function HomePage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-[var(--fg)] mb-2">
+              <h3 className="text-xl font-semibold text-(--fg) mb-2">
                 Duraderas
               </h3>
-              <p className="text-[var(--muted)]">
+              <p className="text-(--muted)">
                 Construidas para durar, reduciendo la necesidad de reemplazos
                 frecuentes.
               </p>
@@ -111,10 +111,10 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="py-16">
         <div className="container-soft text-center">
-          <h2 className="text-3xl font-bold text-[var(--fg)] mb-4">
+          <h2 className="text-3xl font-bold text-(--fg) mb-4">
             ¿Listo para encontrar tu par perfecto?
           </h2>
-          <p className="text-lg text-[var(--muted)] mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-(--muted) mb-8 max-w-2xl mx-auto">
             Explora nuestra colección completa y descubre zapatillas que se
             adaptan a tu estilo de vida.
           </p>

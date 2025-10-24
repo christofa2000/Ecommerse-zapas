@@ -40,7 +40,7 @@ export default function CartItem({
   return (
     <Card className="p-6">
       <div className="flex items-center space-x-4">
-        <div className="relative h-20 w-20 overflow-hidden rounded-md bg-[var(--brand-50)]">
+        <div className="relative h-20 w-20 overflow-hidden rounded-md bg-(--brand-50)">
           <Image
             src={product.image}
             alt={product.name}
@@ -50,10 +50,8 @@ export default function CartItem({
         </div>
 
         <div className="flex-1 space-y-2">
-          <h3 className="text-lg font-semibold text-[var(--fg)]">
-            {product.name}
-          </h3>
-          <div className="flex items-center space-x-4 text-sm text-[var(--muted)]">
+          <h3 className="text-lg font-semibold text-(--fg)">{product.name}</h3>
+          <div className="flex items-center space-x-4 text-sm text-(--muted)">
             <span>Talla: {size}</span>
             <span>Color: {color}</span>
           </div>
@@ -80,7 +78,7 @@ export default function CartItem({
             <Button
               variant="ghost"
               size="sm"
-              className="text-[var(--muted)] hover:text-red-600"
+              className="text-(--muted) hover:text-red-600"
               onClick={() => onRemove(id)}
             >
               Eliminar
@@ -89,11 +87,11 @@ export default function CartItem({
         </div>
 
         <div className="text-right">
-          <p className="text-lg font-semibold text-[var(--fg)]">
+          <p className="text-lg font-semibold text-(--fg)">
             {formatPrice(product.price * quantity)}
           </p>
           {quantity > 1 && (
-            <p className="text-sm text-[var(--muted)]">
+            <p className="text-sm text-(--muted)">
               {formatPrice(product.price)} c/u
             </p>
           )}
@@ -102,5 +100,3 @@ export default function CartItem({
     </Card>
   );
 }
-
-

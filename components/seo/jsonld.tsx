@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Product } from "@/lib/products/sample";
 
 interface JsonLdProps {
-  data: Record<string, any>;
+  data: unknown;
 }
 
 export function JsonLd({ data }: JsonLdProps) {
@@ -119,10 +120,10 @@ export function ItemListJsonLd({
 // Breadcrumb JSON-LD
 export function BreadcrumbJsonLd({
   items,
-  locale,
+  _locale,
 }: {
   items: Array<{ name: string; url: string }>;
-  locale: string;
+  _locale: string;
 }) {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -173,5 +174,3 @@ export function OrganizationJsonLd({ locale }: { locale: string }) {
 
   return <JsonLd data={jsonLd} />;
 }
-
-
