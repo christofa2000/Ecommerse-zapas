@@ -104,7 +104,7 @@ export default function ProductosPage({ params }: ProductsPageProps) {
     <>
       {/* JSON-LD for ItemList and Breadcrumb */}
       <ItemListJsonLd products={paginatedProducts} locale={lang} />
-      <BreadcrumbJsonLd items={breadcrumbItems} locale={lang} />
+      <BreadcrumbJsonLd items={breadcrumbItems} _locale={lang} />
 
       <div className="min-h-screen bg-(--bg)">
         {/* Header */}

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import Hero from "@/components/hero";
 import ProductGrid from "@/components/product-grid";
 import { getFeaturedProducts } from "@/lib/products/sample";

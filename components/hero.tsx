@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
@@ -84,15 +85,16 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             className="relative"
           >
-            <div className="aspect-square rounded-(--radius) bg-linear-to-br from-(--brand-200) to-(--brand-300) p-8">
-              <div className="flex h-full items-center justify-center">
-                <div className="text-center">
-                  <div className="mx-auto mb-4 h-32 w-32 rounded-full bg-(--brand-400)" />
-                  <p className="text-sm text-(--brand-700)">
-                    Imagen de producto
-                  </p>
-                </div>
-              </div>
+            <div className="aspect-square overflow-hidden rounded-(--radius) bg-(--brand-50)">
+              <Image
+                src="/images/zapas-blancas.png"
+                alt="Zapatillas sostenibles - Colección principal"
+                width={600}
+                height={600}
+                className="h-full w-full object-cover"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
 
             {/* Floating elements */}

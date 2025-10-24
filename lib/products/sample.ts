@@ -88,7 +88,7 @@ export const sampleProducts: Product[] = [
     image: "/images/azules2.png",
     images: [
       "/images/celestes.png",
-      "/images/celestes2.png!w700wp",
+      "/images/celestes2.png",
       "/images/celestes4.png",
     ],
     badges: ["sostenible"],

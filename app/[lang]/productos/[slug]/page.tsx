@@ -99,14 +99,14 @@ export default function ProductPage({ params }: ProductPageProps) {
     <>
       {/* JSON-LD for Product and Breadcrumb */}
       <ProductJsonLd product={product} locale={lang} />
-      <BreadcrumbJsonLd items={breadcrumbItems} locale={lang} />
+      <BreadcrumbJsonLd items={breadcrumbItems} _locale={lang} />
 
-      <div className="min-h-screen bg-[var(--bg)]">
+      <div className="min-h-screen bg-(--bg)">
         <div className="container-soft py-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             {/* Images */}
             <div className="space-y-4">
-              <div className="aspect-square overflow-hidden rounded-[var(--radius)] bg-[var(--brand-50)]">
+              <div className="aspect-square overflow-hidden rounded-(--radius) bg-(--brand-50)">
                 <Image
                   src={images[selectedImage]}
                   alt={product.name}
