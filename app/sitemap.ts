@@ -1,5 +1,5 @@
 import { locales } from "@/lib/i18n-server";
-import { sampleProducts } from "@/lib/products/sample";
+import { products } from "@/lib/products/sample";
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -82,7 +82,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Product pages
-  const productPages = sampleProducts.flatMap((product) =>
+  const productPages = products.flatMap((product) =>
     locales.map((locale) => ({
       url: `${baseUrl}/${locale}/productos/${product.slug}`,
       lastModified: new Date(),

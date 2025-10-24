@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { sampleProducts } from "../lib/products/sample";
+import { products } from "../lib/products/sample";
 
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 const IMAGES_DIR = path.join(PUBLIC_DIR, "images");
@@ -71,7 +71,7 @@ function main() {
   let totalInvalidImages = 0;
 
   // Check product images
-  for (const product of sampleProducts) {
+  for (const product of products) {
     const result = verifyProductImages(product);
     if (result.missingImages.length > 0 || result.invalidImages.length > 0) {
       results.push(result);

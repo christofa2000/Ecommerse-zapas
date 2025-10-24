@@ -5,7 +5,7 @@ import ProductFilters, { FilterState } from "@/components/product-filters";
 import ProductGrid from "@/components/product-grid";
 import { ProductGridSkeleton } from "@/components/skeletons";
 import { Button } from "@/components/ui/button";
-import { sampleProducts } from "@/lib/products/sample";
+import { products } from "@/lib/products/sample";
 import { useMemo, useState } from "react";
 
 export default function ProductosPage() {
@@ -22,24 +22,26 @@ export default function ProductosPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  // Filter and sort products
+  // Filtrar y ordenar productos
   const filteredProducts = useMemo(() => {
-    let filtered = [...sampleProducts];
+    let filtered = [...products];
 
-    // Apply filters
+    // Filtros
     if (filters.category) {
       filtered = filtered.filter((p) => p.category === filters.category);
     }
-
     if (filters.color) {
       filtered = filtered.filter((p) => p.colors.includes(filters.color));
     }
-
     if (filters.size) {
       filtered = filtered.filter((p) => p.sizes.includes(filters.size));
     }
+    if (filters.priceRange) {
+      const [min, max] = filters.priceRange;
+      filtered = filtered.filter((p) => p.price >= min && p.price <= max);
+    }
 
-    // Apply sorting
+    // Orden
     switch (filters.sort) {
       case "price-asc":
         filtered.sort((a, b) => a.price - b.price);
@@ -58,7 +60,7 @@ export default function ProductosPage() {
     return filtered;
   }, [filters]);
 
-  // Paginate products
+  // Paginación
   const paginatedProducts = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
@@ -68,38 +70,38 @@ export default function ProductosPage() {
 
   const handleFiltersChange = (newFilters: FilterState) => {
     setFilters(newFilters);
-    setCurrentPage(1); // Reset to first page when filters change
+    setCurrentPage(1); // Volver a la primera página
   };
 
   const handleClearFilters = () => {
-    const clearedFilters = {
+    const cleared: FilterState = {
       category: "",
       color: "",
       size: "",
       sort: "price-asc",
-      priceRange: [0, 50000] as [number, number],
+      priceRange: [0, 50000],
     };
-    setFilters(clearedFilters);
+    setFilters(cleared);
     setCurrentPage(1);
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen bg-(--bg)">
       {/* Header */}
-      <div className="bg-[var(--brand-50)] section-y">
+      <div className="section-y bg-(--brand-50)">
         <div className="container-soft">
-          <h1 className="text-4xl font-bold text-[var(--fg)] mb-4">
+          <h1 className="mb-4 text-4xl font-bold text-(--fg)">
             Todas las Zapatillas
           </h1>
-          <p className="text-lg text-[var(--muted)] max-w-2xl">
-            Explora nuestra colección completa de zapatillas sostenibles y
+          <p className="max-w-2xl text-lg text-(--muted)">
+            Explorá nuestra colección completa de zapatillas sostenibles y
             cómodas.
           </p>
         </div>
       </div>
 
-      {/* Mobile Filter Button */}
-      <div className="border-b bg-white lg:hidden">
+      {/* Botón Filtros (móvil) */}
+      <div className="border-b bg-(--bg) lg:hidden">
         <div className="container-soft py-4">
           <Button
             onClick={() => setShowMobileFilters(true)}
@@ -113,24 +115,24 @@ export default function ProductosPage() {
 
       <div className="container-soft py-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
-          {/* Desktop Filters */}
-          <div className="hidden lg:block">
+          {/* Filtros Desktop */}
+          <aside className="hidden lg:block">
             <ProductFilters
               filters={filters}
               onFiltersChange={handleFiltersChange}
               onClearFilters={handleClearFilters}
             />
-          </div>
+          </aside>
 
-          {/* Mobile Filters Drawer */}
+          {/* Drawer Filtros Móvil */}
           {showMobileFilters && (
             <div className="fixed inset-0 z-50 lg:hidden">
               <div
                 className="absolute inset-0 bg-black/50"
                 onClick={() => setShowMobileFilters(false)}
               />
-              <div className="absolute right-0 top-0 h-full w-80 bg-white p-6 overflow-y-auto">
-                <div className="flex items-center justify-between mb-6">
+              <div className="absolute right-0 top-0 h-full w-80 overflow-y-auto bg-(--bg) p-6">
+                <div className="mb-6 flex items-center justify-between">
                   <h3 className="text-lg font-semibold">Filtros</h3>
                   <Button
                     variant="ghost"
@@ -150,8 +152,8 @@ export default function ProductosPage() {
             </div>
           )}
 
-          {/* Products Grid */}
-          <div className="lg:col-span-3">
+          {/* Grilla de productos */}
+          <main className="lg:col-span-3">
             {isLoading ? (
               <ProductGridSkeleton count={itemsPerPage} />
             ) : (
@@ -172,7 +174,7 @@ export default function ProductosPage() {
                 )}
               </>
             )}
-          </div>
+          </main>
         </div>
       </div>
     </div>

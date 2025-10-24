@@ -1,249 +1,203 @@
-export interface Product {
-  id: string;
-  slug: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  images?: string[];
-  badges: ("nuevo" | "más vendido" | "sostenible")[];
-  description: string;
-  sizes: string[];
-  colors: string[];
-  category: string;
-  inStock: boolean;
-  stock: Record<string, number>; // size -> quantity
-  materials?: string[];
-  features?: string[];
-}
+import type { Product } from "./types";
 
-export const sampleProducts: Product[] = [
+export const products: Product[] = [
   {
-    id: "1",
-    slug: "runner-natural",
-    name: "Runner Natural",
-    price: 12900,
-    originalPrice: 14900,
-    image: "/api/placeholder/400/300",
-    images: [
-      "/api/placeholder/600/600",
-      "/api/placeholder/600/600",
-      "/api/placeholder/600/600",
-      "/api/placeholder/600/600",
-    ],
+    id: "p-wool-runner",
+    slug: "wool-runner",
+    name: "Wool Runner",
+    price: 129,
     badges: ["más vendido", "sostenible"],
     description:
-      "Zapatilla de running cómoda y sostenible, perfecta para el día a día.",
-    sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    colors: ["Natural", "Blanco", "Gris"],
+      "Zapatilla versátil de lana merino, transpirable y cómoda para cualquier ocasión.",
     category: "running",
+    colors: ["olive", "charcoal"],
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
     inStock: true,
-    stock: {
-      "38": 5,
-      "39": 8,
-      "40": 12,
-      "41": 15,
-      "42": 10,
-      "43": 7,
-      "44": 3,
-    },
-    materials: ["Lana merino", "Caucho natural", "Tela reciclada"],
-    features: ["Transpirable", "Antibacteriana", "Fácil de limpiar"],
+    stock: 42,
+
+    images: [
+      "/images/products/wool-runner/1.jpg",
+      "/images/products/wool-runner/2.jpg",
+      "/images/products/wool-runner/3.jpg",
+    ],
+    image: "/images/products/wool-runner/1.jpg",
+    alt: "Wool Runner — color olive",
   },
   {
-    id: "2",
+    id: "p-tree-skipper",
     slug: "tree-skipper",
     name: "Tree Skipper",
-    price: 11900,
-    image: "/api/placeholder/400/300",
-    images: [
-      "/api/placeholder/600/600",
-      "/api/placeholder/600/600",
-      "/api/placeholder/600/600",
-    ],
+    price: 119,
     badges: ["nuevo"],
     description:
       "Zapatilla minimalista inspirada en la naturaleza, ideal para caminar.",
-    sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    colors: ["Verde", "Beige", "Negro"],
     category: "casual",
+    colors: ["verde", "beige", "negro"],
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
     inStock: true,
-    stock: {
-      "38": 3,
-      "39": 6,
-      "40": 9,
-      "41": 11,
-      "42": 8,
-      "43": 4,
-      "44": 2,
-    },
-    materials: ["Eucalipto", "Caucho natural", "Algodón orgánico"],
-    features: ["Minimalista", "Ligera", "Vegana"],
-  },
-  {
-    id: "3",
-    slug: "wool-runner",
-    name: "Wool Runner",
-    price: 13900,
-    image: "/api/placeholder/400/300",
+    stock: 35,
+
     images: [
-      "/api/placeholder/600/600",
-      "/api/placeholder/600/600",
-      "/api/placeholder/600/600",
+      "/images/products/tree-skipper/1.jpg",
+      "/images/products/tree-skipper/2.jpg",
+      "/images/products/tree-skipper/3.jpg",
     ],
-    badges: ["sostenible"],
-    description:
-      "Zapatilla de lana merino, transpirable y cómoda para cualquier ocasión.",
-    sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    colors: ["Gris", "Azul", "Verde"],
-    category: "casual",
-    inStock: true,
-    stock: {
-      "38": 4,
-      "39": 7,
-      "40": 10,
-      "41": 13,
-      "42": 9,
-      "43": 5,
-      "44": 2,
-    },
-    materials: ["Lana merino", "Caucho natural", "Algodón orgánico"],
-    features: ["Transpirable", "Antibacteriana", "Fácil de limpiar"],
+    image: "/images/products/tree-skipper/1.jpg",
+    alt: "Tree Skipper — color verde",
   },
   {
-    id: "4",
+    id: "p-tree-dasher",
     slug: "tree-dasher",
     name: "Tree Dasher",
-    price: 15900,
-    image: "/api/placeholder/400/300",
-    images: ["/api/placeholder/600/600", "/api/placeholder/600/600"],
+    price: 159,
     badges: ["más vendido"],
     description:
       "Zapatilla de running de alto rendimiento con materiales sostenibles.",
-    sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    colors: ["Negro", "Blanco", "Azul"],
     category: "running",
+    colors: ["negro", "blanco", "azul"],
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
     inStock: true,
-    stock: { "38": 6, "39": 9, "40": 12, "41": 15, "42": 11, "43": 8, "44": 4 },
-    materials: ["Eucalipto", "Caucho natural", "Tela reciclada"],
-    features: ["Alto rendimiento", "Transpirable", "Duradera"],
+    stock: 28,
+
+    images: [
+      "/images/products/tree-dasher/1.jpg",
+      "/images/products/tree-dasher/2.jpg",
+    ],
+    image: "/images/products/tree-dasher/1.jpg",
+    alt: "Tree Dasher — color negro",
   },
   {
-    id: "5",
+    id: "p-tree-breezer",
     slug: "tree-breezer",
     name: "Tree Breezer",
-    price: 10900,
-    image: "/api/placeholder/400/300",
-    images: ["/api/placeholder/600/600"],
+    price: 109,
     badges: ["nuevo", "sostenible"],
     description: "Zapatilla ligera y transpirable, perfecta para el verano.",
-    sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    colors: ["Blanco", "Rosa", "Amarillo"],
     category: "casual",
+    colors: ["blanco", "rosa", "amarillo"],
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
     inStock: true,
-    stock: { "38": 3, "39": 5, "40": 8, "41": 10, "42": 7, "43": 4, "44": 2 },
-    materials: ["Eucalipto", "Caucho natural", "Tela reciclada"],
-    features: ["Ligera", "Transpirable", "Veraniega"],
+    stock: 22,
+
+    images: ["/images/products/tree-breezer/1.jpg"],
+    image: "/images/products/tree-breezer/1.jpg",
+    alt: "Tree Breezer — color blanco",
   },
   {
-    id: "6",
+    id: "p-runner-mizzle",
     slug: "runner-mizzle",
     name: "Runner Mizzle",
-    price: 14900,
-    image: "/api/placeholder/400/300",
-    images: ["/api/placeholder/600/600", "/api/placeholder/600/600"],
+    price: 149,
     badges: ["más vendido"],
     description: "Zapatilla resistente al agua, ideal para días lluviosos.",
-    sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    colors: ["Negro", "Gris", "Verde"],
     category: "running",
+    colors: ["negro", "gris", "verde"],
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
     inStock: true,
-    stock: { "38": 5, "39": 8, "40": 11, "41": 14, "42": 10, "43": 6, "44": 3 },
-    materials: ["Eucalipto", "Caucho natural", "Tela impermeable"],
-    features: ["Impermeable", "Transpirable", "Duradera"],
+    stock: 31,
+
+    images: [
+      "/images/products/runner-mizzle/1.jpg",
+      "/images/products/runner-mizzle/2.jpg",
+    ],
+    image: "/images/products/runner-mizzle/1.jpg",
+    alt: "Runner Mizzle — color negro",
   },
   {
-    id: "7",
+    id: "p-tree-flyer",
     slug: "tree-flyer",
     name: "Tree Flyer",
-    price: 16900,
-    image: "/api/placeholder/400/300",
-    images: ["/api/placeholder/600/600", "/api/placeholder/600/600"],
+    price: 169,
     badges: ["nuevo"],
     description: "Zapatilla de running premium con máxima amortiguación.",
-    sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    colors: ["Azul", "Negro", "Blanco"],
     category: "running",
+    colors: ["azul", "negro", "blanco"],
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
     inStock: true,
-    stock: { "38": 2, "39": 4, "40": 6, "41": 8, "42": 5, "43": 3, "44": 1 },
-    materials: ["Eucalipto", "Caucho natural", "Tela reciclada"],
-    features: ["Premium", "Máxima amortiguación", "Alto rendimiento"],
+    stock: 15,
+
+    images: [
+      "/images/products/tree-flyer/1.jpg",
+      "/images/products/tree-flyer/2.jpg",
+    ],
+    image: "/images/products/tree-flyer/1.jpg",
+    alt: "Tree Flyer — color azul",
   },
   {
-    id: "8",
+    id: "p-wool-runner-mizzle",
     slug: "wool-runner-mizzle",
     name: "Wool Runner Mizzle",
-    price: 15900,
-    image: "/api/placeholder/400/300",
-    images: ["/api/placeholder/600/600"],
+    price: 159,
     badges: ["sostenible"],
     description: "Zapatilla de lana resistente al agua, cómoda y sostenible.",
-    sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    colors: ["Gris", "Negro", "Azul"],
     category: "casual",
+    colors: ["gris", "negro", "azul"],
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
     inStock: true,
-    stock: { "38": 4, "39": 6, "40": 9, "41": 12, "42": 8, "43": 5, "44": 2 },
-    materials: ["Lana merino", "Caucho natural", "Tela impermeable"],
-    features: ["Impermeable", "Antibacteriana", "Sostenible"],
+    stock: 18,
+
+    images: ["/images/products/wool-runner-mizzle/1.jpg"],
+    image: "/images/products/wool-runner-mizzle/1.jpg",
+    alt: "Wool Runner Mizzle — color gris",
   },
   {
-    id: "9",
+    id: "p-tree-skipper-mizzle",
     slug: "tree-skipper-mizzle",
     name: "Tree Skipper Mizzle",
-    price: 12900,
-    image: "/api/placeholder/400/300",
-    images: ["/api/placeholder/600/600", "/api/placeholder/600/600"],
+    price: 129,
     badges: ["más vendido", "sostenible"],
     description:
       "Zapatilla minimalista resistente al agua, perfecta para cualquier clima.",
-    sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    colors: ["Verde", "Gris", "Negro"],
     category: "casual",
+    colors: ["verde", "gris", "negro"],
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
     inStock: true,
-    stock: { "38": 6, "39": 9, "40": 12, "41": 15, "42": 11, "43": 7, "44": 4 },
-    materials: ["Eucalipto", "Caucho natural", "Tela impermeable"],
-    features: ["Minimalista", "Impermeable", "Sostenible"],
+    stock: 25,
+
+    images: [
+      "/images/products/tree-skipper-mizzle/1.jpg",
+      "/images/products/tree-skipper-mizzle/2.jpg",
+    ],
+    image: "/images/products/tree-skipper-mizzle/1.jpg",
+    alt: "Tree Skipper Mizzle — color verde",
   },
   {
-    id: "10",
+    id: "p-runner-mizzle-plus",
     slug: "runner-mizzle-plus",
     name: "Runner Mizzle Plus",
-    price: 17900,
-    image: "/api/placeholder/400/300",
-    images: ["/api/placeholder/600/600", "/api/placeholder/600/600"],
+    price: 179,
     badges: ["nuevo"],
     description:
       "Zapatilla de running resistente al agua con tecnología avanzada.",
-    sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    colors: ["Negro", "Azul", "Verde"],
     category: "running",
+    colors: ["negro", "azul", "verde"],
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
     inStock: true,
-    stock: { "38": 1, "39": 3, "40": 5, "41": 7, "42": 4, "43": 2, "44": 1 },
-    materials: ["Eucalipto", "Caucho natural", "Tela impermeable"],
-    features: ["Tecnología avanzada", "Impermeable", "Alto rendimiento"],
+    stock: 12,
+
+    images: [
+      "/images/products/runner-mizzle-plus/1.jpg",
+      "/images/products/runner-mizzle-plus/2.jpg",
+    ],
+    image: "/images/products/runner-mizzle-plus/1.jpg",
+    alt: "Runner Mizzle Plus — color negro",
   },
 ];
 
-export const getProductBySlug = (slug: string): Product | undefined => {
-  return sampleProducts.find((product) => product.slug === slug);
-};
+export function getFeaturedProducts(limit = 8) {
+  return products
+    .filter((product) => product.badges.includes("más vendido"))
+    .slice(0, limit);
+}
 
-export const getProductsByCategory = (category: string): Product[] => {
-  return sampleProducts.filter((product) => product.category === category);
-};
+export function getProductsByCategory(category: string) {
+  return products.filter((product) => product.category === category);
+}
 
-export const getFeaturedProducts = (): Product[] => {
-  return sampleProducts.filter((product) =>
-    product.badges.includes("más vendido")
-  );
-};
+export function getAllSlugs() {
+  return products.map((p) => p.slug);
+}
+
+export function getProductBySlug(slug: string) {
+  return products.find((p) => p.slug === slug) ?? null;
+}

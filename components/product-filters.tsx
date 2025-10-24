@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { sampleProducts } from "@/lib/products/sample";
+import { products } from "@/lib/products/sample";
 import { useState } from "react";
 
 export interface FilterState {
@@ -33,9 +33,9 @@ export default function ProductFilters({
   const [localFilters, setLocalFilters] = useState(filters);
 
   // Extract unique values from products
-  const categories = Array.from(new Set(sampleProducts.map((p) => p.category)));
-  const colors = Array.from(new Set(sampleProducts.flatMap((p) => p.colors)));
-  const sizes = Array.from(new Set(sampleProducts.flatMap((p) => p.sizes)));
+  const categories = Array.from(new Set(products.map((p) => p.category)));
+  const colors = Array.from(new Set(products.flatMap((p) => p.colors)));
+  const sizes = Array.from(new Set(products.flatMap((p) => p.sizes)));
 
   const handleFilterChange = (key: keyof FilterState, value: string) => {
     const newFilters = { ...localFilters, [key]: value };
@@ -75,11 +75,11 @@ export default function ProductFilters({
   return (
     <div className={`space-y-6 ${!isOpen ? "hidden lg:block" : ""}`}>
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-[var(--fg)]">Filtros</h3>
+        <h3 className="text-lg font-semibold text--(----fg)">Filtros</h3>
         {activeFiltersCount > 0 && (
           <Badge
             variant="secondary"
-            className="bg-[var(--brand-100)] text-[var(--brand-700)]"
+            className="bg--(----brand-100) text--(----brand-700)"
           >
             {activeFiltersCount}
           </Badge>
@@ -89,9 +89,7 @@ export default function ProductFilters({
       <div className="space-y-4">
         {/* Category Filter */}
         <FilterCard>
-          <h4 className="text-sm font-medium text-[var(--fg)] mb-3">
-            Categoría
-          </h4>
+          <h4 className="text-sm font-medium text--(----fg) mb-3">Categoría</h4>
           <div className="space-y-2">
             <button
               className={`chip w-full justify-start ${
@@ -117,7 +115,7 @@ export default function ProductFilters({
 
         {/* Color Filter */}
         <FilterCard>
-          <h4 className="text-sm font-medium text-[var(--fg)] mb-3">Color</h4>
+          <h4 className="text-sm font-medium text--(----fg) mb-3">Color</h4>
           <div className="space-y-2">
             <button
               className={`chip w-full justify-start ${
@@ -143,7 +141,7 @@ export default function ProductFilters({
 
         {/* Size Filter */}
         <FilterCard>
-          <h4 className="text-sm font-medium text-[var(--fg)] mb-3">Talla</h4>
+          <h4 className="text-sm font-medium text--(----fg) mb-3">Talla</h4>
           <div className="grid grid-cols-3 gap-2">
             <button
               className={`chip justify-center ${
@@ -169,7 +167,7 @@ export default function ProductFilters({
 
         {/* Sort Filter */}
         <FilterCard>
-          <h4 className="text-sm font-medium text-[var(--fg)] mb-3">
+          <h4 className="text-sm font-medium text--(----fg) mb-3">
             Ordenar por
           </h4>
           <div className="space-y-2">
@@ -227,5 +225,3 @@ export default function ProductFilters({
     </div>
   );
 }
-
-

@@ -48,8 +48,8 @@ export default function MobileNav() {
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-full bg-[var(--brand-500)]" />
-              <span className="text-xl font-bold text-[var(--fg)]">
+              <div className="h-8 w-8 rounded-full bg--(----brand-500)" />
+              <span className="text-xl font-bold text--(----fg)">
                 Zapatillas
               </span>
             </div>
@@ -65,7 +65,7 @@ export default function MobileNav() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block text-lg font-medium text-[var(--fg)] hover:text-[var(--brand-500)] transition-colors"
+                className="block text-lg font-medium text--(----fg) hover:text--(----brand-500) transition-colors"
               >
                 {item.label}
               </Link>
@@ -77,11 +77,11 @@ export default function MobileNav() {
             <Link
               href="/carrito"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between p-4 rounded-lg border border-[var(--brand-200)] hover:bg-[var(--brand-50)] transition-colors"
+              className="flex items-center justify-between p-4 rounded-lg border border--(----brand-200) hover:bg--(----brand-50) transition-colors"
             >
               <div className="flex items-center space-x-3">
                 <svg
-                  className="h-6 w-6 text-[var(--fg)]"
+                  className="h-6 w-6 text--(----fg)"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -93,10 +93,10 @@ export default function MobileNav() {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0L17 18m0 0l2.5-5M17 18l-2.5-5"
                   />
                 </svg>
-                <span className="font-medium text-[var(--fg)]">Carrito</span>
+                <span className="font-medium text--(----fg)">Carrito</span>
               </div>
               {itemsCount > 0 && (
-                <div className="bg-[var(--brand-500)] text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center">
+                <div className="bg--(----brand-500) text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center">
                   {itemsCount}
                 </div>
               )}
@@ -107,5 +107,7 @@ export default function MobileNav() {
     </Sheet>
   );
 }
+
+
 
 

@@ -29,17 +29,17 @@ export default function CartSummary({
 
   return (
     <Card className="p-6 sticky top-8">
-      <h2 className="text-xl font-semibold text-[var(--fg)] mb-6">
+      <h2 className="text-xl font-semibold text--(----fg) mb-6">
         Resumen del Pedido
       </h2>
 
       <div className="space-y-4">
-        <div className="flex justify-between text-[var(--muted)]">
+        <div className="flex justify-between text--(----muted)">
           <span>Subtotal</span>
           <span>{formatPrice(subtotal)}</span>
         </div>
 
-        <div className="flex justify-between text-[var(--muted)]">
+        <div className="flex justify-between text--(----muted)">
           <span>Envío</span>
           <span>
             {shipping === 0 ? (
@@ -56,14 +56,14 @@ export default function CartSummary({
         </div>
 
         {shipping > 0 && (
-          <p className="text-sm text-[var(--brand-600)]">
+          <p className="text-sm text--(----brand-600)">
             Agrega {formatPrice(20000 - subtotal)} más para envío gratis
           </p>
         )}
 
         <Separator />
 
-        <div className="flex justify-between text-lg font-semibold text-[var(--fg)]">
+        <div className="flex justify-between text-lg font-semibold text--(----fg)">
           <span>Total</span>
           <span>{formatPrice(total)}</span>
         </div>
@@ -72,7 +72,7 @@ export default function CartSummary({
       <div className="mt-6 space-y-3">
         <Button
           size="lg"
-          className="w-full bg-[var(--brand-500)] hover:bg-[var(--brand-600)] text-white"
+          className="w-full bg--(----brand-500) hover:bg--(----brand-600) text-white"
           onClick={onCheckout}
         >
           Finalizar Compra
@@ -81,7 +81,7 @@ export default function CartSummary({
         <Button
           variant="outline"
           size="lg"
-          className="w-full border-[var(--brand-300)] text-[var(--brand-700)] hover:bg-[var(--brand-100)]"
+          className="w-full border--(----brand-300) text--(----brand-700) hover:bg--(----brand-100)"
           asChild
         >
           <Link href="/productos">Continuar Comprando</Link>
@@ -90,7 +90,7 @@ export default function CartSummary({
 
       {/* Security badges */}
       <div className="mt-6 pt-6 border-t">
-        <div className="flex items-center justify-center space-x-4 text-sm text-[var(--muted)]">
+        <div className="flex items-center justify-center space-x-4 text-sm text--(----muted)">
           <div className="flex items-center space-x-1">
             <svg
               className="h-4 w-4"
@@ -128,5 +128,7 @@ export default function CartSummary({
     </Card>
   );
 }
+
+
 
 

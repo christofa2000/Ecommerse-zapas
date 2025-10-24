@@ -1,5 +1,5 @@
 import ProductCard from "@/components/product-card";
-import { Product } from "@/lib/products/sample";
+import { Product } from "@/lib/products/types";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 const mockProduct: Product = {

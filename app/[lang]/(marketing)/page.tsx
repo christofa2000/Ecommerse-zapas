@@ -2,7 +2,7 @@ import Hero from "@/components/hero";
 import ProductGrid from "@/components/product-grid";
 import { OrganizationJsonLd } from "@/components/seo/jsonld";
 import { getDictionary } from "@/lib/i18n-server";
-import { sampleProducts } from "@/lib/products/sample";
+import { getFeaturedProducts } from "@/lib/products/sample";
 
 interface HomePageProps {
   params: Promise<{
@@ -15,17 +15,13 @@ export default async function HomePage({ params }: HomePageProps) {
   const dict = await getDictionary(lang as any);
 
   // Get featured products (first 8 products)
-  const featuredProducts = sampleProducts.slice(0, 8);
+  const featuredProducts = getFeaturedProducts(8);
 
   // Get new arrivals (products with "nuevo" badge)
-  const newArrivals = sampleProducts
-    .filter((p) => p.badges.includes("nuevo"))
-    .slice(0, 4);
+  const newArrivals = getFeaturedProducts(4);
 
   // Get best sellers (products with "más vendido" badge)
-  const bestSellers = sampleProducts
-    .filter((p) => p.badges.includes("más vendido"))
-    .slice(0, 4);
+  const bestSellers = getFeaturedProducts(4);
 
   return (
     <>

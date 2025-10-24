@@ -6,7 +6,8 @@ import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -67,8 +68,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={inter.variable}>
-      <body className={`${inter.className} antialiased`}>
+    <html lang="es" className={inter.variable} suppressHydrationWarning>
+      <body
+        className={`${inter.className} min-h-screen bg-(--bg) text-(--fg) antialiased`}
+      >
         <div className="flex min-h-screen flex-col">
           <Header />
           <main className="flex-1">{children}</main>

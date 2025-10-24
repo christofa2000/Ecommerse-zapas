@@ -33,12 +33,12 @@ export default function CarritoPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-[var(--bg)]">
+      <div className="min-h-screen bg--(----bg)">
         <div className="container-soft py-16">
           <div className="text-center">
-            <div className="mx-auto mb-8 h-24 w-24 rounded-full bg-[var(--brand-100)] flex items-center justify-center">
+            <div className="mx-auto mb-8 h-24 w-24 rounded-full bg--(----brand-100) flex items-center justify-center">
               <svg
-                className="h-12 w-12 text-[var(--brand-400)]"
+                className="h-12 w-12 text--(----brand-400)"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -51,17 +51,17 @@ export default function CarritoPage() {
                 />
               </svg>
             </div>
-            <h1 className="text-3xl font-bold text-[var(--fg)] mb-4">
+            <h1 className="text-3xl font-bold text--(----fg) mb-4">
               Tu carrito está vacío
             </h1>
-            <p className="text-lg text-[var(--muted)] mb-8">
+            <p className="text-lg text--(----muted) mb-8">
               Explora nuestra colección y encuentra las zapatillas perfectas
               para ti.
             </p>
             <Button
               asChild
               size="lg"
-              className="bg-[var(--brand-500)] hover:bg-[var(--brand-600)] text-white"
+              className="bg--(----brand-500) hover:bg--(----brand-600) text-white"
             >
               <Link href="/productos">Ver Productos</Link>
             </Button>
@@ -72,9 +72,9 @@ export default function CarritoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen bg--(----bg)">
       <div className="container-soft py-8">
-        <h1 className="text-3xl font-bold text-[var(--fg)] mb-8">
+        <h1 className="text-3xl font-bold text--(----fg) mb-8">
           Carrito de Compras
         </h1>
 

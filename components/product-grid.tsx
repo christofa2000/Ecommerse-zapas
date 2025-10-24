@@ -1,4 +1,4 @@
-import { Product } from "@/lib/products/sample";
+import { Product } from "@/lib/products/types";
 import ProductCard from "./product-card";
 
 interface ProductGridProps {
@@ -16,9 +16,9 @@ export default function ProductGrid({
     return (
       <div className="py-12 text-center">
         <div className="mx-auto max-w-md">
-          <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-[var(--brand-100)] flex items-center justify-center">
+          <div className="mx-auto mb-4 h-16 w-16 rounded-full bg--(----brand-100) flex items-center justify-center">
             <svg
-              className="h-8 w-8 text-[var(--brand-400)]"
+              className="h-8 w-8 text--(----brand-400)"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -31,10 +31,10 @@ export default function ProductGrid({
               />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-[var(--fg)] mb-2">
+          <h3 className="text-lg font-semibold text--(----fg) mb-2">
             No se encontraron productos
           </h3>
-          <p className="text-[var(--muted)]">
+          <p className="text--(----muted)">
             Intenta ajustar los filtros o explorar otras categorías.
           </p>
         </div>
@@ -47,12 +47,10 @@ export default function ProductGrid({
       {(title || description) && (
         <div className="mb-8 text-center">
           {title && (
-            <h2 className="text-3xl font-bold text-[var(--fg)] mb-4">
-              {title}
-            </h2>
+            <h2 className="text-3xl font-bold text--(----fg) mb-4">{title}</h2>
           )}
           {description && (
-            <p className="text-lg text-[var(--muted)] max-w-2xl mx-auto">
+            <p className="text-lg text--(----muted) max-w-2xl mx-auto">
               {description}
             </p>
           )}
@@ -67,5 +65,3 @@ export default function ProductGrid({
     </section>
   );
 }
-
-

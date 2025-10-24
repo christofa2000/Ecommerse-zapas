@@ -17,7 +17,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] flex items-center justify-center">
+    <div className="min-h-screen bg--(----bg) flex items-center justify-center">
       <div className="text-center">
         <div className="mx-auto mb-8 h-24 w-24 rounded-full bg-red-100 flex items-center justify-center">
           <svg
@@ -35,11 +35,11 @@ export default function Error({
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold text-[var(--fg)] mb-4">
+        <h1 className="text-2xl font-bold text--(----fg) mb-4">
           ¡Ups! Algo salió mal
         </h1>
 
-        <p className="text-[var(--muted)] mb-8 max-w-md">
+        <p className="text--(----muted) mb-8 max-w-md">
           No pudimos cargar los productos. Por favor, intenta de nuevo o
           contacta con soporte si el problema persiste.
         </p>
@@ -57,5 +57,7 @@ export default function Error({
     </div>
   );
 }
+
+
 
 

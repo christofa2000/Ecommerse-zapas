@@ -1,4 +1,4 @@
-import { Product } from "@/lib/products/sample";
+import { Product } from "@/lib/products/types";
 
 interface JsonLdProps {
   data: Record<string, any>;
@@ -173,5 +173,3 @@ export function OrganizationJsonLd({ locale }: { locale: string }) {
 
   return <JsonLd data={jsonLd} />;
 }
-
-

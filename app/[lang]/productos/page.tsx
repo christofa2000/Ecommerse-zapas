@@ -7,7 +7,7 @@ import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/seo/jsonld";
 import { ProductGridSkeleton } from "@/components/skeletons";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
-import { sampleProducts } from "@/lib/products/sample";
+import { products } from "@/lib/products/sample";
 import { useMemo, useState } from "react";
 
 interface ProductsPageProps {
@@ -35,7 +35,7 @@ export default function ProductosPage({ params }: ProductsPageProps) {
 
   // Filter and sort products (useMemo for performance)
   const filteredProducts = useMemo(() => {
-    let filtered = [...sampleProducts];
+    let filtered = [...products];
 
     // Apply filters
     if (filters.category) {
