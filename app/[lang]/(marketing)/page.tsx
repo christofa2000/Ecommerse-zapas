@@ -32,18 +32,18 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* JSON-LD for organization */}
       <OrganizationJsonLd locale={lang} />
 
-      <div className="min-h-screen bg-[var(--bg)]">
+      <div className="min-h-screen bg-(--bg)">
         {/* Hero Section */}
         <Hero />
 
         {/* Featured Products */}
-        <section className="py-16 bg-[var(--brand-50)]">
+        <section className="py-16 bg-(--brand-50)">
           <div className="container-soft">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-[var(--fg)] mb-4">
+              <h2 className="text-3xl font-bold text-(--fg) mb-4">
                 {(dict.home as any).featured}
               </h2>
-              <p className="text-lg text-[var(--muted)] max-w-2xl mx-auto">
+              <p className="text-lg text-(--muted) max-w-2xl mx-auto">
                 {(dict.home as any).subtitle}
               </p>
             </div>
@@ -56,10 +56,10 @@ export default async function HomePage({ params }: HomePageProps) {
           <section className="py-16">
             <div className="container-soft">
               <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-[var(--fg)] mb-4">
+                <h2 className="text-3xl font-bold text-(--fg) mb-4">
                   {(dict.home as any).newArrivals}
                 </h2>
-                <p className="text-lg text-[var(--muted)] max-w-2xl mx-auto">
+                <p className="text-lg text-(--muted) max-w-2xl mx-auto">
                   Descubre las últimas incorporaciones a nuestra colección
                 </p>
               </div>
@@ -70,13 +70,13 @@ export default async function HomePage({ params }: HomePageProps) {
 
         {/* Best Sellers */}
         {bestSellers.length > 0 && (
-          <section className="py-16 bg-[var(--brand-50)]">
+          <section className="py-16 bg-(--brand-50)">
             <div className="container-soft">
               <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-[var(--fg)] mb-4">
+                <h2 className="text-3xl font-bold text-(--fg) mb-4">
                   {(dict.home as any).bestSellers}
                 </h2>
-                <p className="text-lg text-[var(--muted)] max-w-2xl mx-auto">
+                <p className="text-lg text-(--muted) max-w-2xl mx-auto">
                   Los productos más populares de nuestra comunidad
                 </p>
               </div>
@@ -89,10 +89,10 @@ export default async function HomePage({ params }: HomePageProps) {
         <section className="py-16">
           <div className="container-soft">
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-[var(--fg)] mb-4">
+              <h2 className="text-3xl font-bold text-(--fg) mb-4">
                 ¿Listo para encontrar tu par perfecto?
               </h2>
-              <p className="text-lg text-[var(--muted)] mb-8 max-w-2xl mx-auto">
+              <p className="text-lg text-(--muted) mb-8 max-w-2xl mx-auto">
                 Explora nuestra colección completa y descubre zapatillas que se
                 adaptan a tu estilo de vida
               </p>

@@ -3,11 +3,11 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-[var(--bg)] flex items-center justify-center">
+    <div className="min-h-screen bg-(--bg) flex items-center justify-center">
       <div className="text-center">
-        <div className="mx-auto mb-8 h-24 w-24 rounded-full bg-[var(--brand-100)] flex items-center justify-center">
+        <div className="mx-auto mb-8 h-24 w-24 rounded-full bg-(--brand-100) flex items-center justify-center">
           <svg
-            className="h-12 w-12 text-[var(--brand-600)]"
+            className="h-12 w-12 text-(--brand-600)"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -21,11 +21,11 @@ export default function NotFound() {
           </svg>
         </div>
 
-        <h1 className="text-4xl font-bold text-[var(--fg)] mb-4">
+        <h1 className="text-4xl font-bold text-(--fg) mb-4">
           Producto no encontrado
         </h1>
 
-        <p className="text-lg text-[var(--muted)] mb-8 max-w-md">
+        <p className="text-lg text-(--muted) mb-8 max-w-md">
           El producto que buscas no existe o ha sido removido. Explora nuestra
           colección para encontrar algo que te guste.
         </p>
@@ -43,5 +43,3 @@ export default function NotFound() {
     </div>
   );
 }
-
-

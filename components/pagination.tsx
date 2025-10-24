@@ -24,39 +24,34 @@ export default function Pagination({
 
   const getVisiblePages = () => {
     const delta = 2;
-    const range = [];
-    const rangeWithDots = [];
+    const range: (number | string)[] = [];
+    let l: number | undefined;
 
-    for (
-      let i = Math.max(2, currentPage - delta);
-      i <= Math.min(totalPages - 1, currentPage + delta);
-      i++
-    ) {
-      range.push(i);
+    for (let i = 1; i <= totalPages; i++) {
+      if (
+        i === 1 ||
+        i === totalPages ||
+        (i >= currentPage - delta && i <= currentPage + delta)
+      ) {
+        if (l) {
+          if (i - l === 2) {
+            range.push(l + 1);
+          } else if (i - l > 1) {
+            range.push("...");
+          }
+        }
+        range.push(i);
+        l = i;
+      }
     }
-
-    if (currentPage - delta > 2) {
-      rangeWithDots.push(1, "...");
-    } else {
-      rangeWithDots.push(1);
-    }
-
-    rangeWithDots.push(...range);
-
-    if (currentPage + delta < totalPages - 1) {
-      rangeWithDots.push("...", totalPages);
-    } else if (totalPages > 1) {
-      rangeWithDots.push(totalPages);
-    }
-
-    return rangeWithDots;
+    return range;
   };
 
   if (totalPages <= 1) return null;
 
   return (
     <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-      <div className="flex items-center gap-2 text-sm text-[var(--muted)]">
+      <div className="flex items-center gap-2 text-sm text-(--muted)">
         <span>
           Mostrando {startItem}-{endItem} de {totalItems} productos
         </span>
@@ -64,7 +59,7 @@ export default function Pagination({
         <select
           value={itemsPerPage}
           onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
-          className="rounded border border-[var(--brand-200)] bg-white px-2 py-1 text-sm focus:border-[var(--brand-400)] focus:outline-none"
+          className="rounded border border-(--brand-200) bg-white px-2 py-1 text-sm focus:border-(--brand-400) focus:outline-none"
         >
           <option value={12}>12 por página</option>
           <option value={24}>24 por página</option>
@@ -86,14 +81,14 @@ export default function Pagination({
         {getVisiblePages().map((page, index) => (
           <div key={index}>
             {page === "..." ? (
-              <span className="px-2 py-1 text-[var(--muted)]">...</span>
+              <span className="px-2 py-1 text-(--muted)">...</span>
             ) : (
               <Button
                 variant={currentPage === page ? "default" : "outline"}
                 size="sm"
                 onClick={() => onPageChange(page as number)}
                 className={`h-8 w-8 p-0 ${
-                  currentPage === page ? "bg-[var(--brand-500)] text-white" : ""
+                  currentPage === page ? "bg-(--brand-500) text-white" : ""
                 }`}
               >
                 {page}
@@ -115,5 +110,3 @@ export default function Pagination({
     </div>
   );
 }
-
-

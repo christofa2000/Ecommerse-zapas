@@ -47,7 +47,7 @@ export function ProductDetailSkeleton() {
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
       {/* Images */}
       <div className="space-y-4">
-        <div className="aspect-square overflow-hidden rounded-[var(--radius)]">
+        <div className="aspect-square overflow-hidden rounded-(--radius)">
           <div className="skeleton h-full w-full" />
         </div>
 
@@ -122,5 +122,3 @@ export function FilterSkeleton() {
     </div>
   );
 }
-
-

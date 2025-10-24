@@ -14,16 +14,14 @@ import MobileNav from "./mobile-nav";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-[var(--bg)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--bg)]/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-(--bg)/95 backdrop-blur supports-backdrop-filter:bg-(--bg)/60">
       <div className="container-soft">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center space-x-4">
             <MobileNav />
             <Link href="/" className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-full bg-[var(--brand-500)]" />
-              <span className="text-xl font-bold text-[var(--fg)]">
-                Zapatillas
-              </span>
+              <div className="h-8 w-8 rounded-full bg-(--br.and-500)" />
+              <span className="text-xl font-bold text-(--fg)">Zapatillas</span>
             </Link>
           </div>
 
@@ -33,7 +31,7 @@ export default function Header() {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <Link href="/" legacyBehavior passHref>
-                    <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                    <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-active:bg-accent/50 data-[state=open]:bg-accent/50">
                       Inicio
                     </NavigationMenuLink>
                   </Link>
@@ -45,13 +43,13 @@ export default function Header() {
                       <li className="row-span-3">
                         <NavigationMenuLink asChild>
                           <Link
-                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-[var(--brand-100)] to-[var(--brand-200)] p-6 no-underline outline-none focus:shadow-md"
+                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-(--brand-100) to-(--brand-200) p-6 no-underline outline-none focus:shadow-md"
                             href="/productos"
                           >
-                            <div className="mb-2 mt-4 text-lg font-medium text-[var(--brand-900)]">
+                            <div className="mb-2 mt-4 text-lg font-medium text-(--brand-900)">
                               Todas las Zapatillas
                             </div>
-                            <p className="text-sm leading-tight text-[var(--brand-700)]">
+                            <p className="text-sm leading-tight text-(--brand-700)">
                               Descubre nuestra colección completa de zapatillas
                               sostenibles
                             </p>

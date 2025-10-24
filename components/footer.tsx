@@ -2,19 +2,19 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t bg-[var(--brand-50)]">
+    <footer className="border-t bg-(--brand-50)">
       <div className="container-soft">
         <div className="py-12">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
             {/* Brand */}
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <div className="h-8 w-8 rounded-full bg-[var(--brand-500)]" />
-                <span className="text-xl font-bold text-[var(--fg)]">
+                <div className="h-8 w-8 rounded-full bg-(--brand-500)" />
+                <span className="text-xl font-bold text-(--fg)">
                   Zapatillas
                 </span>
               </div>
-              <p className="text-sm text-[var(--muted)]">
+              <p className="text-sm text-(--muted)">
                 Zapatillas sostenibles y cómodas para el día a día. Inspiradas
                 en la naturaleza, diseñadas para el futuro.
               </p>
@@ -22,14 +22,12 @@ export default function Footer() {
 
             {/* Productos */}
             <div className="space-y-4">
-              <h3 className="text-sm font-semibold text-[var(--fg)]">
-                Productos
-              </h3>
+              <h3 className="text-sm font-semibold text-(--fg)">Productos</h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link
                     href="/productos"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Todas las Zapatillas
                   </Link>
@@ -37,7 +35,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/productos?category=running"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Running
                   </Link>
@@ -45,7 +43,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/productos?category=casual"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Casual
                   </Link>
@@ -53,7 +51,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/productos?badge=sostenible"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Sostenibles
                   </Link>
@@ -63,14 +61,12 @@ export default function Footer() {
 
             {/* Empresa */}
             <div className="space-y-4">
-              <h3 className="text-sm font-semibold text-[var(--fg)]">
-                Empresa
-              </h3>
+              <h3 className="text-sm font-semibold text-(--fg)">Empresa</h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link
                     href="/sobre-nosotros"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Sobre Nosotros
                   </Link>
@@ -78,7 +74,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/sostenibilidad"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Sostenibilidad
                   </Link>
@@ -86,7 +82,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/trabajos"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Trabajos
                   </Link>
@@ -94,7 +90,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/prensa"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Prensa
                   </Link>
@@ -104,14 +100,12 @@ export default function Footer() {
 
             {/* Soporte */}
             <div className="space-y-4">
-              <h3 className="text-sm font-semibold text-[var(--fg)]">
-                Soporte
-              </h3>
+              <h3 className="text-sm font-semibold text-(--fg)">Soporte</h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link
                     href="/ayuda"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Centro de Ayuda
                   </Link>
@@ -119,7 +113,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/tallas"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Guía de Tallas
                   </Link>
@@ -127,7 +121,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/devoluciones"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Devoluciones
                   </Link>
@@ -135,7 +129,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/contacto"
-                    className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                    className="text-(--muted) hover:text-(--brand-600) transition-colors"
                   >
                     Contacto
                   </Link>
@@ -147,25 +141,25 @@ export default function Footer() {
           {/* Bottom */}
           <div className="mt-8 border-t pt-8">
             <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
-              <p className="text-sm text-[var(--muted)]">
+              <p className="text-sm text-(--muted)">
                 © 2024 Zapatillas. Todos los derechos reservados.
               </p>
               <div className="flex space-x-6 text-sm">
                 <Link
                   href="/privacidad"
-                  className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                  className="text-(--muted) hover:text-(--brand-600) transition-colors"
                 >
                   Privacidad
                 </Link>
                 <Link
                   href="/terminos"
-                  className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                  className="text-(--muted) hover:text-(--brand-600) transition-colors"
                 >
                   Términos
                 </Link>
                 <Link
                   href="/cookies"
-                  className="text-[var(--muted)] hover:text-[var(--brand-600)] transition-colors"
+                  className="text-(--muted) hover:text-(--brand-600) transition-colors"
                 >
                   Cookies
                 </Link>
@@ -177,5 +171,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-

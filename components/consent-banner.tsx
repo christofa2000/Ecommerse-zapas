@@ -96,16 +96,16 @@ export default function ConsentBanner() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-[var(--bg)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--bg)]/80 border-t border-[var(--brand-200)]">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-(--bg)/95 backdrop-blur supports-backdrop-filter:bg-(--bg)/80 border-t border-(--brand-200)">
       <div className="container-soft">
         <Card className="p-6 surface">
           {!showPreferences ? (
             <div className="space-y-4">
               <div>
-                <h3 className="text-lg font-semibold text-[var(--fg)] mb-2">
+                <h3 className="text-lg font-semibold text-(--fg) mb-2">
                   🍪 Uso de Cookies
                 </h3>
-                <p className="text-sm text-[var(--muted)]">
+                <p className="text-sm text-(--muted)">
                   Utilizamos cookies para mejorar tu experiencia, analizar el
                   tráfico y personalizar contenido. Puedes elegir qué cookies
                   aceptar.
@@ -119,14 +119,14 @@ export default function ConsentBanner() {
                 <Button
                   onClick={handleRejectAll}
                   variant="outline"
-                  className="border-[var(--brand-200)] text-[var(--fg)] hover:bg-[var(--brand-100)]"
+                  className="border-(--brand-200) text-(--fg) hover:bg-(--brand-100)"
                 >
                   Rechazar Todas
                 </Button>
                 <Button
                   onClick={() => setShowPreferences(true)}
                   variant="ghost"
-                  className="text-[var(--brand-600)] hover:bg-[var(--brand-50)]"
+                  className="text-(--brand-600) hover:bg-(--brand-50)"
                 >
                   Configurar
                 </Button>
@@ -135,10 +135,10 @@ export default function ConsentBanner() {
           ) : (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-[var(--fg)] mb-2">
+                <h3 className="text-lg font-semibold text-(--fg) mb-2">
                   Configuración de Cookies
                 </h3>
-                <p className="text-sm text-[var(--muted)]">
+                <p className="text-sm text-(--muted)">
                   Selecciona qué tipos de cookies quieres permitir.
                 </p>
               </div>
@@ -146,20 +146,20 @@ export default function ConsentBanner() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-[var(--fg)]">Necesarias</h4>
-                    <p className="text-sm text-[var(--muted)]">
+                    <h4 className="font-medium text-(--fg)">Necesarias</h4>
+                    <p className="text-sm text-(--muted)">
                       Esenciales para el funcionamiento del sitio web.
                     </p>
                   </div>
-                  <div className="bg-[var(--brand-100)] text-[var(--brand-700)] px-2 py-1 rounded text-xs font-medium">
+                  <div className="bg-(--brand-100) text-(--brand-700) px-2 py-1 rounded text-xs font-medium">
                     Siempre activas
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-[var(--fg)]">Analíticas</h4>
-                    <p className="text-sm text-[var(--muted)]">
+                    <h4 className="font-medium text-(--fg)">Analíticas</h4>
+                    <p className="text-sm text-(--muted)">
                       Nos ayudan a entender cómo usas el sitio web.
                     </p>
                   </div>
@@ -167,8 +167,8 @@ export default function ConsentBanner() {
                     onClick={() => handlePreferenceChange("analytics")}
                     className={`w-12 h-6 rounded-full transition-colors ${
                       preferences.analytics
-                        ? "bg-[var(--brand-500)]"
-                        : "bg-[var(--brand-200)]"
+                        ? "bg-(--brand-500)"
+                        : "bg-(--brand-200)"
                     }`}
                   >
                     <div
@@ -183,8 +183,8 @@ export default function ConsentBanner() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-[var(--fg)]">Marketing</h4>
-                    <p className="text-sm text-[var(--muted)]">
+                    <h4 className="font-medium text-(--fg)">Marketing</h4>
+                    <p className="text-sm text-(--muted)">
                       Para mostrarte contenido personalizado y publicidad.
                     </p>
                   </div>
@@ -192,8 +192,8 @@ export default function ConsentBanner() {
                     onClick={() => handlePreferenceChange("marketing")}
                     className={`w-12 h-6 rounded-full transition-colors ${
                       preferences.marketing
-                        ? "bg-[var(--brand-500)]"
-                        : "bg-[var(--brand-200)]"
+                        ? "bg-(--brand-500)"
+                        : "bg-(--brand-200)"
                     }`}
                   >
                     <div
@@ -214,7 +214,7 @@ export default function ConsentBanner() {
                 <Button
                   onClick={() => setShowPreferences(false)}
                   variant="outline"
-                  className="border-[var(--brand-200)] text-[var(--fg)] hover:bg-[var(--brand-100)]"
+                  className="border-(--brand-200) text-(--fg) hover:bg-(--brand-100)"
                 >
                   Cancelar
                 </Button>

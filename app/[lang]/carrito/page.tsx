@@ -48,28 +48,27 @@ export default function CarritoPage({ params }: CartPageProps) {
   };
 
   const handleCheckout = () => {
-    console.log("Proceed to checkout");
     // TODO: Implement checkout logic
   };
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-[var(--bg)]">
+      <div className="min-h-screen bg-(--bg)">
         <div className="container-soft py-16">
           <div className="text-center">
-            <div className="mx-auto mb-8 h-24 w-24 rounded-full bg-[var(--brand-100)] flex items-center justify-center">
-              <ShoppingCartIcon className="h-12 w-12 text-[var(--brand-600)]" />
+            <div className="mx-auto mb-8 h-24 w-24 rounded-full bg-(--brand-100) flex items-center justify-center">
+              <ShoppingCartIcon className="h-12 w-12 text-(--brand-600)" />
             </div>
-            <h1 className="text-3xl font-bold text-[var(--fg)] mb-4">
+            <h1 className="text-3xl font-bold text-(--fg) mb-4">
               {t("cart.empty")}
             </h1>
-            <p className="text-lg text-[var(--muted)] mb-8">
+            <p className="text-lg text-(--muted) mb-8">
               {t("cart.emptySubtitle")}
             </p>
             <Button
               asChild
               size="lg"
-              className="bg-[var(--brand-500)] hover:bg-[var(--brand-600)] text-white"
+              className="bg-(--brand-500) hover:bg-(--brand-600) text-white"
             >
               <Link href={`/${lang}/productos`}>{t("cart.viewProducts")}</Link>
             </Button>
@@ -80,9 +79,9 @@ export default function CarritoPage({ params }: CartPageProps) {
   }
 
   return (
-    <div className="bg-[var(--bg)] min-h-screen">
+    <div className="bg-(--bg) min-h-screen">
       <div className="container-soft py-12">
-        <h1 className="text-3xl font-bold text-[var(--fg)] mb-8">
+        <h1 className="text-3xl font-bold text-(--fg) mb-8">
           {t("cart.title")}
         </h1>
 

@@ -106,14 +106,14 @@ export default function ProductosPage({ params }: ProductsPageProps) {
       <ItemListJsonLd products={paginatedProducts} locale={lang} />
       <BreadcrumbJsonLd items={breadcrumbItems} locale={lang} />
 
-      <div className="min-h-screen bg-[var(--bg)]">
+      <div className="min-h-screen bg-(--bg)">
         {/* Header */}
-        <div className="bg-[var(--brand-50)] section-y">
+        <div className="bg-(--brand-50) section-y">
           <div className="container-soft">
-            <h1 className="text-4xl font-bold text-[var(--fg)] mb-4">
+            <h1 className="text-4xl font-bold text-(--fg) mb-4">
               {t("products.title")}
             </h1>
-            <p className="text-lg text-[var(--muted)] max-w-2xl">
+            <p className="text-lg text-(--muted) max-w-2xl">
               {t("products.subtitle")}
             </p>
           </div>

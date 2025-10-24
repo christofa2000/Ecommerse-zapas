@@ -1,6 +1,4 @@
 import ConsentBanner from "@/components/consent-banner";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
 import { getCanonicalUrl, getDictionary, locales } from "@/lib/i18n-server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -115,11 +113,9 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
       </head>
-      <body className="min-h-screen bg-[var(--bg)] text-[var(--fg)] antialiased">
+      <body className="min-h-screen bg-(--bg) text-(--fg) antialiased">
         <div className="relative flex min-h-screen flex-col">
-          <Header />
           <main className="flex-1">{children}</main>
-          <Footer />
           <ConsentBanner />
         </div>
       </body>
