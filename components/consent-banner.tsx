@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
+import type { GtagFunction } from "@/lib/analytics";
 
 interface ConsentPreferences {
   necessary: boolean;
@@ -40,14 +41,16 @@ export default function ConsentBanner() {
       document.head.appendChild(script);
 
       // Initialize gtag
-      window.gtag =
-        window.gtag ||
-        function () {
-          (window.gtag as any).q = (window.gtag as any).q || [];
-          (window.gtag as any).q.push(arguments);
-        };
-      window.gtag("js", new Date());
-      window.gtag("config", process.env.NEXT_PUBLIC_GA_ID || "", {
+      const gtagFunction: GtagFunction =
+        window.gtag ??
+        ((...args: unknown[]) => {
+          gtagFunction.q = gtagFunction.q ?? [];
+          gtagFunction.q.push(args);
+        });
+
+      window.gtag = gtagFunction;
+      gtagFunction("js", new Date());
+      gtagFunction("config", process.env.NEXT_PUBLIC_GA_ID || "", {
         anonymize_ip: true,
         cookie_flags: "SameSite=None;Secure",
       });
@@ -227,9 +230,8 @@ export default function ConsentBanner() {
   );
 }
 
-// Extend Window interface for gtag
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
+    gtag?: GtagFunction;
   }
 }

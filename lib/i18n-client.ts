@@ -1,5 +1,7 @@
+import type { Locale } from "./i18n-server";
+
 // Client-side i18n hook
-export function useI18n(lang: "es" | "en") {
+export function useI18n(lang: Locale) {
   const translations = {
     es: {
       "cart.title": "Carrito de Compras",

@@ -7,10 +7,11 @@ import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/lib/cart/store";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function MiniCart() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const { items, getSubtotal, getItemsCount, remove } = useCartStore();
 
   const formatPrice = (price: number) => {
@@ -23,6 +24,12 @@ export default function MiniCart() {
 
   const subtotal = getSubtotal();
   const itemsCount = getItemsCount();
+  const displayedItemsCount = isHydrated ? itemsCount : 0;
+  const productsLabel = displayedItemsCount === 1 ? "producto" : "productos";
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   return (
     <div className="relative">
@@ -31,7 +38,7 @@ export default function MiniCart() {
         size="sm"
         className="relative p-2"
         onClick={() => setIsOpen(!isOpen)}
-        aria-label={`Carrito con ${itemsCount} productos`}
+        aria-label={`Carrito con ${displayedItemsCount} ${productsLabel}`}
       >
         <svg
           className="h-6 w-6 text-(--fg)"
@@ -46,7 +53,7 @@ export default function MiniCart() {
             d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0L17 18m0 0l2.5-5M17 18l-2.5-5"
           />
         </svg>
-        {itemsCount > 0 && (
+        {isHydrated && itemsCount > 0 && (
           <Badge
             variant="destructive"
             className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
@@ -160,7 +167,6 @@ export default function MiniCart() {
     </div>
   );
 }
-
 
 
 

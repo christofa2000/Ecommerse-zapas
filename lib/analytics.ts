@@ -8,6 +8,11 @@ export interface AnalyticsEvent {
   custom_parameters?: Record<string, unknown>;
 }
 
+export type GtagFunction = {
+  (...args: unknown[]): void;
+  q?: unknown[][];
+};
+
 // Check if analytics is enabled
 export function isAnalyticsEnabled(): boolean {
   if (typeof window === "undefined") return false;
@@ -243,6 +248,6 @@ export function trackImageLoadError(imageUrl: string) {
 // Extend Window interface for gtag
 declare global {
   interface Window {
-    gtag: (...args: unknown[]) => void;
+    gtag?: GtagFunction;
   }
 }

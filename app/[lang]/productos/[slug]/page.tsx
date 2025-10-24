@@ -10,19 +10,21 @@ import { useI18n } from "@/lib/i18n";
 import { getProductBySlug, sampleProducts } from "@/lib/products/sample";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { useState } from "react";
+import { use, useState } from "react";
+import type { Locale } from "@/lib/i18n-server";
+
+interface ProductPageParams {
+  lang: Locale;
+  slug: string;
+}
 
 interface ProductPageProps {
-  params: Promise<{
-    lang: string;
-    slug: string;
-  }>;
+  params: Promise<ProductPageParams>;
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const lang = "es"; // TODO: Get from params
-  const slug = "runner-natural"; // TODO: Get from params
-  const { t } = useI18n(lang as any);
+  const { lang, slug } = use(params);
+  const { t } = useI18n(lang);
 
   const product = getProductBySlug(slug);
   const { add } = useCartStore();

@@ -8,17 +8,20 @@ import { ProductGridSkeleton } from "@/components/skeletons";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
 import { sampleProducts } from "@/lib/products/sample";
-import { useMemo, useState } from "react";
+import { use, useMemo, useState } from "react";
+import type { Locale } from "@/lib/i18n-server";
+
+interface ProductsPageParams {
+  lang: Locale;
+}
 
 interface ProductsPageProps {
-  params: Promise<{
-    lang: string;
-  }>;
+  params: Promise<ProductsPageParams>;
 }
 
 export default function ProductosPage({ params }: ProductsPageProps) {
-  const lang = "es"; // TODO: Get from params
-  const { t } = useI18n(lang as any);
+  const { lang } = use(params);
+  const { t } = useI18n(lang);
 
   const [filters, setFilters] = useState<FilterState>({
     category: "",

@@ -7,24 +7,20 @@ import { useCartStore } from "@/lib/cart/store";
 import { useI18n } from "@/lib/i18n";
 import { ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { use } from "react";
+import type { Locale } from "@/lib/i18n-server";
+
+interface CartPageParams {
+  lang: Locale;
+}
 
 interface CartPageProps {
-  params: Promise<{
-    lang: string;
-  }>;
+  params: Promise<CartPageParams>;
 }
 
 export default function CarritoPage({ params }: CartPageProps) {
-  const [lang, setLang] = useState<string>("es");
-
-  useEffect(() => {
-    params.then(({ lang: resolvedLang }) => {
-      setLang(resolvedLang);
-    });
-  }, [params]);
-
-  const { t } = useI18n(lang as "es" | "en");
+  const { lang } = use(params);
+  const { t } = useI18n(lang);
 
   const { items, increment, decrement, remove, getSubtotal } = useCartStore();
 

@@ -8,16 +8,19 @@ import { useCartStore } from "@/lib/cart/store";
 import { getProductBySlug, sampleProducts } from "@/lib/products/sample";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { useState } from "react";
+import { use, useState } from "react";
+
+interface ProductPageParams {
+  slug: string;
+}
 
 interface ProductPageProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<ProductPageParams>;
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const product = getProductBySlug(params.slug);
+  const { slug } = use(params);
+  const product = getProductBySlug(slug);
   const { add } = useCartStore();
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("");
