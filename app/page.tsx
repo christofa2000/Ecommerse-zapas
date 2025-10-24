@@ -121,7 +121,7 @@ export default function HomePage() {
           </p>
           <a
             href="/productos"
-            className="inline-flex items-center justify-center rounded-md bg-[var(--brand-500)] px-8 py-3 text-base font-medium text-white shadow-sm hover:bg-[var(--brand-600)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-500)] focus:ring-offset-2 transition-colors"
+            className="inline-flex items-center justify-center rounded-md bg-(--brand-500) px-8 py-3 text-base font-medium text-white shadow-sm hover:bg-(--brand-600) focus:outline-none focus:ring-2 focus:ring-(--brand-500) focus:ring-offset-2 transition-colors"
           >
             Ver Toda la Colección
           </a>

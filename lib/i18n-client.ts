@@ -1,38 +1,27 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { Dictionary, getDictionary, Locale } from "./i18n-server";
-
-// Client-side hook for i18n
-export function useI18n(locale: Locale) {
-  const [dict, setDict] = useState<Dictionary | null>(null);
-
-  useEffect(() => {
-    getDictionary(locale).then(setDict);
-  }, [locale]);
-
-  const t = (key: string): string => {
-    if (!dict) return key;
-
-    const keys = key.split(".");
-    let value: any = dict;
-
-    for (const k of keys) {
-      if (value && typeof value === "object" && k in value) {
-        value = value[k];
-      } else {
-        return key;
-      }
-    }
-
-    return typeof value === "string" ? value : key;
+// Client-side i18n hook
+export function useI18n(lang: "es" | "en") {
+  const translations = {
+    es: {
+      "cart.title": "Carrito de Compras",
+      "cart.empty": "Tu carrito está vacío",
+      "cart.emptySubtitle":
+        "Explora nuestra colección y encuentra las zapatillas perfectas para ti.",
+      "cart.viewProducts": "Ver Productos",
+    },
+    en: {
+      "cart.title": "Shopping Cart",
+      "cart.empty": "Your cart is empty",
+      "cart.emptySubtitle":
+        "Explore our collection and find the perfect sneakers for you.",
+      "cart.viewProducts": "View Products",
+    },
   };
 
-  return { t, dict, locale };
+  const t = (key: string) => {
+    return (
+      translations[lang][key as keyof (typeof translations)[typeof lang]] || key
+    );
+  };
+
+  return { t };
 }
-
-
-
-
-
-

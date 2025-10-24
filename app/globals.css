@@ -1,28 +1,71 @@
 @import "tailwindcss";
 
-/* Reset mínimo y base */
+/* ─────────────────────────────
+   Reset mínimo y base
+───────────────────────────── */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+
 html,
 body {
   height: 100%;
 }
+
+:root {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
 body {
   margin: 0;
   font-family: var(--font-sans, ui-sans-serif);
   background: var(--bg);
   color: var(--fg);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
 img,
 video {
   max-width: 100%;
   height: auto;
+  display: block; /* evita gaps baseline */
 }
 
-/* Design Tokens — paleta suave/premium inspirada en Allbirds */
+/* Selección accesible */
+::selection {
+  background: color-mix(in oklab, var(--brand-500) 20%, white 80%);
+  color: var(--fg);
+}
+
+/* Mejor focus accesible por defecto */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-500) 45%, white 55%);
+  border-radius: 6px;
+}
+
+/* Links sin azules “por defecto” (ajusta si querés color de marca) */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* ─────────────────────────────
+   Design Tokens — Allbirds vibes
+───────────────────────────── */
 :root {
   /* Superficies */
   --bg: #ffffff;
@@ -41,11 +84,11 @@ video {
   --brand-800: #2f4a43;
   --brand-900: #223833;
 
-  /* Container y layout */
+  /* Layout */
   --container: 1200px;
   --container-pad: 1rem;
 
-  /* Espaciado consistente */
+  /* Espaciado */
   --space-2xs: 0.125rem; /* 2px */
   --space-xs: 0.25rem; /* 4px */
   --space-sm: 0.5rem; /* 8px */
@@ -79,7 +122,27 @@ video {
   --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.1);
 }
 
-/* Utilidades */
+/* Tema oscuro opcional (se activa con .dark en <html>) */
+.dark {
+  --bg: #0b0b17;
+  --fg: #f5f7f6;
+  --muted: #9aa0a6;
+
+  --brand-50: #0f1413;
+  --brand-100: #1a221f;
+  --brand-200: #22302b;
+  --brand-300: #2d3f38;
+  --brand-400: #395047;
+  --brand-500: #47665b; /* primario oscuro */
+  --brand-600: #5f8e82;
+  --brand-700: #9dc3b8;
+  --brand-800: #c8ddd7;
+  --brand-900: #e7eeeb;
+}
+
+/* ─────────────────────────────
+   Utilidades
+───────────────────────────── */
 @layer utilities {
   .container-soft {
     max-width: var(--container);
@@ -96,11 +159,17 @@ video {
     border-radius: var(--radius);
     box-shadow: var(--shadow-card);
   }
+  .dark .surface {
+    background: color-mix(in oklab, var(--bg) 85%, #000 15%);
+  }
 
   .surface-elevated {
     background: #fff;
     border-radius: var(--radius);
     box-shadow: var(--shadow-elevated);
+  }
+  .dark .surface-elevated {
+    background: color-mix(in oklab, var(--bg) 80%, #000 20%);
   }
 
   .btn-primary {
@@ -109,33 +178,34 @@ video {
     border-radius: var(--radius-sm);
     padding: var(--space-sm) var(--space-lg);
     font-weight: 500;
-    transition: all 0.2s ease;
+    transition: transform 0.06s ease, box-shadow 0.2s ease, background 0.2s ease;
   }
-
   .btn-primary:hover {
     background: var(--brand-600);
     box-shadow: var(--shadow-card);
+  }
+  .btn-primary:active {
+    transform: translateY(1px);
   }
 
   .chip {
     display: inline-flex;
     align-items: center;
+    gap: var(--space-xs);
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-sm);
     font-size: var(--text-sm);
     font-weight: 500;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     cursor: pointer;
     border: 1px solid var(--brand-200);
     background: var(--brand-50);
     color: var(--brand-700);
   }
-
   .chip:hover {
     background: var(--brand-100);
     border-color: var(--brand-300);
   }
-
   .chip.selected {
     background: var(--brand-500);
     color: white;
@@ -162,13 +232,19 @@ video {
     animation: skeleton-loading 1.5s infinite;
   }
 
-  @keyframes skeleton-loading {
-    0% {
-      background-position: 200% 0;
-    }
-    100% {
-      background-position: -200% 0;
-    }
+  /* Micro perf: oculta contenido fuera de viewport (piezas grandes) */
+  .content-lazy {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px 600px; /* hint */
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }
 
@@ -177,7 +253,6 @@ video {
   .animate-fade-in {
     animation: fadeIn 0.6s ease-out;
   }
-
   .animate-slide-up {
     animation: slideUp 0.6s ease-out;
   }
@@ -191,7 +266,6 @@ video {
     opacity: 1;
   }
 }
-
 @keyframes slideUp {
   from {
     opacity: 0;

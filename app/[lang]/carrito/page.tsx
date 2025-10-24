@@ -7,6 +7,7 @@ import { useCartStore } from "@/lib/cart/store";
 import { useI18n } from "@/lib/i18n";
 import { ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface CartPageProps {
   params: Promise<{
@@ -15,31 +16,38 @@ interface CartPageProps {
 }
 
 export default function CarritoPage({ params }: CartPageProps) {
-  const lang = "es"; // TODO: Get from params
-  const { t } = useI18n(lang as any);
+  const [lang, setLang] = useState<string>("es");
 
-  const { items, increment, decrement, remove, getSubtotal, clear } =
-    useCartStore();
+  useEffect(() => {
+    params.then(({ lang: resolvedLang }) => {
+      setLang(resolvedLang);
+    });
+  }, [params]);
+
+  const { t } = useI18n(lang as "es" | "en");
+
+  const { items, increment, decrement, remove, getSubtotal } = useCartStore();
 
   const subtotal = getSubtotal();
   const shipping = subtotal > 20000 ? 0 : 2000; // Example shipping logic
   const total = subtotal + shipping;
 
   const handleUpdateQuantity = (id: string, size: string, quantity: number) => {
-    if (quantity > 0) {
-      // Assuming increment/decrement handles quantity logic
-      // For direct quantity set, you'd need a 'setQuantity' action in store
-      // For now, we'll just increment/decrement
-      if (
-        quantity >
-        items.find((item) => item.id === id && item.size === size)?.quantity!
-      ) {
+    const currentItem = items.find(
+      (item) => item.id === id && item.size === size
+    );
+    if (!currentItem) return;
+
+    if (quantity > currentItem.quantity) {
+      // Increase quantity
+      for (let i = currentItem.quantity; i < quantity; i++) {
         increment(id, size);
-      } else {
+      }
+    } else if (quantity < currentItem.quantity) {
+      // Decrease quantity
+      for (let i = currentItem.quantity; i > quantity; i--) {
         decrement(id, size);
       }
-    } else {
-      remove(id, size);
     }
   };
 

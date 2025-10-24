@@ -11,8 +11,8 @@ function isValidImagePath(path: string): boolean {
 
 console.log("🔍 Verificando imágenes de productos...\n");
 
-let missingImages: string[] = [];
-let invalidPaths: string[] = [];
+const missingImages: string[] = [];
+const invalidPaths: string[] = [];
 
 for (const product of sampleProducts) {
   console.log(`📦 ${product.name} (${product.slug})`);

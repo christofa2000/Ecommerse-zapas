@@ -7,18 +7,28 @@ import { useCartStore } from "@/lib/cart/store";
 import Link from "next/link";
 
 export default function CarritoPage() {
-  const { items, increment, decrement, remove, getSubtotal, clear } =
-    useCartStore();
+  const { items, increment, remove, getSubtotal } = useCartStore();
 
   const subtotal = getSubtotal();
   const shipping = subtotal > 20000 ? 0 : 2000;
   const total = subtotal + shipping;
 
   const handleUpdateQuantity = (id: string, size: string, quantity: number) => {
-    if (quantity > 0) {
-      increment(id, size);
-    } else {
-      remove(id, size);
+    const currentItem = items.find(
+      (item) => item.id === id && item.size === size
+    );
+    if (!currentItem) return;
+
+    if (quantity > currentItem.quantity) {
+      // Increase quantity
+      for (let i = currentItem.quantity; i < quantity; i++) {
+        increment(id, size);
+      }
+    } else if (quantity < currentItem.quantity) {
+      // Decrease quantity
+      for (let i = currentItem.quantity; i > quantity; i--) {
+        remove(id, size);
+      }
     }
   };
 

@@ -5,7 +5,7 @@ export interface AnalyticsEvent {
   action?: string;
   label?: string;
   value?: number;
-  custom_parameters?: Record<string, any>;
+  custom_parameters?: Record<string, unknown>;
 }
 
 // Check if analytics is enabled
@@ -243,12 +243,6 @@ export function trackImageLoadError(imageUrl: string) {
 // Extend Window interface for gtag
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
+    gtag: (...args: unknown[]) => void;
   }
 }
-
-
-
-
-
-
