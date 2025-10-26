@@ -61,14 +61,8 @@ describe("Hero", () => {
     render(<Hero />);
 
     const primaryButton = screen.getByRole("link", { name: /Ver Colección/i });
-    expect(primaryButton).toHaveClass("bg-[var(--brand-500)]");
+    expect(primaryButton.className).toEqual(
+      expect.stringContaining("bg-(--brand-500)")
+    );
   });
 });
-
-
-
-
-
-
-
-

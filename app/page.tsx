@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
+import CategoryGrid from "@/components/category-grid";
 import Hero from "@/components/hero";
 import ProductGrid from "@/components/product-grid";
 import { getFeaturedProducts } from "@/lib/products/sample";
@@ -9,6 +10,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+
+      {/* Category Grid */}
+      <CategoryGrid />
 
       <div className="container-soft">
         <ProductGrid

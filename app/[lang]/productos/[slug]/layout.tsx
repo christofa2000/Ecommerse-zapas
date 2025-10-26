@@ -1,11 +1,16 @@
-import { getCanonicalUrl, getDictionary } from "@/lib/i18n-server";
+import { getCanonicalUrl, getDictionary, type Locale } from "@/lib/i18n-server";
 import { getProductBySlug } from "@/lib/products/sample";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+interface ProductLayoutParams {
+  lang: Locale;
+  slug: string;
+}
+
 interface ProductLayoutProps {
   children: React.ReactNode;
-  params: any;
+  params: Promise<ProductLayoutParams>;
 }
 
 export async function generateMetadata({
@@ -18,10 +23,10 @@ export async function generateMetadata({
     notFound();
   }
 
-  const dict = await getDictionary(lang as any);
-  const seo = dict.seo as any;
+  const dict = await getDictionary(lang);
+  const seo = dict.seo as Record<string, string>;
 
-  const productUrl = getCanonicalUrl(`/productos/${slug}`, lang as any);
+  const productUrl = getCanonicalUrl(`/productos/${slug}`, lang);
   const productImage = product.images?.[0] || product.image;
 
   return {

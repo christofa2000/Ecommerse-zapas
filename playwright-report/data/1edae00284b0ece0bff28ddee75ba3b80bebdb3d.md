@@ -1,0 +1,308 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "Zapatillas" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e9]: Zapatillas
+        - navigation "Main" [ref=e11]:
+          - list [ref=e13]:
+            - listitem [ref=e14]:
+              - link "Inicio" [ref=e15] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e16]:
+              - button "Productos" [ref=e17]:
+                - text: Productos
+                - img [ref=e18]
+            - listitem [ref=e20]:
+              - button "Carrito con 0 productos" [ref=e22]:
+                - img
+    - main [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e26]:
+          - heading "Todas las Zapatillas" [level=1] [ref=e27]
+          - paragraph [ref=e28]: Explora nuestra colección completa de zapatillas sostenibles y cómodas.
+        - generic [ref=e30]:
+          - generic [ref=e32]:
+            - generic [ref=e33]:
+              - heading "Filtros" [level=3] [ref=e34]
+              - generic [ref=e35]: "1"
+            - generic [ref=e36]:
+              - generic [ref=e37]:
+                - heading "Categoría" [level=4] [ref=e38]
+                - generic [ref=e39]:
+                  - button "Todas" [ref=e40] [cursor=pointer]
+                  - button "Running" [ref=e41] [cursor=pointer]
+                  - button "Casual" [ref=e42] [cursor=pointer]
+              - generic [ref=e43]:
+                - heading "Color" [level=4] [ref=e44]
+                - generic [ref=e45]:
+                  - button "Todos" [ref=e46] [cursor=pointer]
+                  - button "Natural" [ref=e47] [cursor=pointer]
+                  - button "Blanco" [ref=e48] [cursor=pointer]
+                  - button "Gris" [ref=e49] [cursor=pointer]
+                  - button "Verde" [ref=e50] [cursor=pointer]
+                  - button "Beige" [ref=e51] [cursor=pointer]
+                  - button "Negro" [ref=e52] [cursor=pointer]
+                  - button "Azul" [ref=e53] [cursor=pointer]
+                  - button "Rosa" [ref=e54] [cursor=pointer]
+                  - button "Amarillo" [ref=e55] [cursor=pointer]
+              - generic [ref=e56]:
+                - heading "Talla" [level=4] [ref=e57]
+                - generic [ref=e58]:
+                  - button "Todas" [ref=e59] [cursor=pointer]
+                  - button "38" [ref=e60] [cursor=pointer]
+                  - button "39" [ref=e61] [cursor=pointer]
+                  - button "40" [ref=e62] [cursor=pointer]
+                  - button "41" [ref=e63] [cursor=pointer]
+                  - button "42" [ref=e64] [cursor=pointer]
+                  - button "43" [ref=e65] [cursor=pointer]
+                  - button "44" [ref=e66] [cursor=pointer]
+              - generic [ref=e67]:
+                - heading "Ordenar por" [level=4] [ref=e68]
+                - generic [ref=e69]:
+                  - 'button "Precio: Menor a Mayor" [ref=e70] [cursor=pointer]'
+                  - 'button "Precio: Mayor a Menor" [ref=e71] [cursor=pointer]'
+                  - 'button "Nombre: A-Z" [ref=e72] [cursor=pointer]'
+                  - 'button "Nombre: Z-A" [ref=e73] [cursor=pointer]'
+            - generic [ref=e74]:
+              - button "Aplicar Filtros" [ref=e75]
+              - button "Limpiar Filtros" [ref=e76]
+          - generic [ref=e79]:
+            - 'link "Tree Breezer nuevo sostenible Agregar Tree Breezer Zapatilla ligera y transpirable, perfecta para el verano. $ 10.900 Colores: Blanco Rosa Amarillo" [ref=e82] [cursor=pointer]':
+              - /url: /productos/tree-breezer
+              - generic [ref=e83]:
+                - img "Tree Breezer" [ref=e84]
+                - generic [ref=e85]:
+                  - generic [ref=e86]: nuevo
+                  - generic [ref=e87]: sostenible
+                - button "Agregar" [ref=e89]
+              - generic [ref=e90]:
+                - heading "Tree Breezer" [level=3] [ref=e91]
+                - paragraph [ref=e92]: Zapatilla ligera y transpirable, perfecta para el verano.
+                - generic [ref=e95]: $ 10.900
+                - generic [ref=e96]:
+                  - generic [ref=e97]: "Colores:"
+                  - generic [ref=e98]:
+                    - generic "Blanco" [ref=e99]
+                    - generic "Rosa" [ref=e100]
+                    - generic "Amarillo" [ref=e101]
+            - 'link "Tree Skipper nuevo Agregar Tree Skipper Zapatilla minimalista inspirada en la naturaleza, ideal para caminar. $ 11.900 Colores: Verde Beige Negro" [ref=e104] [cursor=pointer]':
+              - /url: /productos/tree-skipper
+              - generic [ref=e105]:
+                - img "Tree Skipper" [ref=e106]
+                - generic [ref=e108]: nuevo
+                - button "Agregar" [ref=e110]
+              - generic [ref=e111]:
+                - heading "Tree Skipper" [level=3] [ref=e112]
+                - paragraph [ref=e113]: Zapatilla minimalista inspirada en la naturaleza, ideal para caminar.
+                - generic [ref=e116]: $ 11.900
+                - generic [ref=e117]:
+                  - generic [ref=e118]: "Colores:"
+                  - generic [ref=e119]:
+                    - generic "Verde" [ref=e120]
+                    - generic "Beige" [ref=e121]
+                    - generic "Negro" [ref=e122]
+            - 'link "Runner Natural más vendido sostenible Agregar Runner Natural Zapatilla de running cómoda y sostenible, perfecta para el día a día. $ 12.900 $ 14.900 -13% Colores: Natural Blanco Gris" [ref=e125] [cursor=pointer]':
+              - /url: /productos/runner-natural
+              - generic [ref=e126]:
+                - img "Runner Natural" [ref=e127]
+                - generic [ref=e128]:
+                  - generic [ref=e129]: más vendido
+                  - generic [ref=e130]: sostenible
+                - button "Agregar" [ref=e132]
+              - generic [ref=e133]:
+                - heading "Runner Natural" [level=3] [ref=e134]
+                - paragraph [ref=e135]: Zapatilla de running cómoda y sostenible, perfecta para el día a día.
+                - generic [ref=e136]:
+                  - generic [ref=e137]:
+                    - generic [ref=e138]: $ 12.900
+                    - generic [ref=e139]: $ 14.900
+                  - generic [ref=e140]: "-13%"
+                - generic [ref=e141]:
+                  - generic [ref=e142]: "Colores:"
+                  - generic [ref=e143]:
+                    - generic "Natural" [ref=e144]
+                    - generic "Blanco" [ref=e145]
+                    - generic "Gris" [ref=e146]
+            - 'link "Tree Skipper Mizzle más vendido sostenible Agregar Tree Skipper Mizzle Zapatilla minimalista resistente al agua, perfecta para cualquier clima. $ 12.900 Colores: Verde Gris Negro" [ref=e149] [cursor=pointer]':
+              - /url: /productos/tree-skipper-mizzle
+              - generic [ref=e150]:
+                - img "Tree Skipper Mizzle" [ref=e151]
+                - generic [ref=e152]:
+                  - generic [ref=e153]: más vendido
+                  - generic [ref=e154]: sostenible
+                - button "Agregar" [ref=e156]
+              - generic [ref=e157]:
+                - heading "Tree Skipper Mizzle" [level=3] [ref=e158]
+                - paragraph [ref=e159]: Zapatilla minimalista resistente al agua, perfecta para cualquier clima.
+                - generic [ref=e162]: $ 12.900
+                - generic [ref=e163]:
+                  - generic [ref=e164]: "Colores:"
+                  - generic [ref=e165]:
+                    - generic "Verde" [ref=e166]
+                    - generic "Gris" [ref=e167]
+                    - generic "Negro" [ref=e168]
+            - 'link "Wool Runner sostenible Agregar Wool Runner Zapatilla de lana merino, transpirable y cómoda para cualquier ocasión. $ 13.900 Colores: Gris Azul Verde" [ref=e171] [cursor=pointer]':
+              - /url: /productos/wool-runner
+              - generic [ref=e172]:
+                - img "Wool Runner" [ref=e173]
+                - generic [ref=e175]: sostenible
+                - button "Agregar" [ref=e177]
+              - generic [ref=e178]:
+                - heading "Wool Runner" [level=3] [ref=e179]
+                - paragraph [ref=e180]: Zapatilla de lana merino, transpirable y cómoda para cualquier ocasión.
+                - generic [ref=e183]: $ 13.900
+                - generic [ref=e184]:
+                  - generic [ref=e185]: "Colores:"
+                  - generic [ref=e186]:
+                    - generic "Gris" [ref=e187]
+                    - generic "Azul" [ref=e188]
+                    - generic "Verde" [ref=e189]
+            - 'link "Runner Mizzle más vendido Agregar Runner Mizzle Zapatilla resistente al agua, ideal para días lluviosos. $ 14.900 Colores: Negro Gris Verde" [ref=e192] [cursor=pointer]':
+              - /url: /productos/runner-mizzle
+              - generic [ref=e193]:
+                - img "Runner Mizzle" [ref=e194]
+                - generic [ref=e196]: más vendido
+                - button "Agregar" [ref=e198]
+              - generic [ref=e199]:
+                - heading "Runner Mizzle" [level=3] [ref=e200]
+                - paragraph [ref=e201]: Zapatilla resistente al agua, ideal para días lluviosos.
+                - generic [ref=e204]: $ 14.900
+                - generic [ref=e205]:
+                  - generic [ref=e206]: "Colores:"
+                  - generic [ref=e207]:
+                    - generic "Negro" [ref=e208]
+                    - generic "Gris" [ref=e209]
+                    - generic "Verde" [ref=e210]
+            - 'link "Tree Dasher más vendido Agregar Tree Dasher Zapatilla de running de alto rendimiento con materiales sostenibles. $ 15.900 Colores: Negro Blanco Azul" [ref=e213] [cursor=pointer]':
+              - /url: /productos/tree-dasher
+              - generic [ref=e214]:
+                - img "Tree Dasher" [ref=e215]
+                - generic [ref=e217]: más vendido
+                - button "Agregar" [ref=e219]
+              - generic [ref=e220]:
+                - heading "Tree Dasher" [level=3] [ref=e221]
+                - paragraph [ref=e222]: Zapatilla de running de alto rendimiento con materiales sostenibles.
+                - generic [ref=e225]: $ 15.900
+                - generic [ref=e226]:
+                  - generic [ref=e227]: "Colores:"
+                  - generic [ref=e228]:
+                    - generic "Negro" [ref=e229]
+                    - generic "Blanco" [ref=e230]
+                    - generic "Azul" [ref=e231]
+            - 'link "Wool Runner Mizzle sostenible Agregar Wool Runner Mizzle Zapatilla de lana resistente al agua, cómoda y sostenible. $ 15.900 Colores: Gris Negro Azul" [ref=e234] [cursor=pointer]':
+              - /url: /productos/wool-runner-mizzle
+              - generic [ref=e235]:
+                - img "Wool Runner Mizzle" [ref=e236]
+                - generic [ref=e238]: sostenible
+                - button "Agregar" [ref=e240]
+              - generic [ref=e241]:
+                - heading "Wool Runner Mizzle" [level=3] [ref=e242]
+                - paragraph [ref=e243]: Zapatilla de lana resistente al agua, cómoda y sostenible.
+                - generic [ref=e246]: $ 15.900
+                - generic [ref=e247]:
+                  - generic [ref=e248]: "Colores:"
+                  - generic [ref=e249]:
+                    - generic "Gris" [ref=e250]
+                    - generic "Negro" [ref=e251]
+                    - generic "Azul" [ref=e252]
+            - 'link "Tree Flyer nuevo Agregar Tree Flyer Zapatilla de running premium con máxima amortiguación. $ 16.900 Colores: Azul Negro Blanco" [ref=e255] [cursor=pointer]':
+              - /url: /productos/tree-flyer
+              - generic [ref=e256]:
+                - img "Tree Flyer" [ref=e257]
+                - generic [ref=e259]: nuevo
+                - button "Agregar" [ref=e261]
+              - generic [ref=e262]:
+                - heading "Tree Flyer" [level=3] [ref=e263]
+                - paragraph [ref=e264]: Zapatilla de running premium con máxima amortiguación.
+                - generic [ref=e267]: $ 16.900
+                - generic [ref=e268]:
+                  - generic [ref=e269]: "Colores:"
+                  - generic [ref=e270]:
+                    - generic "Azul" [ref=e271]
+                    - generic "Negro" [ref=e272]
+                    - generic "Blanco" [ref=e273]
+            - 'link "Runner Mizzle Plus nuevo Agregar Runner Mizzle Plus Zapatilla de running resistente al agua con tecnología avanzada. $ 17.900 Colores: Negro Azul Verde" [ref=e276] [cursor=pointer]':
+              - /url: /productos/runner-mizzle-plus
+              - generic [ref=e277]:
+                - img "Runner Mizzle Plus" [ref=e278]
+                - generic [ref=e280]: nuevo
+                - button "Agregar" [ref=e282]
+              - generic [ref=e283]:
+                - heading "Runner Mizzle Plus" [level=3] [ref=e284]
+                - paragraph [ref=e285]: Zapatilla de running resistente al agua con tecnología avanzada.
+                - generic [ref=e288]: $ 17.900
+                - generic [ref=e289]:
+                  - generic [ref=e290]: "Colores:"
+                  - generic [ref=e291]:
+                    - generic "Negro" [ref=e292]
+                    - generic "Azul" [ref=e293]
+                    - generic "Verde" [ref=e294]
+    - contentinfo [ref=e295]:
+      - generic [ref=e297]:
+        - generic [ref=e298]:
+          - generic [ref=e299]:
+            - generic [ref=e302]: Zapatillas
+            - paragraph [ref=e303]: Zapatillas sostenibles y cómodas para el día a día. Inspiradas en la naturaleza, diseñadas para el futuro.
+          - generic [ref=e304]:
+            - heading "Productos" [level=3] [ref=e305]
+            - list [ref=e306]:
+              - listitem [ref=e307]:
+                - link "Todas las Zapatillas" [ref=e308] [cursor=pointer]:
+                  - /url: /productos
+              - listitem [ref=e309]:
+                - link "Running" [ref=e310] [cursor=pointer]:
+                  - /url: /productos?category=running
+              - listitem [ref=e311]:
+                - link "Casual" [ref=e312] [cursor=pointer]:
+                  - /url: /productos?category=casual
+              - listitem [ref=e313]:
+                - link "Sostenibles" [ref=e314] [cursor=pointer]:
+                  - /url: /productos?badge=sostenible
+          - generic [ref=e315]:
+            - heading "Empresa" [level=3] [ref=e316]
+            - list [ref=e317]:
+              - listitem [ref=e318]:
+                - link "Sobre Nosotros" [ref=e319] [cursor=pointer]:
+                  - /url: /sobre-nosotros
+              - listitem [ref=e320]:
+                - link "Sostenibilidad" [ref=e321] [cursor=pointer]:
+                  - /url: /sostenibilidad
+              - listitem [ref=e322]:
+                - link "Trabajos" [ref=e323] [cursor=pointer]:
+                  - /url: /trabajos
+              - listitem [ref=e324]:
+                - link "Prensa" [ref=e325] [cursor=pointer]:
+                  - /url: /prensa
+          - generic [ref=e326]:
+            - heading "Soporte" [level=3] [ref=e327]
+            - list [ref=e328]:
+              - listitem [ref=e329]:
+                - link "Centro de Ayuda" [ref=e330] [cursor=pointer]:
+                  - /url: /ayuda
+              - listitem [ref=e331]:
+                - link "Guía de Tallas" [ref=e332] [cursor=pointer]:
+                  - /url: /tallas
+              - listitem [ref=e333]:
+                - link "Devoluciones" [ref=e334] [cursor=pointer]:
+                  - /url: /devoluciones
+              - listitem [ref=e335]:
+                - link "Contacto" [ref=e336] [cursor=pointer]:
+                  - /url: /contacto
+        - generic [ref=e338]:
+          - paragraph [ref=e339]: © 2024 Zapatillas. Todos los derechos reservados.
+          - generic [ref=e340]:
+            - link "Privacidad" [ref=e341] [cursor=pointer]:
+              - /url: /privacidad
+            - link "Términos" [ref=e342] [cursor=pointer]:
+              - /url: /terminos
+            - link "Cookies" [ref=e343] [cursor=pointer]:
+              - /url: /cookies
+  - button "Open Next.js Dev Tools" [ref=e349] [cursor=pointer]:
+    - img [ref=e350]
+  - alert [ref=e354]
+```

@@ -11,6 +11,7 @@ export interface Product {
   sizes: string[];
   colors: string[];
   category: string;
+  gender?: "hombre" | "mujer" | "ninos" | "unisex";
   inStock: boolean;
   stock: Record<string, number>; // size -> quantity
   materials?: string[];
@@ -37,6 +38,7 @@ export const sampleProducts: Product[] = [
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
     colors: ["Natural", "Blanco", "Gris"],
     category: "running",
+    gender: "unisex",
     inStock: true,
     stock: {
       "38": 5,
@@ -67,6 +69,7 @@ export const sampleProducts: Product[] = [
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
     colors: ["Verde", "Beige", "Negro"],
     category: "casual",
+    gender: "mujer",
     inStock: true,
     stock: {
       "38": 3,
@@ -97,6 +100,7 @@ export const sampleProducts: Product[] = [
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
     colors: ["Gris", "Azul", "Verde"],
     category: "casual",
+    gender: "mujer",
     inStock: true,
     stock: {
       "38": 4,
@@ -123,6 +127,7 @@ export const sampleProducts: Product[] = [
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
     colors: ["Negro", "Blanco", "Azul"],
     category: "running",
+    gender: "hombre",
     inStock: true,
     stock: { "38": 6, "39": 9, "40": 12, "41": 15, "42": 11, "43": 8, "44": 4 },
     materials: ["Eucalipto", "Caucho natural", "Tela reciclada"],
@@ -140,6 +145,7 @@ export const sampleProducts: Product[] = [
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
     colors: ["Blanco", "Rosa", "Amarillo"],
     category: "casual",
+    gender: "mujer",
     inStock: true,
     stock: { "38": 3, "39": 5, "40": 8, "41": 10, "42": 7, "43": 4, "44": 2 },
     materials: ["Eucalipto", "Caucho natural", "Tela reciclada"],
@@ -157,6 +163,7 @@ export const sampleProducts: Product[] = [
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
     colors: ["Negro", "Gris", "Verde"],
     category: "running",
+    gender: "hombre",
     inStock: true,
     stock: { "38": 5, "39": 8, "40": 11, "41": 14, "42": 10, "43": 6, "44": 3 },
     materials: ["Eucalipto", "Caucho natural", "Tela impermeable"],
@@ -174,6 +181,7 @@ export const sampleProducts: Product[] = [
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
     colors: ["Azul", "Negro", "Blanco"],
     category: "running",
+    gender: "hombre",
     inStock: true,
     stock: { "38": 2, "39": 4, "40": 6, "41": 8, "42": 5, "43": 3, "44": 1 },
     materials: ["Eucalipto", "Caucho natural", "Tela reciclada"],
@@ -191,6 +199,7 @@ export const sampleProducts: Product[] = [
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
     colors: ["Gris", "Negro", "Azul"],
     category: "casual",
+    gender: "mujer",
     inStock: true,
     stock: { "38": 4, "39": 6, "40": 9, "41": 12, "42": 8, "43": 5, "44": 2 },
     materials: ["Lana merino", "Caucho natural", "Tela impermeable"],
@@ -209,6 +218,7 @@ export const sampleProducts: Product[] = [
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
     colors: ["Verde", "Gris", "Negro"],
     category: "casual",
+    gender: "unisex",
     inStock: true,
     stock: { "38": 6, "39": 9, "40": 12, "41": 15, "42": 11, "43": 7, "44": 4 },
     materials: ["Eucalipto", "Caucho natural", "Tela impermeable"],
@@ -227,6 +237,7 @@ export const sampleProducts: Product[] = [
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
     colors: ["Negro", "Azul", "Verde"],
     category: "running",
+    gender: "hombre",
     inStock: true,
     stock: { "38": 1, "39": 3, "40": 5, "41": 7, "42": 4, "43": 2, "44": 1 },
     materials: ["Eucalipto", "Caucho natural", "Tela impermeable"],

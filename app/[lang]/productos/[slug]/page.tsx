@@ -7,11 +7,11 @@ import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/lib/cart/store";
 import { useI18n } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n-server";
 import { getProductBySlug, sampleProducts } from "@/lib/products/sample";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { use, useState } from "react";
-import type { Locale } from "@/lib/i18n-server";
 
 interface ProductPageParams {
   lang: Locale;
@@ -128,8 +128,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                       onClick={() => setSelectedImage(index)}
                       className={`aspect-square overflow-hidden rounded-md border-2 transition-all ${
                         selectedImage === index
-                          ? "border-[var(--brand-500)]"
-                          : "border-[var(--brand-200)] hover:border-[var(--brand-300)]"
+                          ? "border-(--brand-500)"
+                          : "border-(--brand-200) hover:border-(--brand-300)"
                       }`}
                     >
                       <Image
@@ -155,9 +155,9 @@ export default function ProductPage({ params }: ProductPageProps) {
                     variant={badge === "nuevo" ? "default" : "secondary"}
                     className={`${
                       badge === "nuevo"
-                        ? "bg-[var(--brand-500)] text-white"
+                        ? "bg-(--brand-500) text-white"
                         : badge === "más vendido"
-                        ? "bg-[var(--brand-100)] text-[var(--brand-700)]"
+                        ? "bg-(--brand-100) text-(--brand-700)"
                         : "bg-green-100 text-green-700"
                     }`}
                   >
@@ -167,18 +167,16 @@ export default function ProductPage({ params }: ProductPageProps) {
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl font-bold text-[var(--fg)]">
-                {product.name}
-              </h1>
+              <h1 className="text-3xl font-bold text-(--fg)">{product.name}</h1>
 
               {/* Price */}
               <div className="flex items-center space-x-4">
-                <span className="text-3xl font-bold text-[var(--fg)]">
+                <span className="text-3xl font-bold text-(--fg)">
                   {formatPrice(product.price)}
                 </span>
                 {product.originalPrice && (
                   <>
-                    <span className="text-xl text-[var(--muted)] line-through">
+                    <span className="text-xl text-(--muted) line-through">
                       {formatPrice(product.originalPrice)}
                     </span>
                     <Badge variant="destructive">
@@ -193,15 +191,13 @@ export default function ProductPage({ params }: ProductPageProps) {
               </div>
 
               {/* Description */}
-              <p className="text-lg text-[var(--muted)]">
-                {product.description}
-              </p>
+              <p className="text-lg text-(--muted)">{product.description}</p>
 
               <Separator />
 
               {/* Colors */}
               <div className="space-y-3">
-                <h3 className="text-lg font-semibold text-[var(--fg)]">
+                <h3 className="text-lg font-semibold text-(--fg)">
                   {t("products.colors")}
                 </h3>
                 <div className="flex flex-wrap gap-3">
@@ -211,15 +207,15 @@ export default function ProductPage({ params }: ProductPageProps) {
                       onClick={() => setSelectedColor(color)}
                       className={`flex items-center space-x-2 rounded-lg border p-3 transition-colors ${
                         selectedColor === color
-                          ? "border-[var(--brand-500)] bg-[var(--brand-50)]"
-                          : "border-[var(--brand-200)] hover:border-[var(--brand-400)]"
+                          ? "border-(--brand-500) bg-(--brand-50)"
+                          : "border-(--brand-200) hover:border-(--brand-400)"
                       }`}
                     >
                       <div
-                        className="h-6 w-6 rounded-full border border-[var(--brand-200)]"
+                        className="h-6 w-6 rounded-full border border-(--brand-200)"
                         style={{ backgroundColor: getColorValue(color) }}
                       />
-                      <span className="text-sm font-medium text-[var(--fg)]">
+                      <span className="text-sm font-medium text-(--fg)">
                         {color}
                       </span>
                     </button>
@@ -229,7 +225,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
               {/* Sizes */}
               <div className="space-y-3">
-                <h3 className="text-lg font-semibold text-[var(--fg)]">
+                <h3 className="text-lg font-semibold text-(--fg)">
                   {t("products.sizes")}
                 </h3>
                 <div className="grid grid-cols-4 gap-2">
@@ -245,15 +241,15 @@ export default function ProductPage({ params }: ProductPageProps) {
                         disabled={isOutOfStock}
                         className={`rounded-md border py-2 text-center text-sm font-medium transition-colors ${
                           isSelected
-                            ? "border-[var(--brand-500)] bg-[var(--brand-500)] text-white"
+                            ? "border-(--brand-500) bg-(--brand-500) text-white"
                             : isOutOfStock
-                            ? "border-[var(--brand-200)] bg-[var(--brand-100)] text-[var(--muted)] cursor-not-allowed"
-                            : "border-[var(--brand-200)] text-[var(--fg)] hover:border-[var(--brand-400)] hover:bg-[var(--brand-50)]"
+                            ? "border-(--brand-200) bg-(--brand-100) text-(--muted) cursor-not-allowed"
+                            : "border-(--brand-200) text-(--fg) hover:border-(--brand-400) hover:bg-(--brand-50)"
                         }`}
                       >
                         {size}
                         {isOutOfStock && (
-                          <div className="text-xs text-[var(--muted)]">
+                          <div className="text-xs text-(--muted)">
                             {t("products.outOfStock")}
                           </div>
                         )}
@@ -262,7 +258,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                   })}
                 </div>
                 {selectedSize && (
-                  <p className="text-sm text-[var(--muted)]">
+                  <p className="text-sm text-(--muted)">
                     {t("products.stockAvailable")}:{" "}
                     {product.stock[selectedSize] || 0} {t("products.units")}
                   </p>
@@ -287,7 +283,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="w-full border-[var(--brand-300)] text-[var(--brand-700)] hover:bg-[var(--brand-100)]"
+                  className="w-full border-(--brand-300) text-(--brand-700) hover:bg-(--brand-100)"
                 >
                   Agregar a Favoritos
                 </Button>
@@ -295,13 +291,13 @@ export default function ProductPage({ params }: ProductPageProps) {
 
               {/* Features */}
               <Card className="p-6">
-                <h3 className="text-lg font-semibold text-[var(--fg)] mb-4">
+                <h3 className="text-lg font-semibold text-(--fg) mb-4">
                   {t("products.features")}
                 </h3>
-                <ul className="space-y-2 text-sm text-[var(--muted)]">
+                <ul className="space-y-2 text-sm text-(--muted)">
                   {product.features?.map((feature, index) => (
                     <li key={index} className="flex items-center space-x-2">
-                      <div className="h-1.5 w-1.5 rounded-full bg-[var(--brand-500)]" />
+                      <div className="h-1.5 w-1.5 rounded-full bg-(--brand-500)" />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -309,10 +305,10 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                 {product.materials && (
                   <div className="mt-4">
-                    <h4 className="text-sm font-semibold text-[var(--fg)] mb-2">
+                    <h4 className="text-sm font-semibold text-(--fg) mb-2">
                       {t("products.materials")}
                     </h4>
-                    <p className="text-sm text-[var(--muted)]">
+                    <p className="text-sm text-(--muted)">
                       {product.materials.join(", ")}
                     </p>
                   </div>
@@ -323,7 +319,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
           {/* Related Products */}
           <div className="mt-16">
-            <h2 className="text-3xl font-bold text-[var(--fg)] mb-8 text-center">
+            <h2 className="text-3xl font-bold text-(--fg) mb-8 text-center">
               {t("products.relatedProducts")}
             </h2>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -349,10 +345,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                         />
                       </div>
                       <div className="p-4">
-                        <h3 className="font-semibold text-[var(--fg)] group-hover:text-[var(--brand-600)] transition-colors">
+                        <h3 className="font-semibold text-(--fg) group-hover:text-(--brand-600) transition-colors">
                           {relatedProduct.name}
                         </h3>
-                        <p className="text-lg font-bold text-[var(--fg)] mt-1">
+                        <p className="text-lg font-bold text-(--fg) mt-1">
                           {formatPrice(relatedProduct.price)}
                         </p>
                       </div>

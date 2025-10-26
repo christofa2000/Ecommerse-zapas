@@ -4,12 +4,11 @@ import Pagination from "@/components/pagination";
 import ProductFilters, { FilterState } from "@/components/product-filters";
 import ProductGrid from "@/components/product-grid";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/seo/jsonld";
-import { ProductGridSkeleton } from "@/components/skeletons";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n-server";
 import { sampleProducts } from "@/lib/products/sample";
 import { use, useMemo, useState } from "react";
-import type { Locale } from "@/lib/i18n-server";
 
 interface ProductsPageParams {
   lang: Locale;
@@ -25,6 +24,7 @@ export default function ProductosPage({ params }: ProductsPageProps) {
 
   const [filters, setFilters] = useState<FilterState>({
     category: "",
+    gender: "",
     color: "",
     size: "",
     sort: "price-asc",
@@ -33,7 +33,6 @@ export default function ProductosPage({ params }: ProductsPageProps) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
-  const [isLoading, setIsLoading] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   // Filter and sort products (useMemo for performance)
@@ -43,6 +42,10 @@ export default function ProductosPage({ params }: ProductsPageProps) {
     // Apply filters
     if (filters.category) {
       filtered = filtered.filter((p) => p.category === filters.category);
+    }
+
+    if (filters.gender) {
+      filtered = filtered.filter((p) => p.gender === filters.gender);
     }
 
     if (filters.color) {
@@ -88,6 +91,7 @@ export default function ProductosPage({ params }: ProductsPageProps) {
   const handleClearFilters = () => {
     const clearedFilters = {
       category: "",
+      gender: "",
       color: "",
       size: "",
       sort: "price-asc",
@@ -179,25 +183,19 @@ export default function ProductosPage({ params }: ProductsPageProps) {
 
             {/* Products Grid */}
             <div className="lg:col-span-3">
-              {isLoading ? (
-                <ProductGridSkeleton count={itemsPerPage} />
-              ) : (
-                <>
-                  <ProductGrid products={paginatedProducts} />
+              <ProductGrid products={paginatedProducts} />
 
-                  {totalPages > 1 && (
-                    <div className="mt-8">
-                      <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={setCurrentPage}
-                        itemsPerPage={itemsPerPage}
-                        totalItems={filteredProducts.length}
-                        onItemsPerPageChange={setItemsPerPage}
-                      />
-                    </div>
-                  )}
-                </>
+              {totalPages > 1 && (
+                <div className="mt-8">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                    itemsPerPage={itemsPerPage}
+                    totalItems={filteredProducts.length}
+                    onItemsPerPageChange={setItemsPerPage}
+                  />
+                </div>
               )}
             </div>
           </div>

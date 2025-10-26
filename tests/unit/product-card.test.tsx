@@ -55,7 +55,9 @@ describe("ProductCard", () => {
 
     const addButton = screen.getByRole("button", { name: /agregar/i });
     expect(addButton).toBeInTheDocument();
-    expect(addButton).toHaveClass("bg-[var(--brand-500)]");
+    expect(addButton.className).toEqual(
+      expect.stringContaining("bg-(--brand-500)")
+    );
   });
 
   it("calls add to cart when button is clicked", () => {

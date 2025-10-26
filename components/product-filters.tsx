@@ -9,6 +9,7 @@ import { useState } from "react";
 
 export interface FilterState {
   category: string;
+  gender?: string;
   color: string;
   size: string;
   sort: string;
@@ -22,6 +23,15 @@ interface ProductFiltersProps {
   isOpen?: boolean;
   onClose?: () => void;
 }
+
+// Move FilterCard outside the component to avoid creating components during render
+const FilterCard = ({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => <Card className={`p-4 ${className}`}>{children}</Card>;
 
 export default function ProductFilters({
   filters,
@@ -51,6 +61,7 @@ export default function ProductFilters({
   const handleClearFilters = () => {
     const clearedFilters = {
       category: "",
+      gender: "",
       color: "",
       size: "",
       sort: "price-asc",
@@ -64,22 +75,14 @@ export default function ProductFilters({
     (value) => value && value !== "price-asc"
   ).length;
 
-  const FilterCard = ({
-    children,
-    className = "",
-  }: {
-    children: React.ReactNode;
-    className?: string;
-  }) => <Card className={`p-4 ${className}`}>{children}</Card>;
-
   return (
     <div className={`space-y-6 ${!isOpen ? "hidden lg:block" : ""}`}>
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-[var(--fg)]">Filtros</h3>
+        <h3 className="text-lg font-semibold text-(--fg)">Filtros</h3>
         {activeFiltersCount > 0 && (
           <Badge
             variant="secondary"
-            className="bg-[var(--brand-100)] text-[var(--brand-700)]"
+            className="bg-(--brand-100) text-(--brand-700)"
           >
             {activeFiltersCount}
           </Badge>
@@ -87,11 +90,56 @@ export default function ProductFilters({
       </div>
 
       <div className="space-y-4">
+        {/* Gender Filter */}
+        <FilterCard>
+          <h4 className="text-sm font-medium text-(--fg) mb-3">Género</h4>
+          <div className="space-y-2">
+            <button
+              className={`chip w-full justify-start ${
+                !localFilters.gender ? "selected" : ""
+              }`}
+              onClick={() => handleFilterChange("gender", "")}
+            >
+              Todos
+            </button>
+            <button
+              className={`chip w-full justify-start ${
+                localFilters.gender === "mujer" ? "selected" : ""
+              }`}
+              onClick={() => handleFilterChange("gender", "mujer")}
+            >
+              Mujer
+            </button>
+            <button
+              className={`chip w-full justify-start ${
+                localFilters.gender === "hombre" ? "selected" : ""
+              }`}
+              onClick={() => handleFilterChange("gender", "hombre")}
+            >
+              Hombre
+            </button>
+            <button
+              className={`chip w-full justify-start ${
+                localFilters.gender === "ninos" ? "selected" : ""
+              }`}
+              onClick={() => handleFilterChange("gender", "ninos")}
+            >
+              Niño
+            </button>
+            <button
+              className={`chip w-full justify-start ${
+                localFilters.gender === "unisex" ? "selected" : ""
+              }`}
+              onClick={() => handleFilterChange("gender", "unisex")}
+            >
+              Unisex
+            </button>
+          </div>
+        </FilterCard>
+
         {/* Category Filter */}
         <FilterCard>
-          <h4 className="text-sm font-medium text-[var(--fg)] mb-3">
-            Categoría
-          </h4>
+          <h4 className="text-sm font-medium text-(--fg) mb-3">Categoría</h4>
           <div className="space-y-2">
             <button
               className={`chip w-full justify-start ${
@@ -117,7 +165,7 @@ export default function ProductFilters({
 
         {/* Color Filter */}
         <FilterCard>
-          <h4 className="text-sm font-medium text-[var(--fg)] mb-3">Color</h4>
+          <h4 className="text-sm font-medium text-(--fg) mb-3">Color</h4>
           <div className="space-y-2">
             <button
               className={`chip w-full justify-start ${
@@ -143,7 +191,7 @@ export default function ProductFilters({
 
         {/* Size Filter */}
         <FilterCard>
-          <h4 className="text-sm font-medium text-[var(--fg)] mb-3">Talla</h4>
+          <h4 className="text-sm font-medium text-(--fg) mb-3">Talla</h4>
           <div className="grid grid-cols-3 gap-2">
             <button
               className={`chip justify-center ${
@@ -169,9 +217,7 @@ export default function ProductFilters({
 
         {/* Sort Filter */}
         <FilterCard>
-          <h4 className="text-sm font-medium text-[var(--fg)] mb-3">
-            Ordenar por
-          </h4>
+          <h4 className="text-sm font-medium text-(--fg) mb-3">Ordenar por</h4>
           <div className="space-y-2">
             <button
               className={`chip w-full justify-start ${
@@ -227,5 +273,3 @@ export default function ProductFilters({
     </div>
   );
 }
-
-

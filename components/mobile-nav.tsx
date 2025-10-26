@@ -1,7 +1,15 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { useCartStore } from "@/lib/cart/store";
 import Link from "next/link";
 import { useState } from "react";
@@ -25,7 +33,7 @@ export default function MobileNav() {
           variant="ghost"
           size="sm"
           className="lg:hidden p-2"
-          aria-label="Abrir menú de navegación"
+          aria-label="Abrir menu de navegacion"
         >
           <svg
             className="h-6 w-6"
@@ -43,39 +51,46 @@ export default function MobileNav() {
         </Button>
       </SheetTrigger>
 
-      <SheetContent side="left" className="w-80">
-        <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-full bg-(--brand-500)" />
-              <span className="text-xl font-bold text-(--fg)">Zapatillas</span>
+      <SheetContent side="left" className="w-80 p-6">
+        <div className="flex h-full flex-col">
+          <SheetHeader className="mb-6 space-y-4 p-0">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="h-8 w-8 rounded-full bg-(--brand-500)" />
+                <span className="text-xl font-bold text-(--fg)">
+                  Zapatillas
+                </span>
+              </div>
+              <SheetClose asChild>
+                <Button variant="ghost" size="sm">
+                  Cerrar
+                </Button>
+              </SheetClose>
             </div>
-            <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)}>
-              ✕
-            </Button>
-          </div>
+            <SheetTitle className="text-left text-lg">Menu principal</SheetTitle>
+            <SheetDescription className="text-left">
+              Explora las secciones destacadas o accede a tu carrito.
+            </SheetDescription>
+          </SheetHeader>
 
-          {/* Navigation */}
           <nav className="flex-1 space-y-4">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block text-lg font-medium text-(--fg) hover:text-(--brand-500) transition-colors"
+                className="block text-lg font-medium text-(--fg) transition-colors hover:text-(--brand-500)"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
 
-          {/* Cart */}
           <div className="border-t pt-4">
             <Link
               href="/carrito"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between p-4 rounded-lg border border-(--brand-200) hover:bg-(--brand-50) transition-colors"
+              className="flex items-center justify-between rounded-lg border border-(--brand-200) p-4 transition-colors hover:bg-(--brand-50)"
             >
               <div className="flex items-center space-x-3">
                 <svg
@@ -94,7 +109,7 @@ export default function MobileNav() {
                 <span className="font-medium text-(--fg)">Carrito</span>
               </div>
               {itemsCount > 0 && (
-                <div className="bg-(--brand-500) text-white text-sm font-bold rounded-full h-6 w-6 flex items-center justify-center">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-(--brand-500) text-sm font-bold text-white">
                   {itemsCount}
                 </div>
               )}
@@ -105,7 +120,6 @@ export default function MobileNav() {
     </Sheet>
   );
 }
-
 
 
 

@@ -1,12 +1,21 @@
 import ConsentBanner from "@/components/consent-banner";
-import { getCanonicalUrl, getDictionary, locales } from "@/lib/i18n-server";
+import {
+  getCanonicalUrl,
+  getDictionary,
+  locales,
+  type Locale,
+} from "@/lib/i18n-server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "../globals.css";
 
+interface RootLayoutParams {
+  lang: Locale;
+}
+
 interface RootLayoutProps {
   children: React.ReactNode;
-  params: any;
+  params: Promise<RootLayoutParams>;
 }
 
 export async function generateStaticParams() {
@@ -18,12 +27,12 @@ export async function generateMetadata({
 }: RootLayoutProps): Promise<Metadata> {
   const { lang } = await params;
 
-  if (!locales.includes(lang as any)) {
+  if (!locales.includes(lang)) {
     notFound();
   }
 
-  const dict = await getDictionary(lang as any);
-  const seo = dict.seo as any;
+  const dict = await getDictionary(lang);
+  const seo = dict.seo as Record<string, string>;
 
   return {
     title: {
@@ -35,7 +44,7 @@ export async function generateMetadata({
       process.env.NEXT_PUBLIC_BASE_URL || "https://zapatillas.com"
     ),
     alternates: {
-      canonical: getCanonicalUrl("/", lang as any),
+      canonical: getCanonicalUrl("/", lang),
       languages: {
         "es-ES": "/es",
         "en-US": "/en",
@@ -44,7 +53,7 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       locale: lang === "es" ? "es_ES" : "en_US",
-      url: getCanonicalUrl("/", lang as any),
+      url: getCanonicalUrl("/", lang),
       title: seo.homeTitle,
       description: seo.homeDescription,
       siteName: "Zapatillas",
@@ -86,11 +95,12 @@ export default async function RootLayout({
 }: RootLayoutProps) {
   const { lang } = await params;
 
-  if (!locales.includes(lang as any)) {
+  if (!locales.includes(lang)) {
     notFound();
   }
 
-  const dict = await getDictionary(lang as any);
+  // dict no se usa actualmente pero podría ser necesario para componentes del layout
+  await getDictionary(lang);
 
   return (
     <html lang={lang} suppressHydrationWarning>

@@ -1,18 +1,19 @@
+import CategoryGrid from "@/components/category-grid";
 import Hero from "@/components/hero";
 import ProductGrid from "@/components/product-grid";
 import { OrganizationJsonLd } from "@/components/seo/jsonld";
-import { getDictionary } from "@/lib/i18n-server";
+import { getDictionary, type Locale } from "@/lib/i18n-server";
 import { sampleProducts } from "@/lib/products/sample";
 
 interface HomePageProps {
   params: Promise<{
-    lang: string;
+    lang: Locale;
   }>;
 }
 
 export default async function HomePage({ params }: HomePageProps) {
   const { lang } = await params;
-  const dict = await getDictionary(lang as any);
+  const dict = await getDictionary(lang);
 
   // Get featured products (first 8 products)
   const featuredProducts = sampleProducts.slice(0, 8);
@@ -36,15 +37,18 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* Hero Section */}
         <Hero />
 
+        {/* Category Grid */}
+        <CategoryGrid />
+
         {/* Featured Products */}
         <section className="py-16 bg-(--brand-50)">
           <div className="container-soft">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-(--fg) mb-4">
-                {(dict.home as any).featured}
+                {(dict.home as Record<string, string>).featured}
               </h2>
               <p className="text-lg text-(--muted) max-w-2xl mx-auto">
-                {(dict.home as any).subtitle}
+                {(dict.home as Record<string, string>).subtitle}
               </p>
             </div>
             <ProductGrid products={featuredProducts} />
@@ -57,7 +61,7 @@ export default async function HomePage({ params }: HomePageProps) {
             <div className="container-soft">
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold text-(--fg) mb-4">
-                  {(dict.home as any).newArrivals}
+                  {(dict.home as Record<string, string>).newArrivals}
                 </h2>
                 <p className="text-lg text-(--muted) max-w-2xl mx-auto">
                   Descubre las últimas incorporaciones a nuestra colección
@@ -74,7 +78,7 @@ export default async function HomePage({ params }: HomePageProps) {
             <div className="container-soft">
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold text-(--fg) mb-4">
-                  {(dict.home as any).bestSellers}
+                  {(dict.home as Record<string, string>).bestSellers}
                 </h2>
                 <p className="text-lg text-(--muted) max-w-2xl mx-auto">
                   Los productos más populares de nuestra comunidad
