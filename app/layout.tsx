@@ -1,8 +1,10 @@
 import ConsentBanner from "@/components/consent-banner";
 import Footer from "@/components/footer";
-import Header from "@/components/header";
+import MiniCart from "@/components/mini-cart";
+import { Button } from "@/components/ui/button";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const inter = Inter({
@@ -81,7 +83,34 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <div className="flex min-h-screen flex-col">
-          <Header />
+          {/* Floating Home Button */}
+          <Link href="/es" className="fixed top-4 left-4 z-50">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="relative h-12 w-12 rounded-full shadow-lg hover:shadow-xl transition-shadow bg-white hover:bg-(--brand-50) text-(--fg)"
+            >
+              <svg
+                className="h-6 w-6 text-(--fg)"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
+            </Button>
+          </Link>
+
+          {/* Floating Cart Button */}
+          <div className="fixed top-4 right-4 z-50">
+            <MiniCart />
+          </div>
+
           <main className="flex-1">{children}</main>
           <Footer />
           <ConsentBanner />
