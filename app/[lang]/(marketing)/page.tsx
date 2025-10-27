@@ -7,12 +7,13 @@ import { sampleProducts } from "@/lib/products/sample";
 
 interface HomePageProps {
   params: Promise<{
-    lang: Locale;
+    lang: string;
   }>;
 }
 
 export default async function HomePage({ params }: HomePageProps) {
-  const { lang } = await params;
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang as Locale;
   const dict = await getDictionary(lang);
 
   // Get featured products (first 8 products)
@@ -38,7 +39,7 @@ export default async function HomePage({ params }: HomePageProps) {
         <Hero />
 
         {/* Category Grid */}
-        <CategoryGrid />
+        <CategoryGrid lang={lang} />
 
         {/* Featured Products */}
         <section className="py-16 bg-(--brand-50)">

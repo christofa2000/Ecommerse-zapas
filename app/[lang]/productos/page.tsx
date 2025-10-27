@@ -11,7 +11,7 @@ import { sampleProducts } from "@/lib/products/sample";
 import { use, useMemo, useState } from "react";
 
 interface ProductsPageParams {
-  lang: Locale;
+  lang: string;
 }
 
 interface ProductsPageProps {
@@ -19,7 +19,8 @@ interface ProductsPageProps {
 }
 
 export default function ProductosPage({ params }: ProductsPageProps) {
-  const { lang } = use(params);
+  const resolvedParams = use(params);
+  const lang = resolvedParams.lang as Locale;
   const { t } = useI18n(lang);
 
   const [filters, setFilters] = useState<FilterState>({

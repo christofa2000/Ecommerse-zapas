@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,17 +13,17 @@ interface Category {
 const categories: Category[] = [
   {
     title: "Mujeres",
-    image: "/images/4/mujer.webp",
+    image: "/images/4/mujer.png",
     href: "/productos?categoria=mujer",
   },
   {
     title: "Hombres",
-    image: "/images/4/hombre.jpg",
+    image: "/images/4/hombre.png",
     href: "/productos?categoria=hombre",
   },
   {
     title: "Niños",
-    image: "/images/4/niño2.jpg",
+    image: "/images/4/niño.png",
     href: "/productos?categoria=ninos",
   },
   {
@@ -34,6 +34,65 @@ const categories: Category[] = [
 ];
 
 export default function CategoryGrid() {
+  const reduce = useReducedMotion();
+
+  // Duraciones (más lentas). Si el usuario prefiere menos animación, casi instantáneo.
+  const D = reduce ? 0.01 : 1.2; // card + zoom
+  const D_FAST = reduce ? 0.01 : 0.9; // overlay + título
+  const D_SHINE = reduce ? 0.01 : 1.8; // brillo
+
+  const cardVariants: Variants = {
+    rest: {
+      borderRadius: "1.5rem",
+      boxShadow: "0 4px 6px rgba(0,0,0,0.10)",
+    },
+    hover: {
+      // Más pronunciado (pero sin llegar a píldora)
+      borderRadius: "3.5rem",
+      boxShadow: "0 28px 56px rgba(0,0,0,0.22)",
+      transition: {
+        type: "spring",
+        stiffness: 60, // menor stiffness => movimiento más suave
+        damping: 20,
+        duration: D,
+      },
+    },
+  };
+
+  const imageVariants: Variants = {
+    rest: { scale: 1, rotateY: 0 },
+    hover: {
+      scale: 1.04,
+      rotateY: 1.5,
+      transition: { duration: D, ease: "easeInOut" },
+    },
+  };
+
+  const overlayVariants: Variants = {
+    rest: { opacity: 0 },
+    hover: {
+      opacity: 1,
+      transition: { duration: D_FAST, ease: "easeInOut", delay: 0.05 },
+    },
+  };
+
+  const shineVariants: Variants = {
+    rest: { x: "-120%" },
+    hover: {
+      x: "220%",
+      transition: { duration: D_SHINE, ease: "easeInOut" },
+    },
+  };
+
+  const titleVariants: Variants = {
+    rest: { scale: 0.9, opacity: 0.75 },
+    hover: {
+      scale: 1,
+      opacity: 1,
+      transition: { duration: D_FAST, ease: "easeOut", delay: 0.12 },
+    },
+  };
+
   return (
     <section className="w-full bg-(--brand-50) py-16">
       <div className="container-soft">
@@ -42,108 +101,52 @@ export default function CategoryGrid() {
             <Link
               key={category.title}
               href={category.href}
-              className="focus-ring"
+              className="block outline-none"
             >
               <motion.div
                 whileHover="hover"
                 initial="rest"
                 animate="rest"
-                className="relative overflow-hidden rounded-3xl shadow-(--shadow-card) group cursor-pointer"
+                className="relative h-[420px] overflow-hidden shadow-(--shadow-card) group cursor-pointer"
+                variants={cardVariants}
               >
+                {/* Image with smooth zoom */}
                 <motion.div
-                  variants={{
-                    rest: {
-                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                      y: 0,
-                      scale: 1,
-                    },
-                    hover: {
-                      boxShadow: "0 20px 40px rgba(0, 0, 0, 0.15)",
-                      y: -8,
-                      scale: 1.02,
-                      transition: {
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20,
-                      },
-                    },
-                  }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="relative h-full"
+                  variants={imageVariants}
+                  className="absolute inset-0"
+                  style={{ willChange: "transform" }}
                 >
-                  {/* Image with zoom effect */}
-                  <div className="relative h-[420px] overflow-hidden">
-                    <motion.div
-                      variants={{
-                        rest: { scale: 1, rotateY: 0 },
-                        hover: {
-                          scale: 1.1,
-                          rotateY: 2,
-                          transition: {
-                            duration: 0.5,
-                            ease: "easeOut",
-                          },
-                        },
-                      }}
-                      className="h-full w-full"
-                    >
-                      <Image
-                        src={category.image}
-                        alt={category.title}
-                        width={600}
-                        height={420}
-                        className="h-full w-full object-cover"
-                      />
-                    </motion.div>
-
-                    {/* Gradient overlay */}
-                    <motion.div
-                      variants={{
-                        rest: { opacity: 0 },
-                        hover: {
-                          opacity: 1,
-                          transition: { duration: 0.3 },
-                        },
-                      }}
-                      className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent"
-                    />
-
-                    {/* Shine effect */}
-                    <motion.div
-                      variants={{
-                        rest: { x: "-100%" },
-                        hover: {
-                          x: "200%",
-                          transition: {
-                            duration: 0.6,
-                            ease: "easeInOut",
-                          },
-                        },
-                      }}
-                      className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-12"
-                    />
-                  </div>
-
-                  {/* Title with slide up effect */}
-                  <div className="absolute inset-x-0 bottom-0 p-6">
-                    <motion.span
-                      variants={{
-                        rest: { y: 20, opacity: 0.7 },
-                        hover: {
-                          y: 0,
-                          opacity: 1,
-                          transition: {
-                            duration: 0.3,
-                            delay: 0.1,
-                          },
-                        },
-                      }}
-                      className="block text-white text-lg font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
-                    >
-                      {category.title.toUpperCase()}
-                    </motion.span>
-                  </div>
+                  <Image
+                    src={category.image}
+                    alt={category.title}
+                    width={600}
+                    height={420}
+                    className="h-full w-full object-cover"
+                    priority={false}
+                  />
                 </motion.div>
+
+                {/* Gradient overlay */}
+                <motion.div
+                  variants={overlayVariants}
+                  className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent"
+                />
+
+                {/* Shine effect */}
+                <motion.div
+                  variants={shineVariants}
+                  className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-12"
+                />
+
+                {/* Title centered */}
+                <div className="absolute inset-0 z-10 flex items-center justify-center">
+                  <motion.span
+                    variants={titleVariants}
+                    className="text-white text-xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+                  >
+                    {category.title.toUpperCase()}
+                  </motion.span>
+                </div>
               </motion.div>
             </Link>
           ))}

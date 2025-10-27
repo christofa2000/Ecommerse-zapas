@@ -1,8 +1,13 @@
-import { getCanonicalUrl, getDictionary, type Locale } from "@/lib/i18n-server";
+import {
+  getCanonicalUrl,
+  getDictionary,
+  locales,
+  type Locale,
+} from "@/lib/i18n-server";
 import type { Metadata } from "next";
 
 interface CartLayoutParams {
-  lang: Locale;
+  lang: string;
 }
 
 interface CartLayoutProps {
@@ -10,10 +15,15 @@ interface CartLayoutProps {
   params: Promise<CartLayoutParams>;
 }
 
+export async function generateStaticParams() {
+  return locales.map((locale) => ({ lang: locale }));
+}
+
 export async function generateMetadata({
   params,
 }: CartLayoutProps): Promise<Metadata> {
-  const { lang } = await params;
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang as Locale;
   const dict = await getDictionary(lang);
   const seo = dict.seo as Record<string, string>;
 

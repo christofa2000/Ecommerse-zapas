@@ -14,7 +14,7 @@ import { notFound } from "next/navigation";
 import { use, useState } from "react";
 
 interface ProductPageParams {
-  lang: Locale;
+  lang: string;
   slug: string;
 }
 
@@ -23,7 +23,9 @@ interface ProductPageProps {
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const { lang, slug } = use(params);
+  const resolvedParams = use(params);
+  const lang = resolvedParams.lang as Locale;
+  const slug = resolvedParams.slug;
   const { t } = useI18n(lang);
 
   const product = getProductBySlug(slug);

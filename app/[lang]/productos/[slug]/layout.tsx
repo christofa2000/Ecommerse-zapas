@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 interface ProductLayoutParams {
-  lang: Locale;
+  lang: string;
   slug: string;
 }
 
@@ -16,7 +16,9 @@ interface ProductLayoutProps {
 export async function generateMetadata({
   params,
 }: ProductLayoutProps): Promise<Metadata> {
-  const { lang, slug } = await params;
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang as Locale;
+  const slug = resolvedParams.slug;
   const product = getProductBySlug(slug);
 
   if (!product) {
@@ -68,7 +70,8 @@ export default async function ProductLayout({
   children,
   params,
 }: ProductLayoutProps) {
-  const { slug } = await params;
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
   const product = getProductBySlug(slug);
 
   if (!product) {

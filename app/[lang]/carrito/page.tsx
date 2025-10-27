@@ -5,13 +5,13 @@ import CartSummary from "@/components/cart-summary";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/lib/cart/store";
 import { useI18n } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n-server";
 import { ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
-import type { Locale } from "@/lib/i18n-server";
 
 interface CartPageParams {
-  lang: Locale;
+  lang: string;
 }
 
 interface CartPageProps {
@@ -19,7 +19,8 @@ interface CartPageProps {
 }
 
 export default function CarritoPage({ params }: CartPageProps) {
-  const { lang } = use(params);
+  const resolvedParams = use(params);
+  const lang = resolvedParams.lang as Locale;
   const { t } = useI18n(lang);
 
   const { items, increment, decrement, remove, getSubtotal } = useCartStore();

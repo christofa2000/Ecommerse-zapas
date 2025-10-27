@@ -10,7 +10,7 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 
 interface RootLayoutParams {
-  lang: Locale;
+  lang: string;
 }
 
 interface RootLayoutProps {
@@ -25,7 +25,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: RootLayoutProps): Promise<Metadata> {
-  const { lang } = await params;
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang as Locale;
 
   if (!locales.includes(lang)) {
     notFound();
@@ -93,7 +94,8 @@ export default async function RootLayout({
   children,
   params,
 }: RootLayoutProps) {
-  const { lang } = await params;
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang as Locale;
 
   if (!locales.includes(lang)) {
     notFound();
