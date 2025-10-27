@@ -7,11 +7,17 @@ import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/lib/cart/store";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function MiniCart() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { items, getSubtotal, getItemsCount, remove } = useCartStore();
+
+  // Necessary to prevent hydration mismatch in Next.js
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-AR", {
@@ -22,7 +28,7 @@ export default function MiniCart() {
   };
 
   const subtotal = getSubtotal();
-  const itemsCount = getItemsCount();
+  const itemsCount = mounted ? getItemsCount() : 0;
   const productsLabel = itemsCount === 1 ? "producto" : "productos";
 
   return (
@@ -47,7 +53,7 @@ export default function MiniCart() {
             d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0L17 18m0 0l2.5-5M17 18l-2.5-5"
           />
         </svg>
-        {itemsCount > 0 && (
+        {mounted && itemsCount > 0 && (
           <Badge
             variant="destructive"
             className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"

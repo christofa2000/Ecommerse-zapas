@@ -1,4 +1,3 @@
-// app/proxy.ts
 import { defaultLocale, locales } from "@/lib/i18n-server";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
@@ -24,7 +23,7 @@ function getLocale(request: NextRequest): string {
   return defaultLocale;
 }
 
-export default function proxy(req: NextRequest) {
+export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (

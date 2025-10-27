@@ -1,4 +1,3 @@
-import ConsentBanner from "@/components/consent-banner";
 import {
   getCanonicalUrl,
   getDictionary,
@@ -104,33 +103,5 @@ export default async function RootLayout({
   // dict no se usa actualmente pero podría ser necesario para componentes del layout
   await getDictionary(lang);
 
-  return (
-    <html lang={lang} suppressHydrationWarning>
-      <head>
-        {/* Preload critical resources */}
-        <link
-          rel="preload"
-          href="/images/hero-main.jpg"
-          as="image"
-          type="image/jpeg"
-        />
-        <link
-          rel="preload"
-          href="/fonts/inter-var.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        {/* DNS prefetch for external resources */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
-      </head>
-      <body className="min-h-screen bg-(--bg) text-(--fg) antialiased">
-        <div className="relative flex min-h-screen flex-col">
-          <main className="flex-1">{children}</main>
-          <ConsentBanner />
-        </div>
-      </body>
-    </html>
-  );
+  return <>{children}</>;
 }

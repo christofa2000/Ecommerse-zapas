@@ -1,3 +1,4 @@
+import ConsentBanner from "@/components/consent-banner";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import type { Metadata, Viewport } from "next";
@@ -76,12 +77,14 @@ export default function RootLayout({
   return (
     <html lang="es" className={inter.variable} suppressHydrationWarning>
       <body
-        className={`${inter.className} min-h-screen bg-(--bg) text-(--fg) antialiased`}
+        className="min-h-screen bg-(--bg) text-(--fg) antialiased"
+        suppressHydrationWarning
       >
         <div className="flex min-h-screen flex-col">
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <ConsentBanner />
         </div>
       </body>
     </html>
