@@ -80,9 +80,9 @@ export default async function PublicidadPage({ params }: PublicidadPageProps) {
   const dict = await getDictionary(lang);
 
   return (
-    <div className="min-h-screen bg-(--bg)">
+    <div className="min-h-screen bg-(--brand-100)">
       {/* Header */}
-      <div className="bg-linear-to-r from-brand-600 to-brand-700 text-white py-16">
+      <div className="bg-linear-to-r from-brand-600 to-brand-700 text-black py-16">
         <div className="container-soft">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Promociones de la Semana
