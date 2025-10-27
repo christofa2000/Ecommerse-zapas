@@ -50,7 +50,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     >
       <Card className="overflow-hidden bg-white transition-shadow duration-300 group-hover:shadow-lg">
         <Link href={`/productos/${product.slug}`}>
-          <div className="relative aspect-square overflow-hidden">
+          <div className="relative aspect-square overflow-hidden bg-white">
             <Image
               src={product.image}
               alt={product.name}
@@ -69,8 +69,8 @@ export default function ProductCard({ product }: ProductCardProps) {
                     badge === "nuevo"
                       ? "bg-(--brand-500) text-white"
                       : badge === "más vendido"
-                      ? "bg-(--brand-100) text-(--brand-700)"
-                      : "bg-green-100 text-green-700"
+                        ? "bg-(--brand-100) text-(--brand-700)"
+                        : "bg-green-100 text-green-700"
                   }`}
                 >
                   {badge}

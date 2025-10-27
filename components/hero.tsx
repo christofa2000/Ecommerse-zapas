@@ -87,11 +87,11 @@ export default function Hero() {
           >
             <div className="aspect-square overflow-hidden rounded-(--radius) bg-(--brand-50)">
               <Image
-                src="/images/zapas-blancas.png"
+                src="/images/zapas-blancas4.png"
                 alt="Zapatillas sostenibles - Colección principal"
                 width={600}
                 height={600}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover object-bottom"
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
