@@ -12,7 +12,7 @@ export default function HomePage() {
       <Hero />
 
       {/* Category Grid */}
-      <CategoryGrid lang="es" />
+      <CategoryGrid />
 
       <div className="container-soft">
         <ProductGrid

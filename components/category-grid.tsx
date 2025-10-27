@@ -43,7 +43,7 @@ export default function CategoryGrid() {
 
   const cardVariants: Variants = {
     rest: {
-      borderRadius: "1.5rem",
+      borderRadius: "2.5rem",
       boxShadow: "0 4px 6px rgba(0,0,0,0.10)",
     },
     hover: {

@@ -39,7 +39,7 @@ export default async function HomePage({ params }: HomePageProps) {
         <Hero />
 
         {/* Category Grid */}
-        <CategoryGrid lang={lang} />
+        <CategoryGrid />
 
         {/* Featured Products */}
         <section className="py-16 bg-(--brand-50)">
