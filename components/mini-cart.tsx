@@ -7,15 +7,17 @@ import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/lib/cart/store";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export default function MiniCart() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { items, getSubtotal, getItemsCount, remove } = useCartStore();
 
-  // Evitar mismatch de hidratación
-  useEffect(() => {
+  // Evitar mismatch de hidratación (Zustand con persist causa diferencias servidor/cliente)
+  // Nota: Este setState en useLayoutEffect es intencional para evitar errores de hidratación
+  // cuando el estado viene de localStorage (client-side only)
+  useLayoutEffect(() => {
     setMounted(true);
   }, []);
 
@@ -146,7 +148,7 @@ export default function MiniCart() {
                     <div className="space-y-2">
                       <Button
                         asChild
-                        className="w-full bg-white text-(--brand-700) hover:bg-(--brand-100)"
+                        className="w-full bg-white! hover:bg-(--brand-100)! text-(--brand-700)!"
                         onClick={() => setIsOpen(false)}
                       >
                         <Link href="/carrito">Ver Carrito</Link>
