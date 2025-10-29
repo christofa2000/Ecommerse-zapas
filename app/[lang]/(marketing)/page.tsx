@@ -16,18 +16,13 @@ export default async function HomePage({ params }: HomePageProps) {
   const lang = resolvedParams.lang as Locale;
   const dict = await getDictionary(lang);
 
-  // Get featured products (first 8 products)
-  const featuredProducts = sampleProducts.slice(0, 8);
+  // Get featured products (first 4 products)
+  const featuredProducts = sampleProducts.slice(0, 4);
 
-  // Get new arrivals (products with "nuevo" badge)
-  const newArrivals = sampleProducts
-    .filter((p) => p.badges.includes("nuevo"))
-    .slice(0, 4);
-
-  // Get best sellers (products with "más vendido" badge)
-  const bestSellers = sampleProducts
-    .filter((p) => p.badges.includes("más vendido"))
-    .slice(0, 4);
+  // Get new arrivals (specific products: rosa, violeta, amarillo, hombre5)
+  const newArrivals = sampleProducts.filter((p) =>
+    ["14", "15", "16", "11"].includes(p.id)
+  );
 
   return (
     <>
@@ -49,7 +44,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 {(dict.home as Record<string, string>).featured}
               </h2>
               <p className="text-lg text-(--muted) max-w-2xl mx-auto">
-                {(dict.home as Record<string, string>).subtitle}
+                Cómodas, elegantes y respetuosas con el planeta
               </p>
             </div>
             <ProductGrid products={featuredProducts} />
@@ -64,28 +59,8 @@ export default async function HomePage({ params }: HomePageProps) {
                 <h2 className="text-3xl font-bold text-(--fg) mb-4">
                   {(dict.home as Record<string, string>).newArrivals}
                 </h2>
-                <p className="text-lg text-(--muted) max-w-2xl mx-auto">
-                  Descubre las últimas incorporaciones a nuestra colección
-                </p>
               </div>
               <ProductGrid products={newArrivals} />
-            </div>
-          </section>
-        )}
-
-        {/* Best Sellers */}
-        {bestSellers.length > 0 && (
-          <section className="py-16 bg-(--brand-50)">
-            <div className="container-soft">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-(--fg) mb-4">
-                  {(dict.home as Record<string, string>).bestSellers}
-                </h2>
-                <p className="text-lg text-(--muted) max-w-2xl mx-auto">
-                  Los productos más populares de nuestra comunidad
-                </p>
-              </div>
-              <ProductGrid products={bestSellers} />
             </div>
           </section>
         )}

@@ -36,9 +36,8 @@ export async function getDictionary(locale: Locale): Promise<Dictionary> {
       },
       // Products
       products: {
-        title: "Todas las Zapatillas",
-        subtitle:
-          "Explora nuestra colección completa de zapatillas sostenibles y cómodas",
+        title: "",
+        subtitle: "",
         filters: "Filtros",
         sortBy: "Ordenar por",
         priceAsc: "Precio: Menor a Mayor",
@@ -57,13 +56,13 @@ export async function getDictionary(locale: Locale): Promise<Dictionary> {
         inStock: "En Stock",
         outOfStock: "Agotado",
         addToCart: "Agregar al Carrito",
-        selectSize: "Selecciona una talla",
+        selectSize: "Seleccione Talle",
         productUnavailable: "Producto agotado",
         stockAvailable: "Stock disponible",
         units: "unidades",
         materials: "Materiales",
         features: "Características",
-        relatedProducts: "Productos Relacionados",
+        relatedProducts: "Productos relacionados",
         colors: "Colores disponibles",
         sizes: "Tallas disponibles",
       },
@@ -225,18 +224,3 @@ export function getCanonicalUrl(path: string, locale: Locale): string {
   const localizedPath = getLocalizedPath(path, locale);
   return `${baseUrl}${localizedPath}`;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

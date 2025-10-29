@@ -58,7 +58,7 @@ export default function CarritoPage({ params }: CartPageProps) {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-(--bg)">
+      <div className="min-h-screen bg-(--brand-50)">
         <div className="container-soft py-16">
           <div className="text-center">
             <div className="mx-auto mb-8 h-24 w-24 rounded-full bg-(--brand-100) flex items-center justify-center">

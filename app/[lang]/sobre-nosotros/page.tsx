@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { getCanonicalUrl, getDictionary, type Locale } from "@/lib/i18n-server";
+import { getCanonicalUrl, type Locale } from "@/lib/i18n-server";
 import type { Metadata } from "next";
 import Image from "next/image";
 
@@ -26,12 +26,9 @@ export async function generateMetadata({
 export default async function SobreNosotros({
   params,
 }: SobreNosotrosPageProps) {
-  const resolvedParams = await params;
-  const lang = resolvedParams.lang as Locale;
-  const dict = await getDictionary(lang);
-
+  await params; // Await params to prevent unused parameter warning
   return (
-    <main className="container-soft section-y">
+    <main className="container-soft section-y bg-(--bg)">
       <section className="mb-16 text-center">
         <h1 className="mb-6 text-4xl font-bold text-(--fg) md:text-5xl lg:text-6xl">
           Nuestra Historia
@@ -97,9 +94,9 @@ export default async function SobreNosotros({
               </h2>
               <p className="mb-4 text-(--muted)">
                 Después de dos años de pruebas, lanzamos nuestra primera
-                colección oficial: "Tierra Pura". Solo 500 pares que se agotaron
-                en menos de un mes. La gente estaba hambrienta de alternativas
-                sostenibles que no comprometieran el estilo.
+                colección oficial: &quot;Tierra Pura&quot;. Solo 500 pares que
+                se agotaron en menos de un mes. La gente estaba hambrienta de
+                alternativas sostenibles que no comprometieran el estilo.
               </p>
               <p className="text-(--muted)">
                 Ese año decidimos comprometernos con ser carbono neutrales. Por

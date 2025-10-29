@@ -115,18 +115,6 @@ export default function ProductosPage({ params }: ProductsPageProps) {
       <BreadcrumbJsonLd items={breadcrumbItems} _locale={lang} />
 
       <div className="min-h-screen bg-(--bg)">
-        {/* Header */}
-        <div className="bg-(--brand-50) section-y">
-          <div className="container-soft">
-            <h1 className="text-4xl font-bold text-(--fg) mb-4">
-              {t("products.title")}
-            </h1>
-            <p className="text-lg text-(--muted) max-w-2xl">
-              {t("products.subtitle")}
-            </p>
-          </div>
-        </div>
-
         {/* Mobile Filter Button */}
         <div className="border-b bg-white lg:hidden">
           <div className="container-soft py-4">

@@ -1,0 +1,57 @@
+# .cursorrules — Proyecto "zapatillas"
+
+# Objetivo: Web estilo Allbirds con Next.js + TS + Tailwind v4 + shadcn/ui + Framer Motion + Jest + Playwright
+
+# Principios clave: tipado estricto, accesibilidad, performance y estilos centralizados.
+
+## Lenguaje y stack
+
+- Usar TypeScript estricto. Prohibido `any` explícito.
+- React + Next.js App Router (TSX con Server/Client Components bien declarados).
+- UI: Tailwind CSS v4 con **toda** la personalización en `app/globals.css`.
+- Componentes: shadcn/ui (radix) para piezas reutilizables. Extender sólo vía clases utilitarias o tokens globales.
+- Animaciones: framer-motion (sin abusar).
+- Estado: preferir props lifting y server actions; usar `zustand` sólo cuando sea realmente necesario.
+- Validación: `zod` para inputs y esquemas.
+
+## Estilos (regla de oro)
+
+- **Prohibido** definir colores, tamaños, tipografías o sombras dentro de componentes.
+- Cualquier cambio de color, spacing, tipografía o radius debe venir de **tokens CSS** en `app/globals.css`.
+- Si falta un token, agrégalo a `:root` en `globals.css` y úsalo con Tailwind utilities (ej.: `text-[var(--fg)]`).
+- Evitar `style={{ ... }}` salvo casos puntuales de optimización o variables dinámicas justificadas.
+
+## Accesibilidad
+
+- Siempre `alt` descriptivo en imágenes, `aria-*` cuando corresponda.
+- Contraste AA mínimo. Validar contenido dinámico con `role`/`aria-live` cuando aplique.
+- Focus visible: usar utilidades `.focus-ring` definidas en `globals.css`.
+
+## Performance
+
+- Imágenes con `next/image`, tamaños y `priority` sólo en hero.
+- Evitar renders innecesarios, memoizar donde aporte.
+- Código dividido por rutas/segmentos; cargar terceros on-demand.
+
+## Testing
+
+- Unit/Integration con Jest + RTL (sin mocks innecesarios).
+- E2E con Playwright: flujos críticos (home, PLP, PDP, cart).
+- Todo bug reproducido debe ir acompañado de test.
+
+## Convenciones
+
+- Alias `@/*` obligatorio.
+- Nombres: componentes `PascalCase`, hooks `use*`, utils `camelCase`.
+- Server/Client: anotar `"use client"` sólo cuando sea imprescindible.
+- No exponer secretos del lado cliente.
+
+## Entregables de diseño
+
+- Tipografías, escala, paleta y sombras están en `globals.css`. Cualquier variante nueva → `:root`.
+- shadcn/ui: sobrescribir con utilidades basadas en tokens, nunca con valores hardcodeados.
+
+## Pull Requests / Commits
+
+- Commits pequeños y descriptivos.
+- No se acepta PR sin tests si afecta UI crítica o lógica.
