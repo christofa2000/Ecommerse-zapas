@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const inter = Inter({
@@ -115,6 +116,7 @@ export default function RootLayout({
           <Footer />
           <ConsentBanner />
         </div>
+        <Toaster position="top-right" expand={false} richColors />
       </body>
     </html>
   );

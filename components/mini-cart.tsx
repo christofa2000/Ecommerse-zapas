@@ -8,6 +8,7 @@ import { useCartStore } from "@/lib/cart/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useLayoutEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function MiniCart() {
   const [isOpen, setIsOpen] = useState(false);
@@ -126,7 +127,10 @@ export default function MiniCart() {
                           variant="ghost"
                           size="sm"
                           className="h-6 w-6 p-0 text-white/80 hover:text-red-300"
-                          onClick={() => remove(item.id, item.size)}
+                          onClick={() => {
+                            remove(item.id, item.size);
+                            toast.success(`${item.name} eliminado del carrito`);
+                          }}
                           aria-label="Eliminar del carrito"
                         >
                           ✕

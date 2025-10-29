@@ -276,3 +276,9 @@ a:hover {
     transform: translateY(0);
   }
 }
+
+/* Sonner Toast Styles */
+[data-sonner-toast] {
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-elevated);
+}

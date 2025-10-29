@@ -12,6 +12,7 @@ import { getProductBySlug, sampleProducts } from "@/lib/products/sample";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { use, useState } from "react";
+import { toast } from "sonner";
 
 interface ProductPageParams {
   lang: string;
@@ -65,12 +66,12 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      alert(t("products.selectSize"));
+      toast.error(t("products.selectSize"));
       return;
     }
 
     if (!product.inStock || (product.stock[selectedSize] || 0) <= 0) {
-      alert(t("products.productUnavailable"));
+      toast.error(t("products.productUnavailable"));
       return;
     }
 
@@ -84,7 +85,9 @@ export default function ProductPage({ params }: ProductPageProps) {
       color: selectedColor || product.colors[0],
     });
 
-    alert("Producto agregado al carrito");
+    toast.success(`¡${product.name} agregado al carrito!`, {
+      description: `Talle ${selectedSize}`,
+    });
   };
 
   const isAddToCartDisabled =

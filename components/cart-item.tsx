@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
+import { toast } from "sonner";
 
 interface CartItemProps {
   id: string;
@@ -79,7 +80,10 @@ export default function CartItem({
               variant="ghost"
               size="sm"
               className="text-(--muted) hover:text-red-600"
-              onClick={() => onRemove(id)}
+              onClick={() => {
+                onRemove(id);
+                toast.success(`${product.name} eliminado del carrito`);
+              }}
             >
               Eliminar
             </Button>
