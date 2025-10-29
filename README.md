@@ -50,7 +50,6 @@ Plataforma de comercio electrónico moderna centrada en zapatillas sostenibles, 
 ### 🎨 Sistema de Diseño
 
 - Tailwind CSS v4 con tokens personalizados
-- Design System inspirado en Allbirds
 - Componentes shadcn/ui basados en Radix Primitives
 - Animaciones fluidas con Framer Motion
 - Soporte para tema claro/oscuro
