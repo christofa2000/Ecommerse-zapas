@@ -1,4 +1,4 @@
-# 👟 Zapatillas - E-Commerce de Zapatillas Sostenibles
+# 👟 Zapatillas - E-Commerce Sostenible
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
@@ -7,26 +7,6 @@
 [![Playwright](https://img.shields.io/badge/Playwright-1.48-45ba4b)](https://playwright.dev/)
 
 Plataforma de comercio electrónico moderna centrada en zapatillas sostenibles, construida con Next.js App Router y un stack tecnológico de última generación orientado a rendimiento, SEO, accesibilidad e internacionalización.
-
----
-
-## 📋 Tabla de Contenidos
-
-- [Características Principales](#-características-principales)
-- [Stack Tecnológico](#-stack-tecnológico)
-- [Arquitectura del Proyecto](#-arquitectura-del-proyecto)
-- [Prerequisitos](#-prerequisitos)
-- [Instalación y Configuración](#-instalación-y-configuración)
-- [Scripts Disponibles](#-scripts-disponibles)
-- [Configuración de Entorno](#-configuración-de-entorno)
-- [Guía de Desarrollo](#-guía-de-desarrollo)
-- [Testing](#-testing)
-- [SEO y Performance](#-seo-y-performance)
-- [Despliegue](#-despliegue)
-- [Estructura de Datos](#-estructura-de-datos)
-- [Contribución](#-contribución)
-- [Roadmap](#-roadmap)
-- [Licencia](#-licencia)
 
 ---
 
@@ -195,9 +175,7 @@ zapatillas/
 │   ├── images/                   # Imágenes de productos y assets
 │   │   ├── [productos].png       # Imágenes de productos
 │   │   └── [productos].jpg       # Imágenes adicionales
-│   ├── favicon.ico
-│满足了 `README.md` 的要求。]
-│   └── commission_form.md        # Documentación de requisitos
+│
 │
 ├── scripts/                      # Scripts de utilidad
 │   └── verify-images.ts          # Validación de imágenes
@@ -307,7 +285,7 @@ npm run dev
 
 El sitio estará disponible en [http://localhost:3000](http://localhost:3000)
 
-El middleware redirigirá automáticamente a `/es/issues` o `/en` según el idioma del navegador.
+El middleware redirigirá automáticamente a `/es` o `/en` según el idioma del navegador.
 
 ---
 
@@ -325,14 +303,6 @@ El middleware redirigirá automáticamente a `/es/issues` o `/en` según el idio
 | `npm run test:e2e`      | Ejecuta tests end-to-end con Playwright               |
 | `npm run test:e2e:ui`   | Abre la UI de Playwright para debugging               |
 | `npm run verify:images` | Verifica que todas las imágenes referenciadas existan |
-
-### Scripts Adicionales (Internos)
-
-- **Generación estática**: Next.js detecta automáticamente qué rutas pueden ser pre-renderizadas
-- **Type safety**: Los tipos se validan durante `npm run build`
-- **Optimización de imágenes**: Automática mediante `next/image`
-
----
 
 ## 🌍 Configuración de Entorno
 
@@ -464,21 +434,6 @@ npm run test -- --coverage
 - **hero.test.tsx**: Renderizado y props del Hero
 - **product-card.test.tsx**: Interacciones y visualización
 
-#### Escribir Nuevos Tests
-
-```typescript
-// tests/unit/mi-component.test.tsx
-import { render, screen } from '@testing-library/react';
-import { MiComponente } from '@/components/mi-componente';
-
-describe('MiComponente', () => {
-  it('debe renderizar correctamente', () => {
-    render(<MiComponente />);
-    expect(screen.getByText('Contenido')).toBeInTheDocument();
-  });
-});
-```
-
 ### Tests End-to-End (Playwright)
 
 Ubicación: `tests/e2e/`
@@ -501,77 +456,18 @@ npm run test:e2e tests/e2e/home.spec.ts
 - **seo.spec.ts**: Metadata y Schema.org
 - **a11y.spec.ts**: Validación de accesibilidad
 
-#### Escribir Nuevos Tests E2E
-
-```typescript
-// tests/e2e/mi-feature.spec.ts
-import { test, expect } from "@playwright/test";
-
-test("debe cargar correctamente", async ({ page }) => {
-  await page.goto("/es");
-  await expect(page.getByRole("heading")).toBeVisible();
-});
-```
-
-### Validación de Accesibilidad
-
-Los tests E2E incluyen validaciones automáticas:
-
-```typescript
-// Ejemplo de test a11y
-await expect(page).toHaveAccessibleName("Boton principal");
-```
-
-Ejecuta manualmente:
-
-```bash
-npm run test:e2e tests/e2e/a11y.spec.ts
-```
+Ejecuta tests de accesibilidad: `npm run test:e2e tests/e2e/a11y.spec.ts`
 
 ---
 
 ## 🔍 SEO y Performance
 
-### Optimizaciones Implementadas
-
-#### Metadata Dinámica
-
-- Cada página tiene su propio `<title>` y `<meta description>`
-- Open Graph y Twitter Cards configurados
-- URLs canónicas para evitar contenido duplicado
-
-#### Schema.org JSON-LD
-
-- Structured data para productos
-- BreadcrumbList para navegación
-- Organization para información corporativa
-
-#### Rendimiento
-
-- Server Components por defecto (menos JS en cliente)
+- Metadata dinámica por página y Schema.org JSON-LD
+- Server Components para mejor rendimiento
 - Optimización automática de imágenes con `next/image`
-- Lazy loading de componentes pesados
-- Code splitting automático por ruta
+- Lazy loading y code splitting por ruta
 
-#### Lighthouse Scores Objetivo
-
-- **Performance**: 90+
-- **Accessibility**: 100
-- **Best Practices**: 90+
-- **SEO**: 100
-
-### Verificar SEO Localmente
-
-```bash
-# Build de producción
-npm run build
-
-# Iniciar servidor de producción
-npm run start
-
-# Ejecutar auditoría
-npm run test:e2e tests/e2e/seo.spec.ts
-```
+**Objetivos Lighthouse**: Performance 90+, Accessibility 100, SEO 100
 
 ---
 
@@ -580,230 +476,41 @@ npm run test:e2e tests/e2e/seo.spec.ts
 ### Vercel (Recomendado)
 
 1. Conecta el repositorio en [Vercel](https://vercel.com)
-2. Configura variables de entorno:
-   - `NEXT_PUBLIC_BASE_URL`
-   - `NEXT_PUBLIC_GA_ID` (opcional)
-   - `GOOGLE_SITE_VERIFICATION` (opcional)
+2. Configura variables de entorno
 3. Deploy automático en cada push a `main`
 
-### Otras Plataformas
-
-#### Netlify
-
-```toml
-# netlify.toml
-[build]
-  command = "npm run build"
-  publish = ".next"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-```
-
-#### Docker
-
-```dockerfile
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-FROM node:18-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV production
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/package*.json ./
-RUN npm ci --only=production
-EXPOSE 3000
-CMD ["npm", "start"]
-```
-
-### Checklist de Pre-Deploy
-
-- [ ] Variables de entorno configuradas
-- [ ] `NEXT_PUBLIC_BASE_URL` apunta a producción
-- [ ] Tests pasando (`npm run test:ci`)
-- [ ] Build exitosa (`npm run build`)
-- [ ] Sitemap accesible en `/sitemap.xml`
-- [ ] robots.txt configurado en `/robots.txt`
-- [ ] Favicon presente
-- [ ] Imágenes optimizadas y cargando
-
----
-
-## 📊 Estructura de Datos
-
-### Modelo de Producto
-
-```typescript
-interface Product {
-  id: string;
-  slug: string;
-  name: string;
-  nameEn: string;
-  description: string;
-  descriptionEn: string;
-  price: number;
-  currency: "ARS" | "USD";
-  images: string[];
-  category: string;
-  tags: string[];
-  sizes: string[];
-  inStock: boolean;
-  materials: string[];
-  sustainability: {
-    carbonNeutral: boolean;
-    recycledMaterials: boolean;
-  };
-}
-```
-
-### Modelo de Carrito
-
-```typescript
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  size: string;
-  image: string;
-}
-
-interface CartStore {
-  items: CartItem[];
-  addItem: (product: Product, size: string) => void;
-  removeItem: (id: string) => void;
-  updateQuantity: (id: string, quantity: number) => void;
-  clearCart: () => void;
-  total: number;
-  itemCount: number;
-}
-```
-
-### Diccionarios i18n
-
-```typescript
-interface Translations {
-  // Navegación
-  nav: {
-    home: string;
-    products: string;
-    about: string;
-    cart: string;
-  };
-  // Productos
-  products: {
-    title: string;
-    addToCart: string;
-    inStock: string;
-    outOfStock: string;
-  };
-  // ... más
-}
-```
+Compatible con Netlify, Docker y otras plataformas que soporten Next.js.
 
 ---
 
 ## 🤝 Contribución
 
-### Proceso de Contribución
+Los Pull Requests son bienvenidos. Por favor:
 
-1. Fork el proyecto
-2. Crea una rama (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'feat: Agregar AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-### Estándares de Código
-
-- **Commits**: Seguir [Conventional Commits](https://www.conventionalcommits.org/)
-  - `feat:` Nueva funcionalidad
-  - `fix:` Corrección de bugs
-  - `docs:` Documentación
-  - `style:` Formato, missing semi colons, etc.
-  - `refactor:` Refactorización
-  - `test:` Tests
-  - `chore:` Mantenimiento
-
-- **Pull Requests**:
-  - Descripción clara del cambio
-  - Referencias a issues relacionados
-  - Screenshots si afecta UI
-  - Tests agregados/actualizados
-
-### Checklist de PR
-
-- [ ] Código sigue las convenciones del proyecto
-- [ ] Tests agregados/actualizados
-- [ ] Documentación actualizada
-- [ ] Sin errores de linting
-- [ ] Sin errores de tipos
-- [ ] Build exitosa
-- [ ] Apropiado para merge a main
+1. Fork el proyecto y crea una rama feature
+2. Commit con mensajes descriptivos siguiendo [Conventional Commits](https://www.conventionalcommits.org/)
+3. Ejecuta los tests y asegúrate de que pasen
+4. Abre un Pull Request con descripción clara
 
 ---
 
 ## 🗺️ Roadmap
 
-### Próximas Características
-
-- [ ] Sistema de autenticación de usuarios
-- [ ] Integración con pasarela de pago
-- [ ] Panel de administración
-- [ ] Wishlist/Favoritos
-- [ ] Reviews y ratings de productos
-- [ ] Programas de fidelización
-- [ ] Blog con CMS
-- [ ] Notificaciones push
-- [ ] Modo offline con Service Workers
-- [ ] PWA completo
-
-### Mejoras Técnicas
-
-- [ ] Migración a CSS Modules para componentes complejos
-- [ ] Integración con Storybook
-- [ ] Análisis de performance con Web Vitals
-- [ ] CDN para assets estáticos
-- [ ] Cache strategy optimizada
-- [ ] Tests de carga con K6
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
-
----
-
-## 👥 Equipo
-
-- **Desarrollador Principal**: [Tu Nombre]
-- **Email**: tu.email@ejemplo.com
-- **GitHub**: [@tu-usuario](https://github.com/tu-usuario)
+- Sistema de autenticación
+- Integración con pasarela de pago
+- Panel de administración
+- Wishlist y reviews
+- PWA completo
 
 ---
 
 ## 🙏 Agradecimientos
 
-- [Next.js](https://nextjs.org/) - Framework increíble
-- [shadcn/ui](https://ui.shadcn.com/) - Componentes accesibles
-- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS
+- [Next.js](https://nextjs.org/) - Framework React
+- [shadcn/ui](https://ui.shadcn.com/) - Componentes UI
+- [Tailwind CSS](https://tailwindcss.com/) - Estilos utility-first
 - [Radix UI](https://www.radix-ui.com/) - Primitivos accesibles
 - [Allbirds](https://www.allbirds.com/) - Inspiración de diseño
-
----
-
-## 📞 Soporte
-
-¿Tienes preguntas o problemas?
-
-- Abre un [issue](https://github.com/tu-usuario/zapatillas/issues)
-- Envía un email a soporte@ejemplo.com
-- Consulta la [documentación completa](https://docs.ejemplo.com)
 
 ---
 
