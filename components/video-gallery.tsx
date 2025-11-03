@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface VideoImagePair {
   video: string;
@@ -147,7 +147,9 @@ export default function VideoGallery() {
                         ? "w-8 bg-(--brand-500)"
                         : "w-2 bg-(--brand-300)"
                     }`}
-                    aria-label={`Ir al video ${index + 1}: ${videoImagePairs[index].title}`}
+                    aria-label={`Ir al video ${index + 1}: ${
+                      videoImagePairs[index].title
+                    }`}
                     aria-selected={index === currentIndex}
                     role="tab"
                     tabIndex={0}

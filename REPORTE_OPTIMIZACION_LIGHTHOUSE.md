@@ -32,12 +32,14 @@
 **Problema:** Varias páginas son Client Components cuando podrían ser Server Components parcialmente.
 
 **Archivos afectados:**
+
 - `app/productos/page.tsx` - **"use client"** completo
 - `app/productos/[slug]/page.tsx` - **"use client"** completo
 - `app/[lang]/productos/page.tsx` - **"use client"** completo
 - `app/[lang]/productos/[slug]/page.tsx` - **"use client"** completo
 
-**Impacto:** 
+**Impacto:**
+
 - Bundle JS más grande
 - Hidratación innecesaria
 - TBT (Total Blocking Time) más alto
@@ -85,7 +87,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const product = getProductBySlug(slug);
-  
+
   if (!product) {
     return {
       title: "Producto no encontrado",
@@ -116,6 +118,7 @@ export async function generateMetadata({
 **Problema:** No hay lazy loading de componentes grandes.
 
 **Componentes candidatos:**
+
 - `VideoGallery` (videos pesados)
 - `CategoryGrid` (animaciones complejas)
 - `ProductFilters` (lógica de filtrado)
@@ -207,7 +210,11 @@ export default function Hero() {
     <motion.div
       initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
       animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
-      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { duration: 0.6, ease: "easeOut" }
+      }
     >
       {/* ... */}
     </motion.div>
@@ -221,7 +228,8 @@ export default function Hero() {
 
 **Archivo:** `components/video-gallery.tsx` línea 82-99
 
-**Impacto:** 
+**Impacto:**
+
 - CLS (Cumulative Layout Shift) alto
 - LCP más lento
 - Consumo de datos innecesario
@@ -249,6 +257,7 @@ export default function Hero() {
 **Problema:** Varios botones solo tienen iconos sin `aria-label`.
 
 **Archivos afectados:**
+
 - `components/mini-cart.tsx` línea 39-67 (✅ Tiene `aria-label`)
 - `app/layout.tsx` línea 88-108 (❌ Falta `aria-label`)
 - `components/product-card.tsx` línea 88-94 (❌ Falta `aria-label`)
@@ -282,6 +291,7 @@ export default function Hero() {
 **Problema:** Algunas imágenes no tienen `sizes` o está mal configurado.
 
 **Archivos:**
+
 - `components/product-card.tsx` línea 59 ✅ (tiene sizes)
 - `components/category-grid.tsx` línea 119-126 ❌ (falta sizes)
 
@@ -362,11 +372,14 @@ export default function CategoryGrid() {
 ```typescript
 import { memo } from "react";
 
-export default memo(function ProductCard({ product }: ProductCardProps) {
-  // ... código
-}, (prevProps, nextProps) => {
-  return prevProps.product.id === nextProps.product.id;
-});
+export default memo(
+  function ProductCard({ product }: ProductCardProps) {
+    // ... código
+  },
+  (prevProps, nextProps) => {
+    return prevProps.product.id === nextProps.product.id;
+  }
+);
 ```
 
 ---
@@ -379,7 +392,8 @@ export default memo(function ProductCard({ product }: ProductCardProps) {
 
 **Problema:** Todas las imágenes están en `.png` o `.jpg` sin versiones `.webp` o `.avif`.
 
-**Impacto:** 
+**Impacto:**
+
 - Tamaño de archivo 30-50% mayor
 - LCP más lento
 - Mayor consumo de datos
@@ -397,20 +411,21 @@ import { join } from "path";
 async function optimizeImages() {
   const imagesDir = join(process.cwd(), "public/images");
   const optimizedDir = join(process.cwd(), "public/images/optimized");
-  
+
   await mkdir(optimizedDir, { recursive: true });
-  
+
   const files = await readdir(imagesDir);
-  
+
   for (const file of files) {
     if (file.endsWith(".png") || file.endsWith(".jpg")) {
       const inputPath = join(imagesDir, file);
-      const outputPath = join(optimizedDir, file.replace(/\.(png|jpg)$/, ".webp"));
-      
-      await sharp(inputPath)
-        .webp({ quality: 85 })
-        .toFile(outputPath);
-        
+      const outputPath = join(
+        optimizedDir,
+        file.replace(/\.(png|jpg)$/, ".webp")
+      );
+
+      await sharp(inputPath).webp({ quality: 85 }).toFile(outputPath);
+
       console.log(`✅ Optimizado: ${file} -> ${outputPath}`);
     }
   }
@@ -444,7 +459,7 @@ export default function OptimizedImage({
 }: OptimizedImageProps) {
   // Convertir .png/.jpg a .webp
   const webpSrc = src.replace(/\.(png|jpg)$/, ".webp");
-  
+
   return (
     <picture>
       <source srcSet={webpSrc} type="image/webp" />
@@ -466,6 +481,7 @@ export default function OptimizedImage({
 **Problema:** Videos en `.mp4` sin versiones `.webm` ni compresión.
 
 **Archivos:**
+
 - `public/video/video-hombre.mp4`
 - `public/video/video-mujer.mp4`
 - `public/video/video-niño.mp4`
@@ -483,10 +499,7 @@ ffmpeg -i video-hombre.mp4 -c:v libx264 -preset slow -crf 22 video-hombre-compre
 2. **Actualizar componente:**
 
 ```typescript
-<motion.video
-  key={currentPair.video}
-  className="h-full w-full object-cover"
->
+<motion.video key={currentPair.video} className="h-full w-full object-cover">
   <source src={currentPair.video.replace(".mp4", ".webm")} type="video/webm" />
   <source src={currentPair.video} type="video/mp4" />
   Tu navegador no soporta videos.
@@ -534,8 +547,10 @@ export const useCartStore = create<CartStore>()(
 
 // Selectores específicos para evitar re-renders
 export const useCartItems = () => useCartStore((state) => state.items);
-export const useCartSubtotal = () => useCartStore((state) => state.getSubtotal());
-export const useCartCount = () => useCartStore((state) => state.getItemsCount());
+export const useCartSubtotal = () =>
+  useCartStore((state) => state.getSubtotal());
+export const useCartCount = () =>
+  useCartStore((state) => state.getItemsCount());
 ```
 
 **Uso:**
@@ -606,7 +621,7 @@ export function useFormatPrice(locale = "es-AR") {
 /* app/globals.css */
 :root {
   /* ... tokens existentes ... */
-  
+
   /* Verificación de contraste */
   --fg-on-brand: #ffffff; /* Fg sobre brand-500: 5.8:1 ✅ */
   --muted-on-bg: #6b7280; /* Muted sobre bg: 4.8:1 ✅ */
@@ -636,6 +651,7 @@ npx axe http://localhost:3000
 **Problema:** Se usan colores hardcodeados (ej: `bg-green-100`).
 
 **Archivos afectados:**
+
 - `components/product-card.tsx` línea 73
 - `components/product-card.tsx` línea 121
 
@@ -649,12 +665,12 @@ npx axe http://localhost:3000
   --success-100: #dcfce7;
   --success-500: #22c55e;
   --success-700: #15803d;
-  
+
   --error-50: #fef2f2;
   --error-100: #fee2e2;
   --error-500: #ef4444;
   --error-700: #b91c1c;
-  
+
   --warning-50: #fffbeb;
   --warning-100: #fef3c7;
   --warning-500: #f59e0b;
@@ -666,10 +682,10 @@ npx axe http://localhost:3000
 
 ```typescript
 // ❌ ANTES
-className="bg-green-100 text-green-700"
+className = "bg-green-100 text-green-700";
 
 // ✅ DESPUÉS
-className="bg-(--success-100) text-(--success-700)"
+className = "bg-(--success-100) text-(--success-700)";
 ```
 
 #### **3. Fuentes no optimizadas**
@@ -738,7 +754,11 @@ export default withBundleAnalyzer({
 
 ```typescript
 // app/layout.tsx
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="es">
       <head>
@@ -809,40 +829,40 @@ const nextConfig: NextConfig = {
 
 ### **Performance**
 
-| Métrica | Antes (estimado) | Después (objetivo) | Mejora |
-|---------|------------------|---------------------|--------|
-| LCP | ~3.5s | ~2.0s | -43% |
-| FID/INP | ~150ms | ~100ms | -33% |
-| CLS | ~0.15 | ~0.05 | -67% |
-| TBT | ~300ms | ~150ms | -50% |
-| **Score** | **~75** | **~92** | **+17** |
+| Métrica   | Antes (estimado) | Después (objetivo) | Mejora  |
+| --------- | ---------------- | ------------------ | ------- |
+| LCP       | ~3.5s            | ~2.0s              | -43%    |
+| FID/INP   | ~150ms           | ~100ms             | -33%    |
+| CLS       | ~0.15            | ~0.05              | -67%    |
+| TBT       | ~300ms           | ~150ms             | -50%    |
+| **Score** | **~75**          | **~92**            | **+17** |
 
 ### **Accessibility**
 
-| Aspecto | Antes | Después | Mejora |
-|--------|-------|---------|--------|
-| aria-labels | 60% | 95% | +35% |
-| reduced-motion | 50% | 100% | +50% |
-| contraste | 85% | 100% | +15% |
-| **Score** | **~82** | **~95** | **+13** |
+| Aspecto        | Antes   | Después | Mejora  |
+| -------------- | ------- | ------- | ------- |
+| aria-labels    | 60%     | 95%     | +35%    |
+| reduced-motion | 50%     | 100%    | +50%    |
+| contraste      | 85%     | 100%    | +15%    |
+| **Score**      | **~82** | **~95** | **+13** |
 
 ### **SEO**
 
-| Aspecto | Antes | Después | Mejora |
-|--------|-------|---------|--------|
-| metadata dinámica | 70% | 100% | +30% |
-| JSON-LD | 80% | 100% | +20% |
-| sitemap | 100% | 100% | - |
-| **Score** | **~85** | **~95** | **+10** |
+| Aspecto           | Antes   | Después | Mejora  |
+| ----------------- | ------- | ------- | ------- |
+| metadata dinámica | 70%     | 100%    | +30%    |
+| JSON-LD           | 80%     | 100%    | +20%    |
+| sitemap           | 100%    | 100%    | -       |
+| **Score**         | **~85** | **~95** | **+10** |
 
 ### **Best Practices**
 
-| Aspecto | Antes | Después | Mejora |
-|--------|-------|---------|--------|
-| bundle size | ? | <200KB | - |
-| HTTPS | ✅ | ✅ | - |
-| console errors | ✅ | ✅ | - |
-| **Score** | **~90** | **~98** | **+8** |
+| Aspecto        | Antes   | Después | Mejora |
+| -------------- | ------- | ------- | ------ |
+| bundle size    | ?       | <200KB  | -      |
+| HTTPS          | ✅      | ✅      | -      |
+| console errors | ✅      | ✅      | -      |
+| **Score**      | **~90** | **~98** | **+8** |
 
 ---
 
@@ -894,7 +914,10 @@ export default function Hero() {
           animate="visible"
           className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20"
         >
-          <motion.div variants={itemVariants} className="flex flex-col justify-center space-y-8">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col justify-center space-y-8"
+          >
             <h1 className="text-4xl font-bold tracking-tight text-(--fg) sm:text-5xl lg:text-6xl">
               Zapatillas que respetan el{" "}
               <span className="text-(--brand-600)">planeta</span>
@@ -1132,12 +1155,12 @@ export default function VideoGallery() {
 
 ## 🎯 Resultado Final Esperado
 
-| Categoría | Score Actual (estimado) | Score Objetivo | Estado |
-|-----------|-------------------------|----------------|--------|
-| **Performance** | ~75 | **≥90** | 🟡 En progreso |
-| **Accessibility** | ~82 | **≥90** | 🟡 En progreso |
-| **Best Practices** | ~90 | **≥95** | 🟢 Casi listo |
-| **SEO** | ~85 | **≥90** | 🟡 En progreso |
+| Categoría          | Score Actual (estimado) | Score Objetivo | Estado         |
+| ------------------ | ----------------------- | -------------- | -------------- |
+| **Performance**    | ~75                     | **≥90**        | 🟡 En progreso |
+| **Accessibility**  | ~82                     | **≥90**        | 🟡 En progreso |
+| **Best Practices** | ~90                     | **≥95**        | 🟢 Casi listo  |
+| **SEO**            | ~85                     | **≥90**        | 🟡 En progreso |
 
 ---
 
@@ -1153,4 +1176,3 @@ export default function VideoGallery() {
 
 **Generado por:** AI Assistant  
 **Última actualización:** 2025-01-XX
-
