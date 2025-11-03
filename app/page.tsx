@@ -1,8 +1,19 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
+import dynamic from "next/dynamic";
 import CategoryGrid from "@/components/category-grid";
 import Hero from "@/components/hero";
 import ProductGrid from "@/components/product-grid";
 import { getFeaturedProducts } from "@/lib/products/sample";
+
+const VideoGallery = dynamic(() => import("@/components/video-gallery"), {
+  loading: () => (
+    <section className="py-16 bg-(--bg)">
+      <div className="container-soft">
+        <div className="skeleton h-96 rounded-(--radius)" />
+      </div>
+    </section>
+  ),
+});
 
 export default function HomePage() {
   const featuredProducts = getFeaturedProducts();

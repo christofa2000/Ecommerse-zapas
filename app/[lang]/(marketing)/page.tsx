@@ -1,10 +1,20 @@
+import dynamic from "next/dynamic";
 import CategoryGrid from "@/components/category-grid";
 import Hero from "@/components/hero";
 import ProductGrid from "@/components/product-grid";
 import { OrganizationJsonLd } from "@/components/seo/jsonld";
-import VideoGallery from "@/components/video-gallery";
 import { getDictionary, type Locale } from "@/lib/i18n-server";
 import { sampleProducts } from "@/lib/products/sample";
+
+const VideoGallery = dynamic(() => import("@/components/video-gallery"), {
+  loading: () => (
+    <section className="py-16 bg-(--bg)">
+      <div className="container-soft">
+        <div className="skeleton h-96 rounded-(--radius)" />
+      </div>
+    </section>
+  ),
+});
 
 interface HomePageProps {
   params: Promise<{

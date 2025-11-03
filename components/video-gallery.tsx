@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 interface VideoImagePair {
   video: string;
@@ -50,21 +50,41 @@ const VIDEO_DURATION = 8000; // 8 segundos
 export default function VideoGallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (!isPlaying) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isPlaying || !isInView || shouldReduceMotion) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % videoImagePairs.length);
     }, VIDEO_DURATION);
 
     return () => clearInterval(interval);
-  }, [isPlaying]);
+  }, [isPlaying, isInView, shouldReduceMotion]);
 
   const currentPair = videoImagePairs[currentIndex];
 
   return (
-    <section className="py-16 bg-(--bg)">
+    <section ref={sectionRef} className="py-16 bg-(--bg)">
       <div className="container-soft">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Video Section - Left */}
@@ -82,21 +102,30 @@ export default function VideoGallery() {
                 <motion.video
                   key={currentPair.video}
                   src={currentPair.video}
-                  autoPlay
+                  poster={currentPair.image}
+                  autoPlay={!shouldReduceMotion && isInView}
                   muted
                   playsInline
+                  preload="metadata"
                   className="h-full w-full object-cover"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
                   onPlay={() => setIsPlaying(true)}
                   onPause={() => setIsPlaying(false)}
                   onEnded={() => {
                     // El video terminó, pero el intervalo se encargará del cambio
                   }}
                   aria-label={currentPair.alt}
-                />
+                >
+                  <source
+                    src={currentPair.video.replace(".mp4", ".webm")}
+                    type="video/webm"
+                  />
+                  <source src={currentPair.video} type="video/mp4" />
+                  Tu navegador no soporta videos.
+                </motion.video>
               </AnimatePresence>
 
               {/* Progress indicator dots */}
@@ -118,9 +147,10 @@ export default function VideoGallery() {
                         ? "w-8 bg-(--brand-500)"
                         : "w-2 bg-(--brand-300)"
                     }`}
-                    aria-label={`Ir al video ${index + 1}`}
+                    aria-label={`Ir al video ${index + 1}: ${videoImagePairs[index].title}`}
                     aria-selected={index === currentIndex}
                     role="tab"
+                    tabIndex={0}
                   />
                 ))}
               </div>

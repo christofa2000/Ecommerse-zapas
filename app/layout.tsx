@@ -79,6 +79,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={inter.variable} suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+      </head>
       <body
         className="min-h-screen bg-(--bg) text-(--fg) antialiased"
         suppressHydrationWarning
@@ -90,6 +94,7 @@ export default function RootLayout({
               variant="ghost"
               size="sm"
               className="relative h-12 w-12 rounded-full shadow-lg hover:shadow-xl transition-shadow bg-white hover:bg-(--brand-50) text-(--fg)"
+              aria-label="Volver al inicio"
             >
               <svg
                 className="h-6 w-6 text-(--fg)"

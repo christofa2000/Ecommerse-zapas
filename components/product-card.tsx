@@ -8,12 +8,13 @@ import { Product } from "@/lib/products/sample";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { memo } from "react";
 
 interface ProductCardProps {
   product: Product;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+function ProductCard({ product }: ProductCardProps) {
   const { add } = useCartStore();
 
   const formatPrice = (price: number) => {
@@ -70,7 +71,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                       ? "bg-(--brand-500) text-white"
                       : badge === "más vendido"
                         ? "bg-(--brand-100) text-(--brand-700)"
-                        : "bg-green-100 text-green-700"
+                        : "bg-(--success-100) text-(--success-700)"
                   }`}
                 >
                   {badge}
@@ -89,6 +90,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   size="sm"
                   className="bg-(--brand-500) hover:bg-(--brand-600) text-white shadow-lg"
                   onClick={handleAddToCart}
+                  aria-label={`Agregar ${product.name} al carrito`}
                 >
                   Agregar
                 </Button>
@@ -171,3 +173,7 @@ function getColorValue(color: string): string {
   };
   return colorMap[color] || "#e5e7eb";
 }
+
+export default memo(ProductCard, (prevProps, nextProps) => {
+  return prevProps.product.id === nextProps.product.id;
+});

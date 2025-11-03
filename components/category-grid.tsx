@@ -117,13 +117,14 @@ export default function CategoryGrid() {
                   style={{ willChange: "transform" }}
                 >
                   <Image
-                    src={category.image}
-                    alt={category.title}
-                    width={600}
-                    height={420}
-                    className="h-full w-full object-cover"
-                    priority={false}
-                  />
+                  src={category.image}
+                  alt={category.title}
+                  width={600}
+                  height={420}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="h-full w-full object-cover"
+                  priority={false}
+                />
                 </motion.div>
 
                 {/* Gradient overlay */}

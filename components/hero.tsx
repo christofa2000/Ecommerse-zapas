@@ -1,21 +1,78 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
+  const shouldReduceMotion = useReducedMotion();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        duration: shouldReduceMotion ? 0 : 0.6,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.6,
+        ease: [0.4, 0, 0.2, 1] as const,
+      },
+    },
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.8,
+        ease: [0.4, 0, 0.2, 1] as const,
+        delay: shouldReduceMotion ? 0 : 0.3,
+      },
+    },
+  };
+
+  const floatVariants = {
+    animate: shouldReduceMotion
+      ? {}
+      : {
+          y: [0, -10, 0],
+          rotate: [0, 2, 0],
+        },
+    transition: shouldReduceMotion
+      ? {}
+      : {
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+  };
+
   return (
     <section className="relative overflow-hidden bg-linear-to-br from-(--brand-50) to-(--brand-100) py-20">
       <div className="container-soft">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20"
+        >
           {/* Content */}
           <div className="flex flex-col justify-center space-y-8">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              variants={itemVariants}
               className="space-y-6"
             >
               <h1 className="text-4xl font-bold tracking-tight text-(--fg) sm:text-5xl lg:text-6xl">
@@ -30,9 +87,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+              variants={itemVariants}
               className="flex flex-col gap-4 sm:flex-row"
             >
               <Button
@@ -54,9 +109,7 @@ export default function Hero() {
 
             {/* Features */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+              variants={itemVariants}
               className="grid grid-cols-1 gap-4 sm:grid-cols-3"
             >
               <div className="flex items-center space-x-3">
@@ -80,9 +133,7 @@ export default function Hero() {
 
           {/* Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+            variants={imageVariants}
             className="relative"
           >
             <div className="aspect-square overflow-hidden rounded-(--radius) bg-(--brand-50)">
@@ -98,33 +149,39 @@ export default function Hero() {
             </div>
 
             {/* Floating elements */}
-            <motion.div
-              animate={{
-                y: [0, -10, 0],
-                rotate: [0, 2, 0],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -right-4 -top-4 h-8 w-8 rounded-full bg-(--brand-500) opacity-60"
-            />
-            <motion.div
-              animate={{
-                y: [0, 10, 0],
-                rotate: [0, -2, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-              className="absolute -bottom-4 -left-4 h-6 w-6 rounded-full bg-(--brand-400) opacity-40"
-            />
+            {!shouldReduceMotion && (
+              <>
+                <motion.div
+                  animate={{
+                    y: [0, -10, 0],
+                    rotate: [0, 2, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: [0.4, 0, 0.6, 1] as const,
+                  }}
+                  className="absolute -right-4 -top-4 h-8 w-8 rounded-full bg-(--brand-500) opacity-60"
+                  aria-hidden="true"
+                />
+                <motion.div
+                  animate={{
+                    y: [0, 10, 0],
+                    rotate: [0, -2, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: [0.4, 0, 0.6, 1] as const,
+                    delay: 1,
+                  }}
+                  className="absolute -bottom-4 -left-4 h-6 w-6 rounded-full bg-(--brand-400) opacity-40"
+                  aria-hidden="true"
+                />
+              </>
+            )}
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
