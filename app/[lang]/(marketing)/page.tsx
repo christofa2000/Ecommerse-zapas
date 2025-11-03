@@ -2,6 +2,7 @@ import CategoryGrid from "@/components/category-grid";
 import Hero from "@/components/hero";
 import ProductGrid from "@/components/product-grid";
 import { OrganizationJsonLd } from "@/components/seo/jsonld";
+import VideoGallery from "@/components/video-gallery";
 import { getDictionary, type Locale } from "@/lib/i18n-server";
 import { sampleProducts } from "@/lib/products/sample";
 
@@ -32,6 +33,9 @@ export default async function HomePage({ params }: HomePageProps) {
       <div className="min-h-screen bg-(--bg)">
         {/* Hero Section */}
         <Hero />
+
+        {/* Video Gallery Section */}
+        <VideoGallery />
 
         {/* Category Grid */}
         <CategoryGrid />
