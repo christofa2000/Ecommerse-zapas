@@ -40,5 +40,35 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# reports and analysis
+*.report.html
+lighthouse-report.html
+lighthouse-report.json
+playwright-report/
+coverage/
+.nyc_output/
+
+# build artifacts
+/dist/
+/.next/analyze/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+logs/
+
+# temporary files
+*.tmp
+*.temp
+.cache/
+
 # personal and local config
 

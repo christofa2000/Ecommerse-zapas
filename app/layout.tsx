@@ -12,6 +12,9 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
+  preload: true,
+  adjustFontFallback: true,
+  fallback: ["system-ui", "arial"],
 });
 
 export const metadata: Metadata = {
@@ -82,6 +85,14 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        {/* Preload de imagen crítica del Hero para mejorar LCP */}
+        <link
+          rel="preload"
+          href="/images/zapas-blancas4.png"
+          as="image"
+          type="image/png"
+          fetchPriority="high"
+        />
       </head>
       <body
         className="min-h-screen bg-(--bg) text-(--fg) antialiased"
