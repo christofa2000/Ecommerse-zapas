@@ -52,7 +52,22 @@ export default function VideoGallery() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isInView, setIsInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
+
+  // Callback ref para manejar el video cuando se monta
+  const setVideoRef = (node: HTMLVideoElement | null) => {
+    videoRef.current = node;
+    // Reproducir cuando el video esté listo y en viewport
+    if (node && isInView && !shouldReduceMotion) {
+      const playPromise = node.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Ignorar errores de autoplay
+        });
+      }
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -70,6 +85,25 @@ export default function VideoGallery() {
 
     return () => observer.disconnect();
   }, []);
+
+  // Reproducir video cuando cambie el índice o esté en viewport
+  useEffect(() => {
+    if (videoRef.current && isInView && !shouldReduceMotion) {
+      // Pequeño delay para asegurar que el video esté montado después de AnimatePresence
+      const timer = setTimeout(() => {
+        if (videoRef.current && videoRef.current.readyState >= 2) {
+          const playPromise = videoRef.current.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              // Ignorar errores de autoplay
+            });
+          }
+        }
+      }, 150);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex, isInView, shouldReduceMotion]);
 
   useEffect(() => {
     if (!isPlaying || !isInView || shouldReduceMotion) return;
@@ -101,12 +135,13 @@ export default function VideoGallery() {
               <AnimatePresence mode="wait">
                 <motion.video
                   key={currentPair.video}
+                  ref={setVideoRef}
                   src={currentPair.video}
                   poster={currentPair.image}
-                  autoPlay={!shouldReduceMotion && isInView}
                   muted
                   playsInline
-                  preload="metadata"
+                  preload="auto"
+                  loop={false}
                   className="h-full w-full object-cover"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -114,6 +149,28 @@ export default function VideoGallery() {
                   transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
                   onPlay={() => setIsPlaying(true)}
                   onPause={() => setIsPlaying(false)}
+                  onLoadedData={() => {
+                    // Reproducir cuando el video esté cargado y en viewport
+                    if (isInView && !shouldReduceMotion && videoRef.current) {
+                      const playPromise = videoRef.current.play();
+                      if (playPromise !== undefined) {
+                        playPromise.catch(() => {
+                          // Ignorar errores de autoplay
+                        });
+                      }
+                    }
+                  }}
+                  onCanPlay={() => {
+                    // Intentar reproducir cuando el video pueda reproducirse
+                    if (isInView && !shouldReduceMotion && videoRef.current) {
+                      const playPromise = videoRef.current.play();
+                      if (playPromise !== undefined) {
+                        playPromise.catch(() => {
+                          // Ignorar errores de autoplay
+                        });
+                      }
+                    }
+                  }}
                   onEnded={() => {
                     // El video terminó, pero el intervalo se encargará del cambio
                   }}
@@ -188,7 +245,7 @@ export default function VideoGallery() {
           </div>
 
           {/* Image Section - Right (smaller) */}
-          <div className="relative aspect-[4/5] overflow-hidden rounded-(--radius) bg-(--brand-50) shadow-(--shadow-card)">
+          <div className="relative aspect-4/5 overflow-hidden rounded-(--radius) bg-(--brand-50) shadow-(--shadow-card)">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentPair.image}
