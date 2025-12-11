@@ -2,9 +2,11 @@
 
 # Objetivo: Web estilo Allbirds con Next.js + TS + Tailwind v4 + shadcn/ui + Framer Motion + Jest + Playwright
 
-# Principios clave: tipado estricto, accesibilidad, performance y estilos centralizados.
+# + Backend API en Node.js + TypeScript (NestJS/Express) con PostgreSQL + Prisma
 
-## Lenguaje y stack
+# Principios clave: tipado estricto, accesibilidad, performance, estilos centralizados y arquitectura limpia (front + back).
+
+## Lenguaje y stack (frontend)
 
 - Usar TypeScript estricto. Prohibido `any` explícito.
 - React + Next.js App Router (TSX con Server/Client Components bien declarados).
@@ -14,44 +16,226 @@
 - Estado: preferir props lifting y server actions; usar `zustand` sólo cuando sea realmente necesario.
 - Validación: `zod` para inputs y esquemas.
 
-## Estilos (regla de oro)
+## Estilos (regla de oro — frontend)
 
 - **Prohibido** definir colores, tamaños, tipografías o sombras dentro de componentes.
 - Cualquier cambio de color, spacing, tipografía o radius debe venir de **tokens CSS** en `app/globals.css`.
 - Si falta un token, agrégalo a `:root` en `globals.css` y úsalo con Tailwind utilities (ej.: `text-[var(--fg)]`).
 - Evitar `style={{ ... }}` salvo casos puntuales de optimización o variables dinámicas justificadas.
 
-## Accesibilidad
+## Accesibilidad (frontend)
 
 - Siempre `alt` descriptivo en imágenes, `aria-*` cuando corresponda.
 - Contraste AA mínimo. Validar contenido dinámico con `role`/`aria-live` cuando aplique.
 - Focus visible: usar utilidades `.focus-ring` definidas en `globals.css`.
 
-## Performance
+## Performance (frontend)
 
 - Imágenes con `next/image`, tamaños y `priority` sólo en hero.
 - Evitar renders innecesarios, memoizar donde aporte.
 - Código dividido por rutas/segmentos; cargar terceros on-demand.
 
-## Testing
+## Testing (frontend)
 
 - Unit/Integration con Jest + RTL (sin mocks innecesarios).
 - E2E con Playwright: flujos críticos (home, PLP, PDP, cart).
 - Todo bug reproducido debe ir acompañado de test.
 
-## Convenciones
+## Convenciones (frontend)
 
 - Alias `@/*` obligatorio.
 - Nombres: componentes `PascalCase`, hooks `use*`, utils `camelCase`.
 - Server/Client: anotar `"use client"` sólo cuando sea imprescindible.
 - No exponer secretos del lado cliente.
 
-## Entregables de diseño
+## Entregables de diseño (frontend)
 
 - Tipografías, escala, paleta y sombras están en `globals.css`. Cualquier variante nueva → `:root`.
 - shadcn/ui: sobrescribir con utilidades basadas en tokens, nunca con valores hardcodeados.
 
-## Pull Requests / Commits
+---
 
-- Commits pequeños y descriptivos.
-- No se acepta PR sin tests si afecta UI crítica o lógica.
+## Backend API (Node.js + TypeScript)
+
+### Stack backend
+
+- Runtime: Node.js 20+.
+- Lenguaje: TypeScript estricto (`strict: true`).
+- Framework HTTP: NestJS (preferido) o Express + Fastify con arquitectura modular clara.
+- ORM: Prisma + PostgreSQL.
+- Validación: `zod` para inputs y esquemas de dominio (no mezclar enfoques en el mismo endpoint).
+- Auth: JWT (access + refresh tokens).
+- Testing: Jest + Supertest (tests unitarios + integración).
+
+### Arquitectura backend
+
+- Organizar el backend en módulos de dominio:
+  - `products` (catálogo de zapatillas).
+  - `users` (usuarios, perfiles).
+  - `auth` (login, registro, refresh).
+  - `orders` (órdenes/checkout).
+- Estructura por módulo (NestJS recomendado):
+  - `<nombre>.module.ts`
+  - `<nombre>.controller.ts` → maneja HTTP, no lógica de negocio.
+  - `<nombre>.service.ts` → contiene la lógica de negocio.
+  - `<nombre>.repository.ts` → sólo acceso a DB (Prisma).
+  - `<nombre>.schemas.ts` → esquemas `zod` + tipos de dominio.
+- **Regla de responsabilidad**:
+  - Controllers: parsean input, llaman a services, devuelven respuestas tipadas.
+  - Services: implementan reglas de negocio.
+  - Repositories: sólo queries a base de datos.
+  - No poner lógica de negocio en controllers ni en repositories.
+
+### Contratos y API
+
+- Diseñar la API pensando en el frontend Next.js que ya existe:
+  - `GET /products` → listado + filtros (marca, talle, etc.).
+  - `GET /products/:id` → detalle de producto.
+  - `POST /auth/register` → alta de usuario.
+  - `POST /auth/login` → devuelve tokens (access + refresh).
+  - `GET /auth/profile` → datos del usuario autenticado.
+  - `POST /orders` → crear orden/checkout a partir de items del carrito.
+  - `GET /orders/:id` → ver orden (sólo dueño de la orden).
+- Responses consistentes:
+  - En endpoints de listado, usar estructura:
+    - `data`: array de entidades.
+    - `meta`: paginación, filtros, totales.
+  - En endpoints de detalle, usar siempre objeto con `data`.
+
+Ejemplo de respuesta de listado:
+
+````jsonc
+{
+  "data": [ /* productos */ ],
+  "meta": {
+    "page": 1,
+    "limit": 12,
+    "total": 48
+  }
+}
+Validación y tipos (backend)
+Validar SIEMPRE input de body, query y params con Zod.
+
+No aceptar datos sin parseo previo (unknown → parse → tipo fuerte).
+
+Esquemas Zod en *.schemas.ts, exportando tipos derivados con z.infer.
+
+No usar any. Si es necesario, usar unknown y tipar con Zod.
+
+Errores y logging (backend)
+Manejo de errores centralizado:
+
+Filtros globales / middlewares de error.
+
+Mapear errores de validación a HTTP 400/422.
+
+Mapear errores de auth a 401/403.
+
+No devolver stack traces ni detalles internos al cliente.
+
+Loguear errores con contexto (ruta, userId, payload relevante).
+
+Testing backend
+Tests unitarios:
+
+Services testeados en aislamiento (repository mockeado).
+
+Tests de integración:
+
+Endpoints clave: login, registro, checkout, listado de productos.
+
+Usar Supertest para levantar la app y golpear rutas reales.
+
+No agregar features nuevas en el backend sin al menos:
+
+Un test unitario para la lógica.
+
+Y/o un test de integración para la ruta relevante.
+
+Seguridad
+Hashear contraseñas (bcrypt o similar). Nunca guardar texto plano.
+
+JWT con expiraciones razonables y refresh tokens persistidos/revocados.
+
+No loguear contraseñas ni tokens.
+
+Revisar autorización:
+
+Endpoints que leen/modifican recursos sensibles deben validar ownership (ej.: órdenes del usuario).
+
+CORS configurado explícitamente según entorno (dev/prod).
+
+Integración frontend ↔ backend
+Mantener contratos estables:
+
+Si cambia un endpoint usado por el frontend, actualizar tipos compartidos y adaptadores.
+
+Idealmente, compartir tipos de dominio (Product, Order, User) en un paquete común (packages/core) o archivo de tipos compartidos.
+
+El frontend debe consumir la API desde:
+
+Server Components cuando sea posible (fetch en el servidor).
+
+Rutas internas de Next sólo cuando se necesite proxy especial.
+
+Pull Requests / Commits
+Commits pequeños y descriptivos.
+
+Seguir convenciones tipo Conventional Commits cuando sea posible.
+
+No se acepta PR sin tests si afecta UI crítica, lógica de dominio o endpoints del backend.
+
+yaml
+Copiar código
+
+---
+
+## 🧠 Prompt para que Cursor empiece a crear el backend “de a poco”
+
+Este prompt es para que se lo pegues a Cursor en el repo del backend (o cuando armes `/apps/api` si vas a monorepo):
+
+```md
+Actuá como un Backend Senior especializado en Node.js, TypeScript, NestJS y Prisma.
+
+Contexto:
+- Estoy construyendo el backend de un e-commerce de zapatillas sostenibles llamado "Zapatillas".
+- El frontend ya existe en Next.js con TypeScript y consume un catálogo de productos.
+- Quiero un backend separado, en Node.js + TypeScript, con arquitectura modular y nivel "empresa".
+- Las reglas generales de arquitectura y calidad están definidas en el archivo `.cursorrules` (ya creado en el repo).
+
+Objetivo:
+- Crear este backend **de a poco**, en pasos chicos y seguros:
+  - Primero estructura base del proyecto.
+  - Después configuración de TypeScript, env, Prisma y PostgreSQL.
+  - Luego módulo `products` (listado + detalle).
+  - Más adelante auth, users y orders.
+
+Modo de trabajo que quiero:
+1. Primero, proponé un plan de pasos pequeños (una lista ordenada de tareas).
+2. Ejecutá cada paso de forma iterativa:
+   - Explica brevemente qué vas a hacer.
+   - Modifica/cree los archivos necesarios.
+   - Indica qué comandos debo correr (por ejemplo: `npm install`, `npx prisma init`, etc.).
+3. Después de cada bloque de cambios, asegurate de:
+   - Que compile.
+   - Que los archivos queden ordenados y tipados.
+   - Agregar comments puntuales sólo donde ayuden a entender la arquitectura.
+
+Condiciones:
+- Usar TypeScript estricto (sin `any`).
+- Usar NestJS como framework HTTP, salvo que encuentre un bloqueo muy fuerte.
+- Usar Prisma con PostgreSQL para el acceso a datos.
+- Validar siempre el input con Zod o DTOs consistentes.
+- Preparar desde el inicio la estructura para estos módulos: `products`, `users`, `auth`, `orders`, aunque no los implemente todos juntos.
+
+Primera tarea que quiero que ejecutes ahora:
+- Crear la estructura base del proyecto backend:
+  - Inicializar proyecto NestJS con TypeScript.
+  - Agregar configuración básica de `tsconfig`, `eslint` y `scripts` en `package.json`.
+  - Crear un README breve explicando que este repo es el backend de "Zapatillas".
+  - No implementar todavía lógica de negocio, sólo el esqueleto mínimo para que corra `npm run start:dev`.
+
+Al final de esta primera iteración:
+- Mostrame un resumen de los archivos nuevos o modificados.
+- Indicame qué comando exacto tengo que ejecutar para correr el servidor de desarrollo
+````
