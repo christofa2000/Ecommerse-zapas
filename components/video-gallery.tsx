@@ -132,17 +132,30 @@ export default function VideoGallery() {
 
             {/* Video container with shadow */}
             <div className="relative aspect-video overflow-hidden rounded-(--radius) bg-(--brand-50) shadow-(--shadow-card)">
+              {/* Optimized poster image using Next.js Image */}
+              <div className="absolute inset-0">
+                <Image
+                  src={currentPair.image}
+                  alt={currentPair.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority={currentIndex === 0}
+                  quality={85}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                />
+              </div>
               <AnimatePresence mode="wait">
                 <motion.video
                   key={currentPair.video}
                   ref={setVideoRef}
                   src={currentPair.video}
-                  poster={currentPair.image}
                   muted
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   loop={false}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover relative z-10"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -262,6 +275,8 @@ export default function VideoGallery() {
                   className="object-contain"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   priority={currentIndex === 0}
+                  quality={85}
+                  loading={currentIndex === 0 ? "eager" : "lazy"}
                 />
               </motion.div>
             </AnimatePresence>
