@@ -1,9 +1,13 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import CartItem from "@/components/cart-item";
 import CartSummary from "@/components/cart-summary";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/lib/cart/store";
+import { useAuth } from "@/lib/hooks/use-auth";
+import { createOrder } from "@/lib/api/orders";
 import { useI18n } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n-server";
 import { ShoppingCartIcon } from "lucide-react";
@@ -22,8 +26,13 @@ export default function CarritoPage({ params }: CartPageProps) {
   const resolvedParams = use(params);
   const lang = resolvedParams.lang as Locale;
   const { t } = useI18n(lang);
+  const router = useRouter();
 
-  const { items, increment, decrement, remove, getSubtotal } = useCartStore();
+  const { items, increment, decrement, remove, getSubtotal, clear } = useCartStore();
+  const { isAuthenticated, token, isLoading: isAuthLoading } = useAuth();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const subtotal = getSubtotal();
   const shipping = subtotal > 20000 ? 0 : 2000; // Example shipping logic
@@ -52,8 +61,66 @@ export default function CarritoPage({ params }: CartPageProps) {
     remove(id, size);
   };
 
-  const handleCheckout = () => {
-    // TODO: Implement checkout logic
+  const handleCheckout = async () => {
+    // Verificar autenticación
+    if (!isAuthenticated || !token) {
+      router.push(`/${lang}/auth/login?from=carrito`);
+      return;
+    }
+
+    // Verificar que haya items en el carrito
+    if (items.length === 0) {
+      setError("El carrito está vacío");
+      return;
+    }
+
+    setIsProcessing(true);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      // Agrupar items por productId (sumar cantidades si hay múltiples talles del mismo producto)
+      const itemsMap = new Map<string, number>();
+      items.forEach((item) => {
+        const currentQuantity = itemsMap.get(item.id) || 0;
+        itemsMap.set(item.id, currentQuantity + item.quantity);
+      });
+
+      // Convertir a formato que espera el backend
+      const orderItems = Array.from(itemsMap.entries()).map(([productId, quantity]) => ({
+        productId,
+        quantity,
+      }));
+
+      // Crear la orden
+      const orderInput = {
+        items: orderItems,
+        shippingAddress: "Dirección de envío (demo)", // TODO: Obtener de formulario real
+        paymentMethod: "card" as const, // TODO: Obtener de formulario real
+      };
+
+      const response = await createOrder(orderInput, token);
+
+      // Limpiar el carrito
+      clear();
+
+      // Mostrar mensaje de éxito
+      setSuccess(`¡Orden creada exitosamente! ID: ${response.data.id}`);
+
+      // Redirigir después de un breve delay
+      setTimeout(() => {
+        router.push(`/${lang}/ordenes/${response.data.id}`);
+      }, 2000);
+    } catch (err) {
+      console.error("Error al crear la orden:", err);
+      if (err instanceof Error) {
+        setError(err.message || "Hubo un problema al crear tu orden. Intenta de nuevo.");
+      } else {
+        setError("Hubo un problema al crear tu orden. Intenta de nuevo.");
+      }
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   if (items.length === 0) {
@@ -90,6 +157,31 @@ export default function CarritoPage({ params }: CartPageProps) {
           {t("cart.title")}
         </h1>
 
+        {/* Mensajes de feedback */}
+        {error && (
+          <div className="mb-6 p-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md">
+            {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="mb-6 p-4 text-sm text-green-600 bg-green-50 border border-green-200 rounded-md">
+            {success}
+          </div>
+        )}
+
+        {!isAuthenticated && !isAuthLoading && (
+          <div className="mb-6 p-4 text-sm text-amber-600 bg-amber-50 border border-amber-200 rounded-md">
+            Debes iniciar sesión para finalizar la compra.{" "}
+            <Link
+              href={`/${lang}/auth/login?from=carrito`}
+              className="underline font-medium"
+            >
+              Iniciar sesión
+            </Link>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
@@ -122,6 +214,8 @@ export default function CarritoPage({ params }: CartPageProps) {
               shipping={shipping}
               total={total}
               onCheckout={handleCheckout}
+              isProcessing={isProcessing}
+              isDisabled={!isAuthenticated || items.length === 0 || isProcessing}
             />
           </div>
         </div>
