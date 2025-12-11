@@ -6,6 +6,20 @@ import { OrganizationJsonLd } from "@/components/seo/jsonld";
 import { getDictionary, type Locale } from "@/lib/i18n-server";
 import { sampleProducts } from "@/lib/products/sample";
 
+/**
+ * NOTA: Esta página (home) actualmente usa datos mock de `lib/products/sample.ts`
+ * 
+ * Para migrar a datos del backend:
+ * 1. Importar `getProducts` de `@/lib/api/products`
+ * 2. Obtener productos destacados desde el backend
+ * 3. Adaptar con `adaptApiProductToFrontend`
+ * 
+ * Por ahora, la fuente de verdad para productos es:
+ * - PLP: `/es/productos` → usa backend (`GET /api/products`)
+ * - PDP: `/es/productos/[slug]` → usa backend (`GET /api/products/slug/:slug`)
+ * - Home: `/` → usa datos mock (este archivo)
+ */
+
 const VideoGallery = dynamic(() => import("@/components/video-gallery"), {
   loading: () => (
     <section className="py-16 bg-(--bg)">
@@ -28,9 +42,11 @@ export default async function HomePage({ params }: HomePageProps) {
   const dict = await getDictionary(lang);
 
   // Get featured products (first 4 products)
+  // TODO: Migrar a datos del backend usando getProducts() con filtro de destacados
   const featuredProducts = sampleProducts.slice(0, 4);
 
   // Get new arrivals (specific products: rosa, violeta, amarillo, hombre5)
+  // TODO: Migrar a datos del backend usando getProducts() ordenados por createdAt DESC
   const newArrivals = sampleProducts.filter((p) =>
     ["14", "15", "16", "11"].includes(p.id)
   );
