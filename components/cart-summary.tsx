@@ -11,6 +11,8 @@ interface CartSummaryProps {
   shipping: number;
   total: number;
   onCheckout: () => void;
+  isProcessing?: boolean;
+  isDisabled?: boolean;
 }
 
 export default function CartSummary({
@@ -18,6 +20,8 @@ export default function CartSummary({
   shipping,
   total,
   onCheckout,
+  isProcessing = false,
+  isDisabled = false,
 }: CartSummaryProps) {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-AR", {
@@ -74,8 +78,9 @@ export default function CartSummary({
           size="lg"
           className="w-full bg-(--brand-500) hover:bg-(--brand-600) text-white"
           onClick={onCheckout}
+          disabled={isDisabled}
         >
-          Finalizar Compra
+          {isProcessing ? "Procesando tu orden..." : "Finalizar Compra"}
         </Button>
 
         <Button
