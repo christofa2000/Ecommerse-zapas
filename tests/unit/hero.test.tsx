@@ -1,5 +1,6 @@
 import Hero from "@/components/hero";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import { screen } from "@testing-library/dom";
 
 // Mock framer-motion to avoid animation issues in tests
 jest.mock("framer-motion", () => ({

@@ -1,6 +1,8 @@
 import ProductCard from "@/components/product-card";
 import { Product } from "@/lib/products/sample";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import { screen } from "@testing-library/dom";
+import userEvent from "@testing-library/user-event";
 
 const mockProduct: Product = {
   id: "1",
@@ -60,11 +62,12 @@ describe("ProductCard", () => {
     );
   });
 
-  it("calls add to cart when button is clicked", () => {
+  it("calls add to cart when button is clicked", async () => {
+    const user = userEvent.setup();
     render(<ProductCard product={mockProduct} />);
 
     const addButton = screen.getByRole("button", { name: /agregar/i });
-    fireEvent.click(addButton);
+    await user.click(addButton);
 
     // The button should be clickable and not throw errors
     expect(addButton).toBeInTheDocument();
