@@ -85,13 +85,14 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        {/* Preload de imagen crítica del Hero para mejorar LCP */}
+        {/* Preload de imagen crítica del Hero para mejorar LCP - usando formato optimizado */}
         <link
           rel="preload"
           href="/images/zapas-blancas4.png"
           as="image"
           type="image/png"
           fetchPriority="high"
+          imageSizes="(max-width: 1024px) 100vw, 50vw"
         />
       </head>
       <body
