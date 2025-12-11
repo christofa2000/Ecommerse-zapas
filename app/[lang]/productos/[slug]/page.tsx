@@ -1,6 +1,7 @@
 import { ProductJsonLd } from "@/components/seo/jsonld";
 import ProductPageClientLang from "@/components/product-page-client-lang";
-import { getProductBySlug, sampleProducts } from "@/lib/products/sample";
+import { getProductBySlug as getProductBySlugApi, adaptApiProductToFrontend } from "@/lib/api/products";
+import { getProducts } from "@/lib/api/products";
 import type { Locale } from "@/lib/i18n-server";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -15,12 +16,19 @@ interface ProductPageProps {
 }
 
 export async function generateStaticParams() {
-  return sampleProducts.flatMap((product) =>
-    ["es", "en"].map((lang) => ({
-      lang,
-      slug: product.slug,
-    }))
-  );
+  // Obtener productos del backend para generar rutas estáticas
+  try {
+    const productsResponse = await getProducts({ page: 1, limit: 100 });
+    return productsResponse.data.flatMap((product) =>
+      ["es", "en"].map((lang) => ({
+        lang,
+        slug: product.slug,
+      }))
+    );
+  } catch {
+    // Si falla, retornar array vacío (se generarán dinámicamente)
+    return [];
+  }
 }
 
 export async function generateMetadata({
@@ -29,13 +37,10 @@ export async function generateMetadata({
   const resolvedParams = await params;
   const lang = resolvedParams.lang as Locale;
   const slug = resolvedParams.slug;
-  const product = getProductBySlug(slug);
-
-  if (!product) {
-    return {
-      title: "Producto no encontrado",
-    };
-  }
+  
+  try {
+    const productResponse = await getProductBySlugApi(slug);
+    const product = adaptApiProductToFrontend(productResponse.data);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://zapatillas.com";
   const productUrl = `${baseUrl}/${lang}/productos/${product.slug}`;
@@ -73,6 +78,11 @@ export async function generateMetadata({
       images: [product.image],
     },
   };
+  } catch {
+    return {
+      title: "Producto no encontrado",
+    };
+  }
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
@@ -80,24 +90,49 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const lang = resolvedParams.lang as Locale;
   const slug = resolvedParams.slug;
 
-  const product = getProductBySlug(slug);
+  try {
+    // Intentar obtener el producto del backend
+    const productResponse = await getProductBySlugApi(slug);
+    const product = adaptApiProductToFrontend(productResponse.data);
 
-  if (!product) {
+    // Obtener productos relacionados (misma categoría)
+    // Si falla, usar array vacío (no es crítico)
+    let relatedProducts: ReturnType<typeof adaptApiProductToFrontend>[] = [];
+    try {
+      const relatedProductsResponse = await getProducts({
+        category: product.category,
+        limit: 5,
+      });
+      relatedProducts = relatedProductsResponse.data
+        .map(adaptApiProductToFrontend)
+        .filter((p) => p.id !== product.id)
+        .slice(0, 4);
+    } catch {
+      // Si falla obtener relacionados, continuar sin ellos
+      console.warn(`No se pudieron obtener productos relacionados para ${slug}`);
+    }
+
+    return (
+      <>
+        <ProductJsonLd product={product} locale={lang} />
+        <ProductPageClientLang
+          product={product}
+          relatedProducts={relatedProducts}
+          lang={lang}
+        />
+      </>
+    );
+  } catch (error) {
+    // Solo mostrar 404 si realmente el backend devuelve 404 (producto no encontrado)
+    // Log del error para debugging
+    console.error(`Error al obtener producto con slug "${slug}":`, error);
+    
+    // Si es un error de fetch (404, etc.), mostrar notFound
+    if (error instanceof Error && error.message.includes('404')) {
+      notFound();
+    }
+    
+    // Para otros errores, también mostrar 404 (producto no disponible)
     notFound();
   }
-
-  const relatedProducts = sampleProducts
-    .filter((p) => p.id !== product.id && p.category === product.category)
-    .slice(0, 4);
-
-  return (
-    <>
-      <ProductJsonLd product={product} locale={lang} />
-      <ProductPageClientLang
-        product={product}
-        relatedProducts={relatedProducts}
-        lang={lang}
-      />
-    </>
-  );
 }
